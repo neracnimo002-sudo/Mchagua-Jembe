@@ -1,0 +1,1977 @@
+{
+  "database_name": "FarmFriend Kenya Crop Database",
+  "version": "1.0.0",
+  "last_updated": "2026-11-04",
+  "links_to": {
+    "soil.json": "soil_types[].soil_id (via crop-soil-suitability.json)",
+    "crop-soil-suitability.json": "crops[].crop_id",
+    "index.html": "crop ids maize, beans, potatoes, tomatoes, wheat and rice match the existing <select id='crop'> values"
+  },
+  "how_to_add_a_crop": [
+    "Append an object to crops[] using the same fields; use a lowercase snake_case crop_id (plural for food crops, e.g. potatoes, sweet_potatoes).",
+    "Fill all four-value ranges as absolute_min <= optimal_min <= optimal_max <= absolute_max.",
+    "Set evidence.level honestly; use general_knowledge_unverified if no source was checked.",
+    "Run: python build_suitability.py  (validates crops.json and regenerates crop-soil-suitability.json for all soils)."
+  ],
+  "data_quality": {
+    "summary": "Requirement ranges are indicative, desk-based values. They are suitable for guidance, not for guaranteeing yield.",
+    "notes": [
+      "FAO EcoCrop temperatures describe mean temperature during the growing period, not the instantaneous air temperature. Do not compare them with a single live weather reading.",
+      "Many Kenyan extension sources are commercial or blog pages; ranges differ slightly between sources. Where they differed, the overlap was used for the optimum and a wider range for the absolute limits.",
+      "'absolute' limits are the range in which the crop can survive and produce something; 'optimal' is the range for good yields.",
+      "Crops marked general_knowledge_unverified were written from general agronomic knowledge and should be checked against KALRO crop guides before being shown as firm advice.",
+      "Fertilizer recommendations, planting seasons by region, and variety lists are intentionally not in this file; they belong in separate files."
+    ]
+  },
+  "sources": [
+    {
+      "id": "C1",
+      "citation": "FAO EcoCrop: Zea mays (maize), ecocrop code 2175.",
+      "url": "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=2175"
+    },
+    {
+      "id": "C2",
+      "citation": "FAO EcoCrop: Phaseolus vulgaris (common bean), ecocrop code 1668.",
+      "url": "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=1668"
+    },
+    {
+      "id": "C3",
+      "citation": "FAO EcoCrop: Manihot esculenta (cassava), ecocrop code 1420.",
+      "url": "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=1420"
+    },
+    {
+      "id": "C4",
+      "citation": "FAO EcoCrop: Sorghum bicolor, ecocrop code 48747.",
+      "url": "https://ecocrop.apps.fao.org/ecocrop/srv/en/cropView?id=48747"
+    },
+    {
+      "id": "C5",
+      "citation": "Standard Media (Smart Harvest), 'Try these tips to increase your maize yield' (cites KALRO).",
+      "url": "https://www.standardmedia.co.ke/farmkenya/amp/news/article/2001480338/try-these-tips-to-increase-your-maize-yield-smart-harvest"
+    },
+    {
+      "id": "C6",
+      "citation": "Greenlife Crop Protection Africa, 'Expert Guide to Maize Farming in Kenya'.",
+      "url": "https://www.greenlife.co.ke/expert-guide-to-maize-farming-in-kenya/"
+    },
+    {
+      "id": "C7",
+      "citation": "Kenya Seed Company, FAQs on maize zones and soil pH.",
+      "url": "https://kenyaseedcompany.pages.dev/faqs"
+    },
+    {
+      "id": "C8",
+      "citation": "FAO Land and Water: crop information, potato.",
+      "url": "https://www.fao.org/land-water/databases-and-software/crop-information/potato/ru"
+    },
+    {
+      "id": "C9",
+      "citation": "Wollo University / EOA Initiative, 'Guideline for Organic Potato Production in Ethiopia' (East African highland conditions).",
+      "url": "https://wu.edu.et/eoa/docs/Guideline_for_Organic_Potato_Production_WU_EOA_pillar_I_Ethiopia.pdf"
+    },
+    {
+      "id": "C10",
+      "citation": "PROSEA (Plant Resources of South-East Asia No. 10: Cereals) summary for Oryza sativa, via GLOBinMED.",
+      "url": "https://globinmed.com/?p=21379"
+    },
+    {
+      "id": "C11",
+      "citation": "Tea Board of Kenya, 'Tea Growing in Kenya'.",
+      "url": "https://teaboard.or.ke/kenya-tea/tea-growing"
+    },
+    {
+      "id": "C12",
+      "citation": "KALRO Tea Research Institute authors, review on tea and climate (altitude 1,400-2,700 m; rainfall 1,800-2,500 mm).",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7109314"
+    },
+    {
+      "id": "C13",
+      "citation": "KALRO Tea Research Institute authors, Frontiers in Plant Science (2020), doi:10.3389/fpls.2020.00339 (minimum rainfall 1,150-1,400 mm).",
+      "url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2020.00339/epub"
+    },
+    {
+      "id": "C14",
+      "citation": "Infonet-Biovision, tea chapter (soil pH, depth, volcanic soils); mirror copy.",
+      "url": "https://rachel.core2learn.org/modules/en-infonet/export/print$ct$141$crops.html"
+    },
+    {
+      "id": "C15",
+      "citation": "Infonet-Biovision, wheat chapter (varieties, pH 5.5-7.5, copper-deficient areas); mirror copy.",
+      "url": "https://rachel.core2learn.org/modules/en-infonet/export/print$ct$168$crops.html"
+    },
+    {
+      "id": "C16",
+      "citation": "Greenlife Crop Protection Africa, 'Coffee Production'.",
+      "url": "https://www.greenlife.co.ke/coffee-production/"
+    },
+    {
+      "id": "C17",
+      "citation": "Farmers Trend, 'Coffee Farming in Kenya: a complete cultivation guide'.",
+      "url": "https://farmerstrend.co.ke/trending/coffee-farming-in-kenya-a-complete-cultivation-guide/?amp=1"
+    },
+    {
+      "id": "C18",
+      "citation": "Greenlife Crop Protection Africa, 'Wheat Farming in Kenya'.",
+      "url": "https://www.greenlife.co.ke/wheat-farming-in-kenya/"
+    },
+    {
+      "id": "C19",
+      "citation": "AgFlow, Kenya wheat market note (altitude 1,500-2,900 m; 15-25 C).",
+      "url": "https://agflow.com/?p=46260"
+    },
+    {
+      "id": "C20",
+      "citation": "Soil Association blog on Kenyan tea terroir (KTDA 'brown lines': pH 4.5-5.8).",
+      "url": "https://soilassociation.org/blogs/2017/april/terroir-and-the-science-of-taste"
+    },
+    {
+      "id": "C21",
+      "citation": "FarmFriend prototype (script.js) and general agronomic knowledge; no external source checked.",
+      "url": null
+    }
+  ],
+  "reference": {
+    "categories": [
+      "cereals",
+      "legumes",
+      "root_tubers",
+      "vegetables",
+      "fruits",
+      "beverage_cash_crops"
+    ],
+    "range_fields": "absolute_min <= optimal_min <= optimal_max <= absolute_max",
+    "water_need_classes": [
+      "low",
+      "moderate",
+      "high",
+      "very_high"
+    ],
+    "fertility_demand_classes": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "salinity_tolerance_classes": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "texture_classes": [
+      "loamy",
+      "clay",
+      "sandy",
+      "silty"
+    ],
+    "evidence_levels": [
+      {
+        "id": "ecocrop_plus_kenyan_sources",
+        "meaning": "FAO EcoCrop sheet plus Kenyan extension sources that agree."
+      },
+      {
+        "id": "ecocrop_only",
+        "meaning": "FAO EcoCrop sheet; Kenyan-specific cross-check still to do."
+      },
+      {
+        "id": "kenyan_extension_sources",
+        "meaning": "Kenyan government, research or extension sources; some limits estimated."
+      },
+      {
+        "id": "partial_sources_plus_general_knowledge",
+        "meaning": "Some fields sourced, others general knowledge; verify before relying on them."
+      },
+      {
+        "id": "general_knowledge_unverified",
+        "meaning": "Not verified against a retrieved source. Treat as provisional."
+      }
+    ]
+  },
+  "crops": [
+    {
+      "crop_id": "maize",
+      "names": {
+        "english": "Maize",
+        "swahili": "Mahindi",
+        "scientific": "Zea mays"
+      },
+      "category": "cereals",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 90,
+        "max": 240,
+        "note": "About 3 months for drought-escaping lowland varieties, 4-5 months mid-altitude, 6-8 months highland (Kenyan extension sources)."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 10,
+          "optimal_min": 18,
+          "optimal_max": 33,
+          "absolute_max": 47,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 400,
+          "optimal_min": 600,
+          "optimal_max": 1200,
+          "absolute_max": 1800
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 900,
+          "optimal_max": 2200,
+          "absolute_max": 2500
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.5,
+          "optimal_min": 5.5,
+          "optimal_max": 7.0,
+          "absolute_max": 8.5
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained",
+          "excessively_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "silty"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "moderate",
+        "critical_stages": [
+          "First five weeks (young maize cannot stand waterlogging)",
+          "Flowering",
+          "Grain filling"
+        ],
+        "irrigation_note": "Can be grown in drier areas with irrigation."
+      },
+      "farmer_guidance": {
+        "soil": "Well-drained, fertile loam soil",
+        "water": "Needs adequate moisture, especially during flowering and grain formation.",
+        "spacing": "Plant in rows about 75 cm apart, with plants around 25–30 cm apart. Follow local recommendations.",
+        "tips": [
+          "Choose certified seeds suited to your area.",
+          "Prepare the land and plant when soil moisture is adequate.",
+          "Control weeds early in the growing season.",
+          "Monitor for fall armyworm and other pests.",
+          "Harvest when the cobs and husks are dry enough."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Copied unchanged from the FarmFriend prototype (script.js cropActivityPlans).",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare the land, check soil conditions, and obtain suitable certified seeds."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Plant when soil moisture and local seasonal conditions are suitable."
+          },
+          {
+            "day": 28,
+            "stage": "Early growth",
+            "activity": "Check germination, control weeds, and inspect plants for pests."
+          },
+          {
+            "day": 56,
+            "stage": "Crop care",
+            "activity": "Check nutrient needs and monitor moisture and pests."
+          },
+          {
+            "day": 77,
+            "stage": "Flowering",
+            "activity": "Monitor moisture and pests carefully; avoid water stress where possible."
+          },
+          {
+            "day": 119,
+            "stage": "Maturity",
+            "activity": "Monitor grain development and prepare for harvesting."
+          },
+          {
+            "day": 147,
+            "stage": "Harvest",
+            "activity": "Harvest when the crop is mature and dry enough for safe storage."
+          }
+        ]
+      },
+      "kenya_notes": [
+        "Variety zones follow altitude (indicative): highland about 1,500-2,100 m and above, mid-altitude about 1,000-1,800 m, lowland and dry-land varieties below that.",
+        "Altitude optimum uses the overlap of Kenyan sources (ideal 900-2,500 m; varieties 0-2,200 m)."
+      ],
+      "evidence": {
+        "level": "ecocrop_plus_kenyan_sources",
+        "source_ids": [
+          "C1",
+          "C5",
+          "C6",
+          "C7"
+        ],
+        "notes": "EcoCrop gives temperature, rainfall, pH and soil depth; Kenyan extension sources agree on rainfall (600-1,200 mm) and pH (about 5.5-7.0/7.5). Altitude range is from Kenyan sources."
+      }
+    },
+    {
+      "crop_id": "beans",
+      "names": {
+        "english": "Common beans",
+        "swahili": "Maharagwe",
+        "scientific": "Phaseolus vulgaris"
+      },
+      "category": "legumes",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 70,
+        "max": 120,
+        "note": "Bush types mature earlier than climbing types."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 7,
+          "optimal_min": 16,
+          "optimal_max": 25,
+          "absolute_max": 32,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 300,
+          "optimal_min": 500,
+          "optimal_max": 2000,
+          "absolute_max": 4300
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 600,
+          "optimal_max": 2000,
+          "absolute_max": 3000
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.0,
+          "optimal_min": 5.5,
+          "optimal_max": 7.5,
+          "absolute_max": 9.0
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "silty"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "moderate",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "moderate",
+        "critical_stages": [
+          "Flowering",
+          "Pod filling"
+        ],
+        "irrigation_note": "Does not tolerate waterlogging; high humidity and poor drainage raise disease risk."
+      },
+      "farmer_guidance": {
+        "soil": "Well-drained soil with good organic matter",
+        "water": "Needs regular moisture but does not tolerate waterlogged soil.",
+        "spacing": "Spacing depends on the bean variety and whether it is bush or climbing type.",
+        "tips": [
+          "Use healthy seeds and suitable varieties.",
+          "Avoid planting in waterlogged fields.",
+          "Weed carefully, especially while plants are young.",
+          "Check regularly for bean fly and other pests.",
+          "Harvest when most pods are mature and dry."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Copied unchanged from the FarmFriend prototype (script.js cropActivityPlans).",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare a well-drained seedbed and choose healthy seed."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Plant when soil moisture is suitable and avoid waterlogged fields."
+          },
+          {
+            "day": 28,
+            "stage": "Early growth",
+            "activity": "Weed carefully and inspect young plants for bean fly and other pests."
+          },
+          {
+            "day": 49,
+            "stage": "Flowering",
+            "activity": "Check soil moisture and monitor plants for pests and disease."
+          },
+          {
+            "day": 70,
+            "stage": "Pod development",
+            "activity": "Keep checking crop health and avoid water stress where possible."
+          },
+          {
+            "day": 91,
+            "stage": "Harvest",
+            "activity": "Harvest when most pods are mature; dry beans properly before storage."
+          }
+        ]
+      },
+      "kenya_notes": [
+        "Highly acid soils reduce the activity of nitrogen-fixing Rhizobium (EcoCrop notes); nitrogen and phosphorus are the main soil constraints on Kenyan bean soils (KSS)."
+      ],
+      "evidence": {
+        "level": "ecocrop_only",
+        "source_ids": [
+          "C2"
+        ],
+        "notes": "EcoCrop values used as given. Not yet cross-checked against a Kenyan bean agronomy source for altitude and rainfall."
+      }
+    },
+    {
+      "crop_id": "potatoes",
+      "names": {
+        "english": "Irish potatoes",
+        "swahili": "Viazi mviringo",
+        "scientific": "Solanum tuberosum"
+      },
+      "category": "root_tubers",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 90,
+        "max": 150,
+        "note": "Depends on variety and altitude; cooler sites take longer."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 8,
+          "optimal_min": 13,
+          "optimal_max": 20,
+          "absolute_max": 29,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 500,
+          "optimal_min": 700,
+          "optimal_max": 1200,
+          "absolute_max": 2000
+        },
+        "altitude_m": {
+          "absolute_min": 800,
+          "optimal_min": 1500,
+          "optimal_max": 2800,
+          "absolute_max": 3200
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.5,
+          "optimal_min": 5.0,
+          "optimal_max": 6.5,
+          "absolute_max": 7.5
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "silty"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "moderate",
+        "critical_stages": [
+          "Stolon and tuber initiation",
+          "Tuber bulking"
+        ],
+        "irrigation_note": "Sensitive to water deficits and to waterlogging."
+      },
+      "farmer_guidance": {
+        "soil": "Loose, well-drained soil",
+        "water": "Needs consistent moisture, especially during tuber formation.",
+        "spacing": "Spacing varies by variety; follow certified seed supplier or local extension guidance.",
+        "tips": [
+          "Use certified, disease-free seed potatoes.",
+          "Earth up soil around plants as they grow.",
+          "Avoid excessive water and waterlogging.",
+          "Monitor for late blight and other diseases.",
+          "Harvest when plants mature and skins have set."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Copied unchanged from the FarmFriend prototype (script.js cropActivityPlans).",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare loose, well-drained soil and source certified seed potatoes."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Plant healthy seed potatoes using locally recommended spacing."
+          },
+          {
+            "day": 35,
+            "stage": "Crop care",
+            "activity": "Earth up soil around plants and check for weeds."
+          },
+          {
+            "day": 56,
+            "stage": "Monitoring",
+            "activity": "Inspect regularly for late blight and maintain suitable soil moisture."
+          },
+          {
+            "day": 84,
+            "stage": "Tuber development",
+            "activity": "Avoid water stress and waterlogging while tubers develop."
+          },
+          {
+            "day": 112,
+            "stage": "Harvest",
+            "activity": "Harvest when plants mature and potato skins have set."
+          }
+        ]
+      },
+      "kenya_notes": [
+        "Cool nights are needed for tuber initiation; tuber formation drops sharply above about 21 C and is very poor above about 29 C."
+      ],
+      "evidence": {
+        "level": "partial_sources_plus_general_knowledge",
+        "source_ids": [
+          "C8",
+          "C9"
+        ],
+        "notes": "Temperature and pH ranges derive from FAO and an East African guideline. Rainfall and altitude ranges are general knowledge and need verification (KALRO potato guides)."
+      }
+    },
+    {
+      "crop_id": "tomatoes",
+      "names": {
+        "english": "Tomatoes",
+        "swahili": "Nyanya",
+        "scientific": "Solanum lycopersicum"
+      },
+      "category": "vegetables",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 75,
+        "max": 130,
+        "note": "From transplanting to the end of harvest varies with variety."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 10,
+          "optimal_min": 18,
+          "optimal_max": 27,
+          "absolute_max": 35,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 400,
+          "optimal_min": 600,
+          "optimal_max": 1300,
+          "absolute_max": 2000
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 500,
+          "optimal_max": 1800,
+          "absolute_max": 2200
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 5.0,
+          "optimal_min": 6.0,
+          "optimal_max": 6.8,
+          "absolute_max": 8.0
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "loamy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "high",
+        "critical_stages": [
+          "Flowering",
+          "Fruit set and development"
+        ],
+        "irrigation_note": "Water at the roots and keep foliage dry to limit disease; irrigated and greenhouse production extends the range."
+      },
+      "farmer_guidance": {
+        "soil": "Fertile, well-drained soil",
+        "water": "Water consistently at the roots and avoid prolonged wet foliage.",
+        "spacing": "Spacing depends on variety and whether plants are staked.",
+        "tips": [
+          "Choose varieties suitable for your climate.",
+          "Use healthy seedlings.",
+          "Provide support for varieties that need staking.",
+          "Monitor for pests and diseases.",
+          "Harvest when fruits reach the desired maturity."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Copied unchanged from the FarmFriend prototype (script.js cropActivityPlans).",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Preparation",
+            "activity": "Prepare fertile, well-drained soil and healthy seedlings."
+          },
+          {
+            "day": 14,
+            "stage": "Transplanting",
+            "activity": "Transplant seedlings when conditions are suitable for your variety."
+          },
+          {
+            "day": 35,
+            "stage": "Early growth",
+            "activity": "Provide support where needed and check soil moisture."
+          },
+          {
+            "day": 56,
+            "stage": "Flowering",
+            "activity": "Water consistently at the roots and inspect for pests and disease."
+          },
+          {
+            "day": 77,
+            "stage": "Fruit development",
+            "activity": "Continue monitoring plant health and maintain even watering."
+          },
+          {
+            "day": 98,
+            "stage": "Harvest",
+            "activity": "Harvest fruits as they reach the desired maturity."
+          }
+        ]
+      },
+      "kenya_notes": [],
+      "evidence": {
+        "level": "general_knowledge_unverified",
+        "source_ids": [
+          "C21"
+        ],
+        "notes": "Requirement ranges are general horticultural knowledge, not verified against a retrieved source. Verify before relying on them."
+      }
+    },
+    {
+      "crop_id": "wheat",
+      "names": {
+        "english": "Wheat",
+        "swahili": "Ngano",
+        "scientific": "Triticum aestivum"
+      },
+      "category": "cereals",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 100,
+        "max": 150,
+        "note": "Kenyan varieties listed mature in roughly 100-145 days depending on altitude."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 8,
+          "optimal_min": 15,
+          "optimal_max": 25,
+          "absolute_max": 32,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 350,
+          "optimal_min": 500,
+          "optimal_max": 1300,
+          "absolute_max": 1800
+        },
+        "altitude_m": {
+          "absolute_min": 1000,
+          "optimal_min": 1500,
+          "optimal_max": 2700,
+          "absolute_max": 2900
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 5.0,
+          "optimal_min": 5.5,
+          "optimal_max": 7.5,
+          "absolute_max": 8.0
+        },
+        "min_depth_class": "deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "silty"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "moderate",
+        "critical_stages": [
+          "Tillering",
+          "Grain filling"
+        ],
+        "irrigation_note": "Moderate rainfall of about 500-1,300 mm; very sensitive to soil salinity."
+      },
+      "farmer_guidance": {
+        "soil": "Well-drained loam or clay loam soil",
+        "water": "Water needs depend on the variety, season, and rainfall.",
+        "spacing": "Use the recommended seed rate and planting method for your variety.",
+        "tips": [
+          "Choose a variety suited to your local conditions.",
+          "Prepare a firm, well-prepared seedbed.",
+          "Control weeds early.",
+          "Monitor for rust and other diseases.",
+          "Harvest when grain is mature and sufficiently dry."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Copied unchanged from the FarmFriend prototype (script.js cropActivityPlans).",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare a firm seedbed and choose a variety suited to local conditions."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Sow using the recommended seed rate and method for your variety."
+          },
+          {
+            "day": 35,
+            "stage": "Early growth",
+            "activity": "Control weeds early and check crop establishment."
+          },
+          {
+            "day": 70,
+            "stage": "Crop monitoring",
+            "activity": "Inspect for rust and other diseases; follow local guidance if issues appear."
+          },
+          {
+            "day": 105,
+            "stage": "Grain development",
+            "activity": "Monitor crop development and seasonal moisture."
+          },
+          {
+            "day": 140,
+            "stage": "Harvest",
+            "activity": "Harvest when grain is mature and sufficiently dry."
+          }
+        ]
+      },
+      "kenya_notes": [
+        "Grown mainly in the greater Rift Valley and on the slopes of Mt Kenya (Timau).",
+        "Copper deficiency is reported in parts of Nakuru (Njoro, Rongai, Gilgil, Naivasha areas) and in Narok.",
+        "Some Kenyan varieties are bred for acid soils (for example Kenya Kongoni, Njoro BW 2)."
+      ],
+      "evidence": {
+        "level": "kenyan_extension_sources",
+        "source_ids": [
+          "C15",
+          "C18",
+          "C19"
+        ],
+        "notes": "Altitude (about 1,500-2,900 m), temperature (15-25 C for at least three months), rainfall (500-1,300 mm) and pH (5.5-7.5) come from Kenyan sources. Absolute limits are widened modestly and are estimates."
+      }
+    },
+    {
+      "crop_id": "rice",
+      "names": {
+        "english": "Rice",
+        "swahili": "Mpunga (paddy), mchele (milled)",
+        "scientific": "Oryza sativa"
+      },
+      "category": "cereals",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 100,
+        "max": 180,
+        "note": "Depends on variety and whether the crop is transplanted or direct seeded."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 15,
+          "optimal_min": 22,
+          "optimal_max": 30,
+          "absolute_max": 38,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 600,
+          "optimal_min": 1000,
+          "optimal_max": 2000,
+          "absolute_max": 3500
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 0,
+          "optimal_max": 1300,
+          "absolute_max": 1800
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.0,
+          "optimal_min": 5.5,
+          "optimal_max": 7.5,
+          "absolute_max": 9.0
+        },
+        "min_depth_class": "shallow",
+        "drainage_preferred": [
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "drainage_tolerated": [
+          "very_poorly_drained",
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "clay",
+          "silty"
+        ],
+        "texture_avoid": [
+          "sandy"
+        ],
+        "fertility_demand": "moderate",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "very_high",
+        "critical_stages": [
+          "Transplanting or establishment",
+          "Panicle initiation (avoid cold nights)",
+          "Flowering"
+        ],
+        "irrigation_note": "Irrigated rice needs about 1,200 mm of water per crop; upland rice needs at least about 750 mm over 3-4 months. Irrigation can replace rainfall."
+      },
+      "farmer_guidance": {
+        "soil": "Soil requirements depend on whether rice is grown under irrigation or rain-fed conditions.",
+        "water": "Water management is essential; requirements vary by rice-growing system.",
+        "spacing": "Spacing depends on the variety and whether direct seeding or transplanting is used.",
+        "tips": [
+          "Choose a variety suited to your local water supply.",
+          "Prepare the field according to the rice-growing system.",
+          "Manage water carefully throughout the growing season.",
+          "Monitor for weeds, pests, and diseases.",
+          "Harvest when most grains are mature."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Copied unchanged from the FarmFriend prototype (script.js cropActivityPlans).",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Field preparation",
+            "activity": "Prepare the field for the selected irrigated or rain-fed rice system."
+          },
+          {
+            "day": 14,
+            "stage": "Establishment",
+            "activity": "Sow or transplant using locally recommended methods for your variety."
+          },
+          {
+            "day": 42,
+            "stage": "Early growth",
+            "activity": "Manage water carefully and monitor weeds and crop establishment."
+          },
+          {
+            "day": 77,
+            "stage": "Crop monitoring",
+            "activity": "Check for pests and disease and maintain suitable water management."
+          },
+          {
+            "day": 105,
+            "stage": "Flowering",
+            "activity": "Monitor crop health and water needs as the crop flowers."
+          },
+          {
+            "day": 140,
+            "stage": "Harvest",
+            "activity": "Harvest when most grains are mature."
+          }
+        ]
+      },
+      "kenya_notes": [
+        "Flooding pushes soil pH toward neutral, so the pH range here is deliberately broad.",
+        "Rice is grown on heavy, poorly drained plains in Kenya (for example irrigation schemes on black cotton and similar soils)."
+      ],
+      "evidence": {
+        "level": "partial_sources_plus_general_knowledge",
+        "source_ids": [
+          "C10"
+        ],
+        "notes": "Temperature, water and pH statements come from a PROSEA-based summary. Altitude and the annual rainfall range are general knowledge and need verification (KALRO / NIA scheme data)."
+      }
+    },
+    {
+      "crop_id": "sorghum",
+      "names": {
+        "english": "Sorghum",
+        "swahili": "Mtama",
+        "scientific": "Sorghum bicolor"
+      },
+      "category": "cereals",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 90,
+        "max": 180,
+        "note": "EcoCrop cycle range is 90-300 days; most grain types mature in 3-6 months."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 8,
+          "optimal_min": 22,
+          "optimal_max": 35,
+          "absolute_max": 40,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 250,
+          "optimal_min": 400,
+          "optimal_max": 800,
+          "absolute_max": 1250
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 0,
+          "optimal_max": 1500,
+          "absolute_max": 2500
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.5,
+          "optimal_min": 5.7,
+          "optimal_max": 7.5,
+          "absolute_max": 8.5
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "drainage_tolerated": [
+          "imperfectly_drained",
+          "excessively_drained"
+        ],
+        "texture_preferred": [
+          "clay",
+          "loamy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "medium",
+        "salinity_tolerance": "medium"
+      },
+      "water": {
+        "need_class": "low",
+        "critical_stages": [
+          "Flowering",
+          "Grain filling"
+        ],
+        "irrigation_note": "Drought tolerant; suited to semi-arid areas. Moderate salinity tolerance."
+      },
+      "farmer_guidance": {
+        "soil": "Well-drained to moderately well-drained loam or clay soils; tolerates heavier soils than maize.",
+        "water": "Tolerates dry spells better than maize, but needs moisture at flowering and grain filling.",
+        "spacing": "Spacing depends on variety and rainfall; closer spacing for wetter areas. Follow local extension advice.",
+        "tips": [
+          "Choose a variety suited to your rainfall zone and growing period.",
+          "Plant at the onset of reliable rains.",
+          "Weed early and thin to the recommended plant population.",
+          "Protect ripening heads from birds.",
+          "Dry grain well before storage."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Generic stage template written for this database; not variety- or region-specific. Review with KALRO guidance.",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare a fine, weed-free seedbed and choose a variety suited to your rainfall zone."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Plant at the onset of reliable rains using the recommended seed rate."
+          },
+          {
+            "day": 21,
+            "stage": "Thinning",
+            "activity": "Thin to the recommended plant population and fill gaps if needed."
+          },
+          {
+            "day": 35,
+            "stage": "Weeding",
+            "activity": "Weed early and check for stem borer and shoot fly."
+          },
+          {
+            "day": 70,
+            "stage": "Flowering",
+            "activity": "Watch moisture; avoid water stress where possible."
+          },
+          {
+            "day": 105,
+            "stage": "Grain filling",
+            "activity": "Protect developing heads from birds and pests."
+          },
+          {
+            "day": 130,
+            "stage": "Harvest",
+            "activity": "Harvest when grains are hard and heads are dry; dry well before storage."
+          }
+        ]
+      },
+      "kenya_notes": [
+        "EcoCrop rainfall optimum is 400-600 mm; the optimum here is extended to 800 mm and the absolute limits to 250-1,250 mm to reflect its annual range of adaptation."
+      ],
+      "evidence": {
+        "level": "ecocrop_only",
+        "source_ids": [
+          "C4"
+        ],
+        "notes": "Temperature, pH and soil texture from EcoCrop; rainfall adjusted as noted. Altitude optimum (0-1,500 m) is an estimate."
+      }
+    },
+    {
+      "crop_id": "finger_millet",
+      "names": {
+        "english": "Finger millet",
+        "swahili": "Ulezi",
+        "scientific": "Eleusine coracana"
+      },
+      "category": "cereals",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 90,
+        "max": 150,
+        "note": "General estimate."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 10,
+          "optimal_min": 18,
+          "optimal_max": 27,
+          "absolute_max": 35,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 400,
+          "optimal_min": 500,
+          "optimal_max": 1000,
+          "absolute_max": 1600
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 900,
+          "optimal_max": 2100,
+          "absolute_max": 2400
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.5,
+          "optimal_min": 5.5,
+          "optimal_max": 7.0,
+          "absolute_max": 8.0
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained",
+          "excessively_drained"
+        ],
+        "texture_preferred": [
+          "loamy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "low",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "low",
+        "critical_stages": [
+          "Tillering",
+          "Heading"
+        ],
+        "irrigation_note": "Fairly drought tolerant; avoid waterlogging."
+      },
+      "farmer_guidance": {
+        "soil": "Well-drained loamy soils; tolerates moderately acid soils.",
+        "water": "Needs moderate rainfall; tolerates short dry spells.",
+        "spacing": "Spacing depends on whether it is sown in rows or broadcast. Follow local extension advice.",
+        "tips": [
+          "Prepare a fine seedbed because the seed is very small.",
+          "Thin seedlings and weed early.",
+          "Avoid waterlogged fields.",
+          "Harvest when most heads turn brown.",
+          "Dry thoroughly before storage."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Generic stage template written for this database; not variety- or region-specific. Review with KALRO guidance.",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare a fine seedbed and obtain clean seed."
+          },
+          {
+            "day": 7,
+            "stage": "Sowing",
+            "activity": "Sow in rows or by broadcasting when soil moisture is adequate."
+          },
+          {
+            "day": 21,
+            "stage": "Thinning",
+            "activity": "Thin seedlings and begin weeding."
+          },
+          {
+            "day": 42,
+            "stage": "Crop care",
+            "activity": "Weed again and monitor for pests and blast disease."
+          },
+          {
+            "day": 70,
+            "stage": "Heading",
+            "activity": "Monitor moisture and protect heads from birds."
+          },
+          {
+            "day": 105,
+            "stage": "Maturity",
+            "activity": "Check for browning of heads and prepare for harvest."
+          },
+          {
+            "day": 120,
+            "stage": "Harvest",
+            "activity": "Harvest mature heads and dry thoroughly before storage."
+          }
+        ]
+      },
+      "kenya_notes": [],
+      "evidence": {
+        "level": "general_knowledge_unverified",
+        "source_ids": [
+          "C21"
+        ],
+        "notes": "All ranges are general agronomic knowledge, not verified against a retrieved source. Verify before relying on them."
+      }
+    },
+    {
+      "crop_id": "cassava",
+      "names": {
+        "english": "Cassava",
+        "swahili": "Muhogo",
+        "scientific": "Manihot esculenta"
+      },
+      "category": "root_tubers",
+      "life_cycle": "perennial",
+      "days_to_harvest": {
+        "min": 180,
+        "max": 365,
+        "note": "EcoCrop cycle range; slower in cool highland areas."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 10,
+          "optimal_min": 20,
+          "optimal_max": 29,
+          "absolute_max": 35,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 500,
+          "optimal_min": 1000,
+          "optimal_max": 1500,
+          "absolute_max": 5000
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 0,
+          "optimal_max": 1500,
+          "absolute_max": 2000
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.0,
+          "optimal_min": 5.5,
+          "optimal_max": 8.0,
+          "absolute_max": 9.0
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "excessively_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "sandy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "low",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "low",
+        "critical_stages": [
+          "Establishment (first 2-3 months)"
+        ],
+        "irrigation_note": "Very drought tolerant once established; roots rot in waterlogged soil."
+      },
+      "farmer_guidance": {
+        "soil": "Deep, well-drained loamy or sandy soils; avoid waterlogged sites.",
+        "water": "Tolerates drought once established but needs moisture for establishment.",
+        "spacing": "Typically about 1 m x 1 m; follow variety and local extension advice.",
+        "tips": [
+          "Use healthy cuttings from disease-free plants (watch for cassava mosaic disease).",
+          "Plant on ridges or mounds in wetter soils.",
+          "Weed during the first 3-4 months.",
+          "Do not plant in waterlogged fields.",
+          "Harvest when roots reach usable size; process or sell promptly."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Generic stage template written for this database; not variety- or region-specific. Review with KALRO guidance.",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Clear land and prepare ridges or mounds; select healthy cuttings."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Plant cuttings at the start of the rains."
+          },
+          {
+            "day": 30,
+            "stage": "Early care",
+            "activity": "Fill gaps and weed."
+          },
+          {
+            "day": 60,
+            "stage": "Weeding",
+            "activity": "Weed again and check for mosaic disease and pests."
+          },
+          {
+            "day": 180,
+            "stage": "Root bulking",
+            "activity": "Keep the field clean and monitor plant health."
+          },
+          {
+            "day": 300,
+            "stage": "Harvest",
+            "activity": "Harvest mature roots; harvest time depends on variety and climate."
+          }
+        ]
+      },
+      "kenya_notes": [],
+      "evidence": {
+        "level": "ecocrop_only",
+        "source_ids": [
+          "C3"
+        ],
+        "notes": "Temperature, rainfall, pH, soil depth, texture and drainage from EcoCrop. Altitude optimum (0-1,500 m) is an estimate; EcoCrop absolute limit is 2,000 m."
+      }
+    },
+    {
+      "crop_id": "sweet_potatoes",
+      "names": {
+        "english": "Sweet potatoes",
+        "swahili": "Viazi vitamu",
+        "scientific": "Ipomoea batatas"
+      },
+      "category": "root_tubers",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 90,
+        "max": 180,
+        "note": "General estimate; varies by variety and altitude."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 10,
+          "optimal_min": 20,
+          "optimal_max": 28,
+          "absolute_max": 35,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 500,
+          "optimal_min": 750,
+          "optimal_max": 1500,
+          "absolute_max": 3000
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 0,
+          "optimal_max": 1800,
+          "absolute_max": 2200
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.5,
+          "optimal_min": 5.5,
+          "optimal_max": 6.5,
+          "absolute_max": 8.0
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained",
+          "excessively_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "sandy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "low",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "moderate",
+        "critical_stages": [
+          "Establishment",
+          "Root bulking"
+        ],
+        "irrigation_note": "Avoid waterlogging; moderate drought tolerance once established."
+      },
+      "farmer_guidance": {
+        "soil": "Loose, well-drained sandy loam or loam soils.",
+        "water": "Needs moisture for establishment and root bulking; avoid waterlogging.",
+        "spacing": "Usually planted as vine cuttings on ridges or mounds; follow local extension advice on spacing.",
+        "tips": [
+          "Use clean, healthy vine cuttings.",
+          "Plant on ridges or mounds, especially in heavier soils.",
+          "Weed early and keep vines from rooting at every node.",
+          "Watch for sweet potato weevil and virus disease.",
+          "Harvest when leaves begin to yellow and cure roots before storage."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Generic stage template written for this database; not variety- or region-specific. Review with KALRO guidance.",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare ridges or mounds and obtain clean vine cuttings."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Plant vine cuttings when soil moisture is adequate."
+          },
+          {
+            "day": 28,
+            "stage": "Early care",
+            "activity": "Weed and fill gaps."
+          },
+          {
+            "day": 56,
+            "stage": "Vine management",
+            "activity": "Weed and monitor for pests such as weevils."
+          },
+          {
+            "day": 90,
+            "stage": "Root bulking",
+            "activity": "Avoid water stress and waterlogging while roots develop."
+          },
+          {
+            "day": 120,
+            "stage": "Harvest",
+            "activity": "Harvest when roots are mature; handle gently."
+          }
+        ]
+      },
+      "kenya_notes": [],
+      "evidence": {
+        "level": "general_knowledge_unverified",
+        "source_ids": [
+          "C21"
+        ],
+        "notes": "All ranges are general agronomic knowledge, not verified against a retrieved source. Verify before relying on them."
+      }
+    },
+    {
+      "crop_id": "cowpeas",
+      "names": {
+        "english": "Cowpeas",
+        "swahili": "Kunde",
+        "scientific": "Vigna unguiculata"
+      },
+      "category": "legumes",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 60,
+        "max": 120,
+        "note": "Leaves can be harvested earlier than grain."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 12,
+          "optimal_min": 20,
+          "optimal_max": 35,
+          "absolute_max": 40,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 300,
+          "optimal_min": 400,
+          "optimal_max": 800,
+          "absolute_max": 1500
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 0,
+          "optimal_max": 1600,
+          "absolute_max": 2000
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.5,
+          "optimal_min": 5.5,
+          "optimal_max": 7.5,
+          "absolute_max": 8.5
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained",
+          "excessively_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "sandy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "low",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "low",
+        "critical_stages": [
+          "Flowering",
+          "Pod filling"
+        ],
+        "irrigation_note": "Drought tolerant; suited to semi-arid areas; avoid waterlogging."
+      },
+      "farmer_guidance": {
+        "soil": "Well-drained sandy loam or loam soils; tolerates poorer soils than most beans.",
+        "water": "Tolerates dry spells but needs some moisture at flowering and pod filling.",
+        "spacing": "Spacing depends on variety and whether it is intercropped. Follow local extension advice.",
+        "tips": [
+          "Choose a variety suited to your rainfall zone.",
+          "Plant at the onset of rains.",
+          "Weed early.",
+          "Monitor for aphids and pod borers.",
+          "Harvest pods as they dry and dry grain before storage."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Generic stage template written for this database; not variety- or region-specific. Review with KALRO guidance.",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Land preparation",
+            "activity": "Prepare a weed-free seedbed and choose healthy seed."
+          },
+          {
+            "day": 7,
+            "stage": "Planting",
+            "activity": "Plant at the onset of rains."
+          },
+          {
+            "day": 21,
+            "stage": "Early growth",
+            "activity": "Weed and thin if needed."
+          },
+          {
+            "day": 42,
+            "stage": "Flowering",
+            "activity": "Watch for aphids and maintain moisture where possible."
+          },
+          {
+            "day": 63,
+            "stage": "Pod development",
+            "activity": "Monitor for pod borers and pod-sucking bugs."
+          },
+          {
+            "day": 84,
+            "stage": "Harvest",
+            "activity": "Harvest dry pods and dry grain properly before storage."
+          }
+        ]
+      },
+      "kenya_notes": [],
+      "evidence": {
+        "level": "general_knowledge_unverified",
+        "source_ids": [
+          "C21"
+        ],
+        "notes": "All ranges are general agronomic knowledge, not verified against a retrieved source. Verify before relying on them."
+      }
+    },
+    {
+      "crop_id": "kale",
+      "names": {
+        "english": "Kale (sukuma wiki)",
+        "swahili": "Sukuma wiki",
+        "scientific": "Brassica oleracea var. acephala"
+      },
+      "category": "vegetables",
+      "life_cycle": "annual",
+      "days_to_harvest": {
+        "min": 60,
+        "max": 120,
+        "note": "First leaf harvest about 6-10 weeks after sowing; picking continues for months."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 5,
+          "optimal_min": 15,
+          "optimal_max": 25,
+          "absolute_max": 30,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 500,
+          "optimal_min": 700,
+          "optimal_max": 1300,
+          "absolute_max": 2000
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 800,
+          "optimal_max": 2200,
+          "absolute_max": 2800
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 5.5,
+          "optimal_min": 6.0,
+          "optimal_max": 7.0,
+          "absolute_max": 7.8
+        },
+        "min_depth_class": "moderately_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "silty"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "moderate",
+        "critical_stages": [
+          "Establishment",
+          "Continuous leaf production"
+        ],
+        "irrigation_note": "Needs regular moisture for tender leaves; irrigation extends the season."
+      },
+      "farmer_guidance": {
+        "soil": "Fertile, well-drained loam; responds to manure and nitrogen.",
+        "water": "Regular watering gives tender leaves; avoid waterlogging.",
+        "spacing": "Typically transplanted in rows; spacing depends on variety. Follow local extension advice.",
+        "tips": [
+          "Raise seedlings in a nursery and transplant healthy ones.",
+          "Keep the soil fertile with manure or compost.",
+          "Pick lower leaves regularly to prolong harvest.",
+          "Watch for aphids and diamondback moth.",
+          "Rotate with non-brassica crops."
+        ]
+      },
+      "calendar": {
+        "supported": true,
+        "basis": "Generic stage template written for this database; not variety- or region-specific. Review with KALRO guidance.",
+        "activity_plan": [
+          {
+            "day": 0,
+            "stage": "Nursery and land preparation",
+            "activity": "Sow seed in a nursery and prepare fertile, well-drained land."
+          },
+          {
+            "day": 28,
+            "stage": "Transplanting",
+            "activity": "Transplant healthy seedlings in rows."
+          },
+          {
+            "day": 49,
+            "stage": "Early growth",
+            "activity": "Weed and check for aphids and caterpillars."
+          },
+          {
+            "day": 70,
+            "stage": "First harvest",
+            "activity": "Start picking lower leaves regularly."
+          },
+          {
+            "day": 105,
+            "stage": "Continued harvest",
+            "activity": "Keep picking, weeding and monitoring pests and soil moisture."
+          }
+        ]
+      },
+      "kenya_notes": [],
+      "evidence": {
+        "level": "general_knowledge_unverified",
+        "source_ids": [
+          "C21"
+        ],
+        "notes": "All ranges are general horticultural knowledge, not verified against a retrieved source. Verify before relying on them."
+      }
+    },
+    {
+      "crop_id": "bananas",
+      "names": {
+        "english": "Bananas",
+        "swahili": "Ndizi",
+        "scientific": "Musa spp."
+      },
+      "category": "fruits",
+      "life_cycle": "perennial",
+      "days_to_harvest": {
+        "min": 270,
+        "max": 540,
+        "note": "General estimate to first harvest; varies by variety and altitude."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 10,
+          "optimal_min": 20,
+          "optimal_max": 30,
+          "absolute_max": 35,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 800,
+          "optimal_min": 1200,
+          "optimal_max": 2500,
+          "absolute_max": 4000
+        },
+        "altitude_m": {
+          "absolute_min": 0,
+          "optimal_min": 0,
+          "optimal_max": 1800,
+          "absolute_max": 2000
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.5,
+          "optimal_min": 5.5,
+          "optimal_max": 7.0,
+          "absolute_max": 8.0
+        },
+        "min_depth_class": "deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "loamy",
+          "clay"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "high",
+        "critical_stages": [
+          "Flowering and bunch development"
+        ],
+        "irrigation_note": "High and steady water demand; mulch to conserve moisture."
+      },
+      "farmer_guidance": {
+        "soil": "Deep, fertile, well-drained loam or friable clay soils.",
+        "water": "Needs regular rainfall or irrigation; mulching helps.",
+        "spacing": "Typically about 3 m x 3 m; follow variety and local extension advice.",
+        "tips": [
+          "Use clean, disease-free tissue-culture plantlets or suckers.",
+          "Mulch heavily and add manure.",
+          "Thin suckers to maintain a productive stool.",
+          "Protect from strong wind.",
+          "Monitor for weevils, nematodes and Panama or Black Sigatoka disease."
+        ]
+      },
+      "calendar": {
+        "supported": false,
+        "basis": "Calendar not generated for perennial crops yet; needs a multi-year plan.",
+        "activity_plan": []
+      },
+      "kenya_notes": [],
+      "evidence": {
+        "level": "general_knowledge_unverified",
+        "source_ids": [
+          "C21"
+        ],
+        "notes": "All ranges are general agronomic knowledge, not verified against a retrieved source. Verify before relying on them."
+      }
+    },
+    {
+      "crop_id": "coffee",
+      "names": {
+        "english": "Coffee (Arabica)",
+        "swahili": "Kahawa",
+        "scientific": "Coffea arabica"
+      },
+      "category": "beverage_cash_crops",
+      "life_cycle": "perennial",
+      "days_to_harvest": {
+        "min": 730,
+        "max": 1825,
+        "note": "First harvest 2-3 years for newer varieties; about 5 years for old ones (Kenyan extension source)."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 10,
+          "optimal_min": 15,
+          "optimal_max": 24,
+          "absolute_max": 30,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 800,
+          "optimal_min": 1000,
+          "optimal_max": 2000,
+          "absolute_max": 2500
+        },
+        "altitude_m": {
+          "absolute_min": 800,
+          "optimal_min": 1400,
+          "optimal_max": 2000,
+          "absolute_max": 2200
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.4,
+          "optimal_min": 5.3,
+          "optimal_max": 6.0,
+          "absolute_max": 7.0
+        },
+        "min_depth_class": "very_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "clay",
+          "loamy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "moderate",
+        "critical_stages": [
+          "Flowering and berry development"
+        ],
+        "irrigation_note": "Rainfall should be well distributed; mulch where rainfall is near the 1,000 mm minimum."
+      },
+      "farmer_guidance": {
+        "soil": "Deep, well-drained, humus-rich, slightly acid volcanic soils at least 1.5 m deep.",
+        "water": "Needs well-distributed rainfall; mulch to conserve moisture in dry spells.",
+        "spacing": "Traditional varieties about 2.75 m x 2.75 m; Ruiru 11 about 2 m x 2 m or 2 m x 1 m. Follow variety guidance.",
+        "tips": [
+          "Choose a variety suited to your altitude (for example K7 where leaf rust is serious at lower altitude).",
+          "Prepare planting holes about 60 cm deep and mix topsoil with manure.",
+          "Mulch to conserve moisture and suppress weeds.",
+          "Provide shade or wind protection where needed.",
+          "Monitor for coffee berry disease, leaf rust and borers."
+        ]
+      },
+      "calendar": {
+        "supported": false,
+        "basis": "Calendar not generated for perennial crops yet; needs a multi-year plan.",
+        "activity_plan": []
+      },
+      "kenya_notes": [
+        "Kenya's Arabica is grown mainly on volcanic highland soils at about 1,400-2,000 m.",
+        "Counties named as coffee areas in one extension source: Kiambu, Murang'a, Kirinyaga, Nyeri, Meru, Tharaka-Nithi, Machakos, Makueni, Kisii, Nyamira, Bungoma, Nandi, Uasin Gishu and Baringo."
+      ],
+      "evidence": {
+        "level": "kenyan_extension_sources",
+        "source_ids": [
+          "C16",
+          "C17"
+        ],
+        "notes": "Altitude, rainfall, temperature and pH are consistent across Kenyan extension sources (pH reported variously from 4.4 to 6.0). Absolute limits are estimates."
+      }
+    },
+    {
+      "crop_id": "tea",
+      "names": {
+        "english": "Tea",
+        "swahili": "Chai",
+        "scientific": "Camellia sinensis"
+      },
+      "category": "beverage_cash_crops",
+      "life_cycle": "perennial",
+      "days_to_harvest": {
+        "min": null,
+        "max": null,
+        "note": "Time to first plucking not yet sourced."
+      },
+      "climate": {
+        "temperature_c": {
+          "absolute_min": 8,
+          "optimal_min": 13,
+          "optimal_max": 22,
+          "absolute_max": 30,
+          "basis": "mean temperature during the growing period"
+        },
+        "rainfall_mm_per_year": {
+          "absolute_min": 1150,
+          "optimal_min": 1500,
+          "optimal_max": 2500,
+          "absolute_max": 3200
+        },
+        "altitude_m": {
+          "absolute_min": 1400,
+          "optimal_min": 1500,
+          "optimal_max": 2100,
+          "absolute_max": 2700
+        }
+      },
+      "soil": {
+        "ph": {
+          "absolute_min": 4.0,
+          "optimal_min": 4.5,
+          "optimal_max": 5.8,
+          "absolute_max": 6.0
+        },
+        "min_depth_class": "very_deep",
+        "drainage_preferred": [
+          "well_drained"
+        ],
+        "drainage_tolerated": [
+          "moderately_well_drained"
+        ],
+        "texture_preferred": [
+          "clay",
+          "loamy"
+        ],
+        "texture_avoid": [],
+        "fertility_demand": "high",
+        "salinity_tolerance": "low"
+      },
+      "water": {
+        "need_class": "high",
+        "critical_stages": [
+          "Continuous shoot growth (needs well-distributed rain)"
+        ],
+        "irrigation_note": "Needs high, well-distributed rainfall (about 150 mm per month); distribution matters more than total."
+      },
+      "farmer_guidance": {
+        "soil": "Deep (about 1.8-2 m), well-drained, acid soils, best on volcanic soils.",
+        "water": "Needs high, evenly distributed rainfall; dry spells reduce yield.",
+        "spacing": "Follow Tea Research Institute recommendations for the clone and slope.",
+        "tips": [
+          "Use recommended clones for your area.",
+          "Keep the soil acid; do not lime tea soils.",
+          "Maintain steady fertilizer and organic matter inputs.",
+          "Protect from frost and hail where common.",
+          "Join a registered tea buying system for processing and sale."
+        ]
+      },
+      "calendar": {
+        "supported": false,
+        "basis": "Calendar not generated for perennial crops yet; needs a multi-year plan.",
+        "activity_plan": []
+      },
+      "kenya_notes": [
+        "Grown in highland areas east and west of the Rift Valley.",
+        "A KALRO site at Kericho (about 2,200 m) records mean annual temperature of 15.4 C and rainfall of about 2,040 mm with two rainy peaks.",
+        "Optimal altitude about 1,500-2,100 m; growing areas extend to about 2,700 m."
+      ],
+      "evidence": {
+        "level": "kenyan_extension_sources",
+        "source_ids": [
+          "C11",
+          "C12",
+          "C13",
+          "C14",
+          "C20"
+        ],
+        "notes": "Altitude, rainfall and soil pH are consistent across the Tea Board, KALRO Tea Research Institute papers and extension pages. Temperature range is derived from KALRO site data and is approximate."
+      }
+    }
+  ]
+}

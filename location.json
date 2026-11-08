@@ -1,0 +1,603 @@
+{
+  "database_name": "FarmFriend Kenya Location Database",
+  "version": "1.0.0",
+  "last_updated": "2026-11-04",
+  "coverage": {
+    "country": "Kenya",
+    "county_count": 47,
+    "administrative_level_populated": "county",
+    "next_levels_to_add": [
+      "sub_county",
+      "ward",
+      "agro_ecological_zone",
+      "locality"
+    ]
+  },
+  "data_notes": [
+    "County names and order follow the First Schedule of the Constitution of Kenya, 2010.",
+    "County codes 001-047 follow the county numbering used by the Government of Kenya.",
+    "Sub-county, ward, agro-ecological, soil, and climate arrays are intentionally empty until reliable county-level sources are added.",
+    "Do not interpret an empty array as meaning that a county has no such features.",
+    "Soil and agro-ecological conditions can vary within a county; location-specific advice should use finer spatial data when available."
+  ],
+  "sources": [
+    {
+      "publisher": "Kenya Law Reform Commission",
+      "title": "Constitution of Kenya – First Schedule: Counties",
+      "url": "https://klrc.go.ke/index.php/constitution-of-kenya/163-schedules-schedules/165-first-schedule-counties/434-1-counties",
+      "used_for": "Official names and constitutional order of the 47 counties."
+    },
+    {
+      "publisher": "State Department for Devolution",
+      "title": "County Information",
+      "url": "https://www.devolution.go.ke/county-information/",
+      "used_for": "Government county information and county numbering."
+    }
+  ],
+  "counties": [
+    {
+      "county_code": "001",
+      "county_name": "Mombasa",
+      "search_names": [
+        "Mombasa",
+        "Mombasa County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "002",
+      "county_name": "Kwale",
+      "search_names": [
+        "Kwale",
+        "Kwale County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "003",
+      "county_name": "Kilifi",
+      "search_names": [
+        "Kilifi",
+        "Kilifi County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "004",
+      "county_name": "Tana River",
+      "search_names": [
+        "Tana River",
+        "Tana River County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "005",
+      "county_name": "Lamu",
+      "search_names": [
+        "Lamu",
+        "Lamu County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "006",
+      "county_name": "Taita/Taveta",
+      "search_names": [
+        "Taita/Taveta",
+        "Taita-Taveta County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "007",
+      "county_name": "Garissa",
+      "search_names": [
+        "Garissa",
+        "Garissa County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "008",
+      "county_name": "Wajir",
+      "search_names": [
+        "Wajir",
+        "Wajir County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "009",
+      "county_name": "Mandera",
+      "search_names": [
+        "Mandera",
+        "Mandera County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "010",
+      "county_name": "Marsabit",
+      "search_names": [
+        "Marsabit",
+        "Marsabit County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "011",
+      "county_name": "Isiolo",
+      "search_names": [
+        "Isiolo",
+        "Isiolo County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "012",
+      "county_name": "Meru",
+      "search_names": [
+        "Meru",
+        "Meru County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "013",
+      "county_name": "Tharaka-Nithi",
+      "search_names": [
+        "Tharaka-Nithi",
+        "Tharaka-Nithi County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "014",
+      "county_name": "Embu",
+      "search_names": [
+        "Embu",
+        "Embu County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "015",
+      "county_name": "Kitui",
+      "search_names": [
+        "Kitui",
+        "Kitui County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "016",
+      "county_name": "Machakos",
+      "search_names": [
+        "Machakos",
+        "Machakos County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "017",
+      "county_name": "Makueni",
+      "search_names": [
+        "Makueni",
+        "Makueni County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "018",
+      "county_name": "Nyandarua",
+      "search_names": [
+        "Nyandarua",
+        "Nyandarua County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "019",
+      "county_name": "Nyeri",
+      "search_names": [
+        "Nyeri",
+        "Nyeri County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "020",
+      "county_name": "Kirinyaga",
+      "search_names": [
+        "Kirinyaga",
+        "Kirinyaga County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "021",
+      "county_name": "Murang'a",
+      "search_names": [
+        "Murang'a",
+        "Murang'a County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "022",
+      "county_name": "Kiambu",
+      "search_names": [
+        "Kiambu",
+        "Kiambu County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "023",
+      "county_name": "Turkana",
+      "search_names": [
+        "Turkana",
+        "Turkana County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "024",
+      "county_name": "West Pokot",
+      "search_names": [
+        "West Pokot",
+        "West Pokot County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "025",
+      "county_name": "Samburu",
+      "search_names": [
+        "Samburu",
+        "Samburu County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "026",
+      "county_name": "Trans Nzoia",
+      "search_names": [
+        "Trans Nzoia",
+        "Trans Nzoia County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "027",
+      "county_name": "Uasin Gishu",
+      "search_names": [
+        "Uasin Gishu",
+        "Uasin Gishu County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "028",
+      "county_name": "Elgeyo/Marakwet",
+      "search_names": [
+        "Elgeyo/Marakwet",
+        "Elgeyo-Marakwet County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "029",
+      "county_name": "Nandi",
+      "search_names": [
+        "Nandi",
+        "Nandi County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "030",
+      "county_name": "Baringo",
+      "search_names": [
+        "Baringo",
+        "Baringo County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "031",
+      "county_name": "Laikipia",
+      "search_names": [
+        "Laikipia",
+        "Laikipia County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "032",
+      "county_name": "Nakuru",
+      "search_names": [
+        "Nakuru",
+        "Nakuru County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "033",
+      "county_name": "Narok",
+      "search_names": [
+        "Narok",
+        "Narok County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "034",
+      "county_name": "Kajiado",
+      "search_names": [
+        "Kajiado",
+        "Kajiado County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "035",
+      "county_name": "Kericho",
+      "search_names": [
+        "Kericho",
+        "Kericho County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "036",
+      "county_name": "Bomet",
+      "search_names": [
+        "Bomet",
+        "Bomet County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "037",
+      "county_name": "Kakamega",
+      "search_names": [
+        "Kakamega",
+        "Kakamega County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "038",
+      "county_name": "Vihiga",
+      "search_names": [
+        "Vihiga",
+        "Vihiga County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "039",
+      "county_name": "Bungoma",
+      "search_names": [
+        "Bungoma",
+        "Bungoma County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "040",
+      "county_name": "Busia",
+      "search_names": [
+        "Busia",
+        "Busia County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "041",
+      "county_name": "Siaya",
+      "search_names": [
+        "Siaya",
+        "Siaya County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "042",
+      "county_name": "Kisumu",
+      "search_names": [
+        "Kisumu",
+        "Kisumu County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "043",
+      "county_name": "Homa Bay",
+      "search_names": [
+        "Homa Bay",
+        "Homa Bay County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "044",
+      "county_name": "Migori",
+      "search_names": [
+        "Migori",
+        "Migori County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "045",
+      "county_name": "Kisii",
+      "search_names": [
+        "Kisii",
+        "Kisii County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "046",
+      "county_name": "Nyamira",
+      "search_names": [
+        "Nyamira",
+        "Nyamira County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    },
+    {
+      "county_code": "047",
+      "county_name": "Nairobi City",
+      "search_names": [
+        "Nairobi City",
+        "Nairobi City County"
+      ],
+      "sub_counties": [],
+      "agro_ecological_zones": [],
+      "soil_profiles": [],
+      "climate_profiles": []
+    }
+  ]
+}

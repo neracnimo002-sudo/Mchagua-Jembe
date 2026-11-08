@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mchagua Jembe</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body> 
+    <header class="dashboard-header">
+       <div class="header-content">
+        <h1>Mchagua Jembe</h1>
+        <p>Your smart companion for better farming.</p>
+       </div>
+    </header>
+
+    <section class="welcome-banner">
+        <h2>Welcome to FarmFriend</h2>
+    <p>
+        Get crop-growing guidance, check local weather,
+        and explore farming recommendations for your area.
+    </p>
+    </section>
+        
+
+    <main>
+        <section class="hero">
+            <h2>Know What to Grow</h2>
+
+            <p>
+                Enter your location and the crop you want to grow.
+            </p>
+
+            <div class="form-container">
+        <section class="dashboard-shortcuts">
+            <div class="shortcut-card">
+            <h3>Weather</h3>
+            <p>Check current conditions and the forecast.</p>
+            <a href="#location">Check Weather</a>
+            </div>
+
+            <div class="shortcut-card">
+            <h3>Crop Advice</h3>
+            <p>Explore growing requirements for your crop.</p>
+            <a href="#crop">Explore Crops</a>
+            </div>
+
+            <div class="shortcut-card">
+            <h3>Search History</h3>
+            <p>Review your previous crop searches.</p>
+            <a href="#historySection">View History</a>
+            </div>
+        </section>
+            <h2>Get Crop Recommendations</h2>
+            <p>Enter your farming details to receive crop guidance for your area.</p>
+                <label for="location">Your Location</label>
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="e.g. town or county, Kenya"
+                    autocomplete="address-level2"
+                >
+
+                <label for="crop">Select Crop</label>
+                <select id="crop">
+                    <option value="">-- Select a crop --</option>
+                </select>
+
+                <label for="calendarStartDate">Schedule Start Date</label>
+                <input type="date" id="calendarStartDate">
+
+                <label for="irrigation">Water Availability:</label>
+                <select id="irrigation">
+                    <option value="">Select water availability</option>
+                    <option value="rainfed">Rain-fed farming</option>
+                    <option value="irrigation">Irrigation available</option>
+                    <option value="limited">Limited water supply</option>
+                 </select>
+
+                <button id="getCropInformationButton" type="button" onclick="getCropInformation()" disabled>
+                    Get Crop Information
+                </button>
+
+            </div>
+
+            <div id="fertilizerRecommendations" aria-live="polite"></div>
+            <div id="result"></div>
+            </section>
+
+            <section class="crop-calendar-section" id="cropCalendarSection">
+                <div class="calendar-heading">
+                    <div>
+                        <h2>Crop Activity Calendar</h2>
+                        <p id="calendarCropDescription">Select a crop to generate its activity calendar.</p>
+                    </div>
+                    <div class="calendar-navigation">
+                        <button type="button" id="previousCalendarMonth" aria-label="Previous month">‹</button>
+                        <h3 id="calendarMonthLabel" aria-live="polite"></h3>
+                        <button type="button" id="nextCalendarMonth" aria-label="Next month">›</button>
+                    </div>
+                </div>
+                <p class="calendar-note">
+                    Suggested dates are a general planning guide based on the schedule start date.
+                    Adjust activities for your variety, local season, and agricultural advice.
+                </p>
+                <div class="calendar-grid" id="cropCalendar" aria-label="Crop activity calendar"></div>
+                <div class="upcoming-activities">
+                    <h3>Upcoming activities</h3>
+                    <div id="upcomingActivities"></div>
+                </div>
+            </section>
+            
+<section id="historySection">
+    <h2>My Search History</h2>
+    <p>View your previous crop searches.</p>
+
+    <button type="button" id="clearHistoryBtn">
+        Clear History
+    </button>
+
+    <div id="historyList"></div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 FarmGuide | Smart Agriculture</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,4356 @@
+{
+  "database_name": "FarmFriend Kenya Fertilizer Database",
+  "version": "1.0.0",
+  "last_updated": "2026-11-06",
+  "links_to": {
+    "crops.json": "crop_recommendations[].crop_id",
+    "soil.json": "soil_guidance[].soil_id"
+  },
+  "data_quality": {
+    "summary": "Fertilizer rates are guidance drawn from Kenyan government, KALRO, IFDC and Ministry sources. They are not a prescription: a soil test is the right basis for a real recommendation.",
+    "notes": [
+      "Kenya has no single national rate per crop. Government maize recommendations are made at sub-county level (NAAIAP/KARI 2014) and are not summarised here.",
+      "IFDC Fertilizer Use Optimizer (FUO) programmes depend on region, yield goal and budget. Their rates differ by large factors (for example maize DAP 11 to 81 kg per acre), so each is labelled with its region and budget level.",
+      "Each reported figure is stored as the source gave it ('reported'); per-acre, per-hectare and nutrient amounts are derived by code and re-checked by validate_fertilizers.py.",
+      "Where a source gave a choice of products (for example urea or CAN), both are listed under 'alternatives'.",
+      "CAN is sold in 21, 26 and 27 percent N grades; calculations here use 26 percent. Check the bag label.",
+      "Bottle-top measures are not used because tops differ: IFDC calibrates a soda-bottle top at about 3.5 g of DAP or CAN, while the Ministry guide treats a half-litre water-bottle top as 5 g.",
+      "Programmes marked legacy_not_advised are included so the app can recognise common practice, not to recommend it.",
+      "Crops with status not_yet_sourced have no rates on purpose: no Kenyan source was retrieved, and inventing numbers could cost farmers money."
+    ],
+    "follow_up_data_leads": [
+      "NAAIAP/KARI (2014) 'Soil Suitability Evaluation for Maize Production in Kenya': sub-county maize recommendations from about 4,500 farm soil tests.",
+      "KALRO/KSHK (2016) 'Harmonized Fertilizer Recommendations for Optimal Maize Production in Kenya' (agro-ecological-zone options).",
+      "Remaining IFDC FUO papers (other regions, other crops) and the Fertilizer Use Optimizer tool itself.",
+      "KALRO equivalence tables for manure and green manure replacing fertilizer (see F3).",
+      "Ministry SHEP PLUS handouts for other vegetables (onion, French beans, cabbage and others)."
+    ]
+  },
+  "sources": [
+    {
+      "id": "F1",
+      "citation": "IFDC / AFAP for AGRA (2018). Assessment of Fertilizer Distribution Systems and Opportunities for Developing Fertilizer Blends: Kenya.",
+      "url": "https://agra.org/archive/wp-content/uploads/2020/08/Kenya-Report_Assessment-of-Fertilizer-Distribution-Systems-and-Opportunities-for-Developing-Fertilizer-Blends.pdf"
+    },
+    {
+      "id": "F2",
+      "citation": "Esilaba, A.O. (KALRO) / IFDC (2018). Soil acidity and liming in Kenya (presentation).",
+      "url": "https://ifdc.org/wp-content/uploads/2018/10/1.3.Anthony-Esilaba_KALRO-IFDC-MOAI-SOIL-ACIDITY-AND-LIMING-IN-KENYA-PRESENTATION-FINAL-AOE-121018.pdf"
+    },
+    {
+      "id": "F3",
+      "citation": "Kibunja, C.N. et al. (KALRO and IPI) (2018). Overview of soil fertility and available soil testing programs to develop fertilizer recommendations in Kenya.",
+      "url": "https://ifdc.org/wp-content/uploads/2018/10/1.2.1.Catherine-Kibunja_KALRO_Overview-of-soil-fertility-available-soil-testing-programs-....pdf"
+    },
+    {
+      "id": "F4",
+      "citation": "IFDC Fertilizer Use Optimizer (FUO), Kenya Central, paper version CAN-DAP, Nov 2016 (rates in kg per acre).",
+      "url": "https://ifdc.org/wp-content/uploads/2026/01/Kenya-Central-paper-FOT-18-Nov-DAP-CAN-2016.pdf"
+    },
+    {
+      "id": "F5",
+      "citation": "IFDC Fertilizer Use Optimizer (FUO), Kenya Eastern lower, paper version CAN-DAP, Nov 2016 (rates in kg per acre).",
+      "url": "https://ifdc.org/wp-content/uploads/2026/01/Kenya-Eastern-lower-paper-FOT-18th-Nov-DAP-CAN-2016.pdf"
+    },
+    {
+      "id": "F6",
+      "citation": "IFDC Fertilizer Use Optimizer (FUO), Kenya Rift Valley lower, paper version, Feb 2018 (rates in kg per acre).",
+      "url": "https://ifdc.org/wp-content/uploads/2026/01/Kenya-Rift-Valley-lower-paper-FOT-15-Feb2018.pdf"
+    },
+    {
+      "id": "F7",
+      "citation": "IFDC Fertilizer Use Optimizer (FUO), Kenya Western lower (Busia), paper version, Feb 2018 (rates in kg per acre).",
+      "url": "https://ifdc.org/wp-content/uploads/2026/01/Kenya-Western-lower-paper-FOT_-15-Feb-2018-Busia.pdf"
+    },
+    {
+      "id": "F8",
+      "citation": "IFDC Fertilizer Use Optimizer (FUO), Kenya Western lower, July 2023 (rates in kg per acre).",
+      "url": "https://ifdc.org/wp-content/uploads/2026/01/KE-west-lower-July-2023.pdf"
+    },
+    {
+      "id": "F9",
+      "citation": "Ministry of Agriculture, Livestock and Fisheries / SHEP PLUS (JICA). 'Tomato Production' training handout.",
+      "url": "https://www.jica.go.jp/project/english/kenya/015/materials/c8h0vm0000f7o8cj-att/materials_15.pdf"
+    },
+    {
+      "id": "F10",
+      "citation": "Ministry of Agriculture, Livestock and Fisheries / SHEP PLUS (JICA). 'Kale (Sukuma Wiki)' training handout.",
+      "url": "https://www.jica.go.jp/project/english/kenya/015/materials/c8h0vm0000f7o8cj-att/materials_11.pdf"
+    },
+    {
+      "id": "F11",
+      "citation": "KALRO Potato Production Factsheet No. 043/2024: Nutrient conversion chart (E-mimea Plant Clinic).",
+      "url": "https://navcdp.kalro.org/docs/potatoes/NUTRIENT%20CONVERSION%20CHART.pdf"
+    },
+    {
+      "id": "F12",
+      "citation": "Owuor, P.O. et al. Long term fertilizer use on high yielding clone S15/10: tea yields (Tea Research Foundation of Kenya).",
+      "url": "https://repository.maseno.ac.ke/handle/123456789/1722"
+    },
+    {
+      "id": "F13",
+      "citation": "Variations in requirements for tea production in Kenya and factors controlling growth and secondary metabolites (Maseno University repository abstract: 100-250 kg N/ha/year recommended).",
+      "url": "https://repository.maseno.ac.ke/handle/123456789/264"
+    },
+    {
+      "id": "F14",
+      "citation": "Kamau, D.M., Owuor, P.O. and Wanyoko, J.K. (2005). Long term effects of nitrogenous fertilizers on tea yields, nutrient uptake and soil chemical properties. Tea Research Foundation of Kenya (via AGRIS).",
+      "url": "https://agris.fao.org/search/en/records/6472484353aa8c896304d0bc"
+    },
+    {
+      "id": "F15",
+      "citation": "Sitienei, K., Kamiri, H.W., Nduru, G.M. and Kamau, D.M. (2018). Effects of blended fertilizers on soil chemical properties of mature tea fields in Kenya (standard NPK 26:5:5 as control).",
+      "url": "https://agris.fao.org/search/en/records/66e856fecd53c72de2cac11c"
+    },
+    {
+      "id": "F16",
+      "citation": "Sivapalan, P. and de Silva, G.A. Study tour of the tea industry in Kenya (Tea Research Institute of Sri Lanka). Older report; timing of applications and zinc.",
+      "url": "https://dl-tri.nsf.gov.lk/bitstreams/4dd11688-16ac-4e10-9879-67f13a528bd3/download"
+    },
+    {
+      "id": "F17",
+      "citation": "Coffee Research Foundation (Kenya). Technical Circular No. 59: Standard recommendations for fertilizer (1987; revised 1991).",
+      "url": "https://agris.fao.org/search/en/records/6471ea5a69d6cbfdd4a324da"
+    },
+    {
+      "id": "F18",
+      "citation": "ICL Specialty Fertilizers. Crop Advice Sheet: Coffee arabica, trial results from KALRO Coffee Research Institute (Kitale, Koru); includes 'grower practice' rates.",
+      "url": "https://icl-sf.com//uploads/Global/brochures/Spec ag/Crop Advice sheet - coffee.pdf"
+    },
+    {
+      "id": "F19",
+      "citation": "One Acre Fund. Maize Fertilizer Timing trial (control: 123.5 kg/ha DAP at planting; CAN at knee and shoulder height).",
+      "url": "https://oneacrefund.org/sites/default/files/2023-08/Maize_Fertilizer_Timing_Ag_Innovations_0.pdf"
+    },
+    {
+      "id": "F20",
+      "citation": "One Acre Fund. Managing Soil Acidity trial report (lime micro-dosing: 2.0 t/ha broadcast, 1.0 t/ha banded, 0.5 t/ha spot).",
+      "url": "https://oneacrefund.org/sites/default/files/2023-09/Managing_Soil_Acidity_Trial_Report_Ag_Innovations.pdf"
+    },
+    {
+      "id": "F21",
+      "citation": "Graduate Farmer Kenya, 'How to grow maize in Kenya' (extension-style blog: 1 bag DAP and 1 bag CAN per acre; TSP or manure on acid soils).",
+      "url": "https://graduatefarmer.co.ke/2025/04/10/how-to-grow-maize-in-kenya-step-by-step/"
+    },
+    {
+      "id": "F22",
+      "citation": "Standard Media (Smart Harvest), maize yield tips (CAN top-dressing).",
+      "url": "https://www.standardmedia.co.ke/farmkenya/amp/news/article/2001480338/try-these-tips-to-increase-your-maize-yield-smart-harvest"
+    },
+    {
+      "id": "F23",
+      "citation": "RUFORUM / Moi University abstract: KALRO FURP rate for maize in western Kenya (75 kg N/ha as CAN and 26 kg P/ha as DAP; lime at 2 t/ha tested).",
+      "url": "https://repository.ruforum.org/node/35093"
+    },
+    {
+      "id": "F24",
+      "citation": "Graduate Farmer Kenya, 'How to grow coffee in Kenya' (extension-style blog; bearing trees about 250 g NPK per tree per year).",
+      "url": "https://graduatefarmer.co.ke/2025/04/25/how-to-grow-coffee-in-kenya-and-earn-profit/"
+    },
+    {
+      "id": "F25",
+      "citation": "Soil-derived rules in this file: computed from soil.json (typical pH, drainage, texture, limiting factors).",
+      "url": null
+    }
+  ],
+  "reference": {
+    "evidence_levels": [
+      {
+        "id": "ministry_extension",
+        "meaning": "Ministry of Agriculture handout (SHEP PLUS)."
+      },
+      {
+        "id": "research_institution",
+        "meaning": "KALRO, Tea Research Institute, Coffee Research Foundation or government recommendation reported by IFDC."
+      },
+      {
+        "id": "regional_research_programme",
+        "meaning": "IFDC Fertilizer Use Optimizer example for one region and budget level."
+      },
+      {
+        "id": "extension_practice",
+        "meaning": "Widely repeated extension or trial practice; lower confidence."
+      }
+    ],
+    "crop_status_values": [
+      "sourced",
+      "partial",
+      "not_yet_sourced"
+    ],
+    "program_status_values": {
+      "general_default": "Usable as a general starting point.",
+      "example": "A region- or budget-specific example.",
+      "legacy_not_advised": "Common practice that sources criticise."
+    },
+    "budget_levels": {
+      "low": "Lowest IFDC budget level.",
+      "medium": "Middle IFDC budget level.",
+      "high": "Highest (profit-maximising) IFDC budget level.",
+      "higher": "Above the lowest level; the exact level is not stated in the retrieved text."
+    },
+    "regions_used": [
+      "Central",
+      "Eastern lower",
+      "Rift Valley lower",
+      "Western lower",
+      "Western Kenya"
+    ],
+    "units": {
+      "acre_to_hectare_factor": 2.4711,
+      "note": "1 hectare = 2.4711 acres; per-acre rates are multiplied by 2.4711 to give per-hectare rates."
+    },
+    "nutrient_conversion": {
+      "formula": "product kg = nutrient kg / (percent of nutrient in product / 100)",
+      "example": "To supply 59.6 kg P2O5 from DAP (46 percent P2O5): 59.6 / 0.46 = 129.6 kg DAP. DAP also supplies nitrogen (18 percent), so count it before adding CAN or urea.",
+      "elemental_to_oxide": "P2O5 = P x 2.291; K2O = K x 1.205"
+    }
+  },
+  "products": [
+    {
+      "product_id": "dap",
+      "name": "DAP (diammonium phosphate)",
+      "kind": "compound",
+      "analysis": {
+        "N": 18,
+        "P2O5": 46,
+        "K2O": 0
+      },
+      "analysis_variants": null,
+      "role": "basal",
+      "soil_reaction": "acidifying",
+      "notes": "Most widely used basal fertilizer in Kenya. Mix well with soil so it does not scorch seed or seedlings. Government maize recommendations treat DAP as the most acidifying common fertilizer.",
+      "evidence": {
+        "basis": "KALRO nutrient chart; AGRA/IFDC report",
+        "source_ids": [
+          "F11",
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "urea",
+      "name": "Urea",
+      "kind": "straight",
+      "analysis": {
+        "N": 46,
+        "P2O5": 0,
+        "K2O": 0
+      },
+      "analysis_variants": null,
+      "role": "topdress",
+      "soil_reaction": "acidifying",
+      "notes": "Concentrated nitrogen; second most used top-dress after CAN.",
+      "evidence": {
+        "basis": "KALRO nutrient chart",
+        "source_ids": [
+          "F11",
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "can",
+      "name": "CAN (calcium ammonium nitrate)",
+      "kind": "straight",
+      "analysis": {
+        "N": 26,
+        "P2O5": 0,
+        "K2O": 0
+      },
+      "analysis_variants": [
+        {
+          "N": 21,
+          "label": "CAN 21:0:0"
+        },
+        {
+          "N": 26,
+          "label": "CAN 26:0:0 (default used for calculations)"
+        },
+        {
+          "N": 27,
+          "label": "CAN 27:0:0"
+        }
+      ],
+      "role": "topdress",
+      "soil_reaction": "neutral_to_slightly_acidifying",
+      "notes": "Most used top-dress fertilizer in Kenya. Bags are sold in different grades: check the bag label, because nitrogen content may be 21, 26 or 27 percent and the calculation depends on it.",
+      "evidence": {
+        "basis": "KALRO nutrient chart (21 and 26 percent); ICL trial sheet (27 percent)",
+        "source_ids": [
+          "F11",
+          "F18"
+        ]
+      }
+    },
+    {
+      "product_id": "ammonium_sulphate",
+      "name": "Ammonium sulphate (SA)",
+      "kind": "straight",
+      "analysis": {
+        "N": 21,
+        "P2O5": 0,
+        "K2O": 0,
+        "S": 24
+      },
+      "analysis_variants": null,
+      "role": "topdress",
+      "soil_reaction": "strongly_acidifying",
+      "notes": "Supplies sulphur as well as nitrogen. Used as an alternative top-dress; the Ministry chili handout suggests it in place of CAN on alkaline soils.",
+      "evidence": {
+        "basis": "KALRO nutrient chart",
+        "source_ids": [
+          "F11"
+        ]
+      }
+    },
+    {
+      "product_id": "tsp",
+      "name": "TSP (triple superphosphate)",
+      "kind": "straight",
+      "analysis": {
+        "N": 0,
+        "P2O5": 46,
+        "K2O": 0
+      },
+      "analysis_variants": null,
+      "role": "basal",
+      "soil_reaction": "non_acidifying",
+      "notes": "Phosphorus without nitrogen. Government maize guidance regards TSP and SSP as non-acidifying, so TSP is preferred over DAP on acid soils.",
+      "evidence": {
+        "basis": "KALRO nutrient chart; AGRA/IFDC report",
+        "source_ids": [
+          "F11",
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "mop",
+      "name": "MOP (muriate of potash)",
+      "kind": "straight",
+      "analysis": {
+        "N": 0,
+        "P2O5": 0,
+        "K2O": 60
+      },
+      "analysis_variants": null,
+      "role": "basal",
+      "soil_reaction": "neutral",
+      "notes": "Potassium source (also called KCl). Potassium is not needed on every soil: use a soil test.",
+      "evidence": {
+        "basis": "Standard commercial grade; the 60 percent K2O figure is not stated in the retrieved Kenyan sources",
+        "source_ids": [
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "npk_23_23_0",
+      "name": "NPK 23:23:0",
+      "kind": "compound",
+      "analysis": {
+        "N": 23,
+        "P2O5": 23,
+        "K2O": 0
+      },
+      "analysis_variants": null,
+      "role": "basal",
+      "soil_reaction": "acidifying",
+      "notes": "Common basal fertilizer, a no-potassium alternative to DAP.",
+      "evidence": {
+        "basis": "KALRO nutrient chart",
+        "source_ids": [
+          "F11"
+        ]
+      }
+    },
+    {
+      "product_id": "npk_17_17_17",
+      "name": "NPK 17:17:17",
+      "kind": "compound",
+      "analysis": {
+        "N": 17,
+        "P2O5": 17,
+        "K2O": 17
+      },
+      "analysis_variants": null,
+      "role": "basal_or_topdress",
+      "soil_reaction": "acidifying",
+      "notes": "Balanced compound; also used for coffee, banana and vegetables.",
+      "evidence": {
+        "basis": "KALRO nutrient chart",
+        "source_ids": [
+          "F11"
+        ]
+      }
+    },
+    {
+      "product_id": "mavuno_planting",
+      "name": "Mavuno planting fertilizer (NPK 10:26:10)",
+      "kind": "compound",
+      "analysis": {
+        "N": 10,
+        "P2O5": 26,
+        "K2O": 10
+      },
+      "analysis_variants": null,
+      "role": "basal",
+      "soil_reaction": "less_acidifying",
+      "notes": "Compound with added calcium, magnesium, sulphur and trace elements. Government maize guidance treats it as less acidifying than DAP.",
+      "evidence": {
+        "basis": "KALRO nutrient chart; AGRA/IFDC report",
+        "source_ids": [
+          "F11",
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "npks_25_5_5_5",
+      "name": "NPKS 25:5:5:5 (tea fertilizer)",
+      "kind": "compound",
+      "analysis": {
+        "N": 25,
+        "P2O5": 5,
+        "K2O": 5,
+        "S": 5
+      },
+      "analysis_variants": null,
+      "role": "tea",
+      "soil_reaction": "strongly_acidifying",
+      "notes": "Standard tea fertilizer. In a long-term KALRO trial it acidified the soil more than NPK 20:10:10, with no yield difference.",
+      "evidence": {
+        "basis": "KALRO Tea Research Institute",
+        "source_ids": [
+          "F12",
+          "F14"
+        ]
+      }
+    },
+    {
+      "product_id": "npk_20_10_10",
+      "name": "NPK 20:10:10",
+      "kind": "compound",
+      "analysis": {
+        "N": 20,
+        "P2O5": 10,
+        "K2O": 10
+      },
+      "analysis_variants": null,
+      "role": "tea_or_coffee",
+      "soil_reaction": "acidifying",
+      "notes": "Alternative tea fertilizer and also sold for coffee. Gave the same tea yields as 25:5:5:5 and left more soil P and K.",
+      "evidence": {
+        "basis": "KALRO Tea Research Institute; AGRA/IFDC report",
+        "source_ids": [
+          "F12",
+          "F14",
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "npk_26_5_5",
+      "name": "NPK 26:5:5",
+      "kind": "compound",
+      "analysis": {
+        "N": 26,
+        "P2O5": 5,
+        "K2O": 5
+      },
+      "analysis_variants": null,
+      "role": "tea",
+      "soil_reaction": "strongly_acidifying",
+      "notes": "Older standard tea fertilizer, used as the control in KALRO blended-fertilizer trials.",
+      "evidence": {
+        "basis": "KALRO Tea Research Institute",
+        "source_ids": [
+          "F15",
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "calcium_nitrate",
+      "name": "Calcium nitrate",
+      "kind": "straight",
+      "analysis": {
+        "N": 15.5,
+        "P2O5": 0,
+        "K2O": 0,
+        "CaO": 26.3
+      },
+      "analysis_variants": null,
+      "role": "topdress",
+      "soil_reaction": "non_acidifying",
+      "notes": "Top-dress for fruits and vegetables; calcium helps against blossom-end rot in tomatoes.",
+      "evidence": {
+        "basis": "AGRA/IFDC report (product table)",
+        "source_ids": [
+          "F1"
+        ]
+      }
+    },
+    {
+      "product_id": "farmyard_manure",
+      "name": "Farmyard manure",
+      "kind": "organic",
+      "analysis": null,
+      "analysis_variants": null,
+      "role": "organic",
+      "soil_reaction": "not_applicable",
+      "notes": "Nutrient content varies widely. Use only thoroughly decomposed manure (fresh manure can bring cutworms). Replaces part of the fertilizer: KALRO publishes equivalence tables (see F3), not yet transcribed here.",
+      "evidence": {
+        "basis": "Ministry SHEP PLUS handouts; KALRO",
+        "source_ids": [
+          "F9",
+          "F10",
+          "F3"
+        ]
+      }
+    },
+    {
+      "product_id": "agricultural_lime",
+      "name": "Agricultural lime",
+      "kind": "amendment",
+      "analysis": null,
+      "analysis_variants": null,
+      "role": "amendment",
+      "soil_reaction": "raises_ph",
+      "notes": "Raises pH and removes aluminium toxicity. Rates are in tonnes per hectare and depend on a lab test. Do not use on tea or on soils that are already neutral or alkaline.",
+      "evidence": {
+        "basis": "KALRO / IFDC",
+        "source_ids": [
+          "F2"
+        ]
+      }
+    }
+  ],
+  "lime": {
+    "when_to_lime": "Lime if soil pH is more than 0.2 units below the crop's pH requirement (KALRO / IFDC).",
+    "why": "Below about pH 5.5 aluminium becomes toxic to plants and phosphorus is poorly available. About 13 percent of Kenya's land (about 7.5 million ha, 29 counties) is acid.",
+    "lab_formula": {
+      "text": "Lime requirement (t/ha) = 16.988 - 2.722 x Mehlich buffer pH",
+      "warning": "Requires a lab-measured Mehlich buffer pH; do not use an ordinary soil pH reading.",
+      "source_ids": [
+        "F2"
+      ]
+    },
+    "reapplication": [
+      {
+        "rate_t_per_ha": 2,
+        "repeat_after_years": 2
+      },
+      {
+        "rate_t_per_ha": 4,
+        "repeat_after_years": 2.5
+      },
+      {
+        "rate_t_per_ha": 6,
+        "repeat_after_years": 3
+      }
+    ],
+    "trial_doses_t_per_ha": [
+      {
+        "method": "broadcast",
+        "rate": 2.0
+      },
+      {
+        "method": "banded in the planting row",
+        "rate": 1.0
+      },
+      {
+        "method": "spot (micro-dose)",
+        "rate": 0.5
+      }
+    ],
+    "trial_note": "From a One Acre Fund trial in western Kenya; micro-dosing is under evaluation and is not yet a standard recommendation.",
+    "cautions": [
+      "Do not lime tea soils.",
+      "Do not lime neutral or alkaline soils.",
+      "Lime is bulky and powdery: apply on a calm day and mix into the soil.",
+      "Use ordinary soil pH to decide whether to test; use the lab test to decide how much."
+    ],
+    "source_ids": [
+      "F2",
+      "F20",
+      "F3"
+    ]
+  },
+  "application_guidance": [
+    {
+      "text": "Mix DAP thoroughly with the soil so it does not scorch seeds or seedlings.",
+      "source_ids": [
+        "F9"
+      ]
+    },
+    {
+      "text": "Place or band fertilizer next to the plants rather than broadcasting where the source says so; it is more effective and economical.",
+      "source_ids": [
+        "F10"
+      ]
+    },
+    {
+      "text": "Apply top-dressing around the base of the plant and cover with soil; do not put fertilizer directly on the plant.",
+      "source_ids": [
+        "F21",
+        "F22"
+      ]
+    },
+    {
+      "text": "Use only thoroughly decomposed manure; fresh manure can introduce cutworms.",
+      "source_ids": [
+        "F9",
+        "F10"
+      ]
+    },
+    {
+      "text": "On acid soils use TSP, manure or a less acidifying compound instead of repeated DAP.",
+      "source_ids": [
+        "F1",
+        "F21"
+      ]
+    },
+    {
+      "text": "Always base the actual amount on a soil test where possible; the rates in this file are general.",
+      "source_ids": [
+        "F9",
+        "F10",
+        "F2"
+      ]
+    }
+  ],
+  "crop_recommendations": [
+    {
+      "crop_id": "maize",
+      "status": "sourced",
+      "summary": "Sources agree on a DAP-at-planting plus CAN-at-top-dress pattern, but the amount varies a lot by region, yield goal and budget (IFDC reports 11 to 81 kg DAP per acre at planting). The general extension rate is 1 bag of each per acre.",
+      "lime_target_ph": {
+        "min": 5.5,
+        "max": 7.0,
+        "source_ids": [
+          "F2"
+        ]
+      },
+      "programs": [
+        {
+          "program_id": "maize-extension-standard",
+          "label": "General extension practice: 1 bag DAP + 1 bag CAN per acre",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "national_general",
+            "region": null
+          },
+          "status": "general_default",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Place in the planting hole or furrow and mix with soil; keep it from touching the seed.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 50,
+                "max": 50
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 50.0,
+                  "max": 50.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 123.6,
+                  "max": 123.6,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 22.2,
+                    "max": 22.2
+                  },
+                  "P2O5": {
+                    "min": 56.8,
+                    "max": 56.8
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": "Often given as about 1 teaspoon per planting hole."
+            },
+            {
+              "timing": "About 3 to 6 weeks after planting, around knee height",
+              "method": "Apply in a ring or band a short distance from the plant and cover with soil; do not put it on the leaves.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 50,
+                "max": 50
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 50.0,
+                  "max": 50.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 123.6,
+                  "max": 123.6,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 32.1,
+                    "max": 32.1
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": "Sources differ on timing: 2 to 3 weeks (extension article), 6 weeks (IFDC), knee height (One Acre Fund trial)."
+            }
+          ],
+          "notes": "Widely repeated practice and the control treatment in a One Acre Fund trial (123.5 kg/ha DAP; CAN at knee and shoulder height). Not tailored to soil or region.",
+          "evidence": {
+            "level": "extension_practice",
+            "source_ids": [
+              "F21",
+              "F22",
+              "F19"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 54.3,
+              "max": 54.3
+            },
+            "P2O5": {
+              "min": 56.8,
+              "max": 56.8
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "maize-furp-research",
+          "label": "KALRO FURP research rate (western Kenya)",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "region",
+            "region": "Western Kenya"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Place in the planting hole or furrow and mix with soil; keep it from touching the seed.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "nutrient_target",
+                "per": "ha",
+                "unit": "kg",
+                "min": 59.6,
+                "max": 59.6,
+                "nutrient": "P2O5",
+                "text": "26 kg P/ha as DAP (59.6 kg P2O5/ha)"
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 52.4,
+                  "max": 52.4,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 129.6,
+                  "max": 129.6,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 23.3,
+                    "max": 23.3
+                  },
+                  "P2O5": {
+                    "min": 59.6,
+                    "max": 59.6
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "Top-dress",
+              "method": "Apply in a ring or band a short distance from the plant and cover with soil; do not put it on the leaves.",
+              "product_id": "can",
+              "reported": {
+                "basis": "nutrient_target",
+                "per": "ha",
+                "unit": "kg",
+                "min": 75,
+                "max": 75,
+                "nutrient": "N",
+                "text": "75 kg N/ha as CAN"
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 116.7,
+                  "max": 116.7,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 288.5,
+                  "max": 288.5,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 75.0,
+                    "max": 75.0
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "Treatment used in KALRO field trials in western Kenya; the same trial also tested adding 2 t/ha of lime. Product amounts are derived from the nutrient rates.",
+          "evidence": {
+            "level": "research_institution",
+            "source_ids": [
+              "F23"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 98.3,
+              "max": 98.3
+            },
+            "P2O5": {
+              "min": 59.6,
+              "max": 59.6
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "maize-fuo-central-high-yield",
+          "label": "IFDC FUO, Central, higher yield goal (over 4 t/ha), highest budget level",
+          "budget_level": "high",
+          "applies_to": {
+            "scope": "region",
+            "region": "Central"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Place in the planting hole or furrow and mix with soil; keep it from touching the seed.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 81,
+                "max": 81
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 81.0,
+                  "max": 81.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 200.2,
+                  "max": 200.2,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 36.0,
+                    "max": 36.0
+                  },
+                  "P2O5": {
+                    "min": 92.1,
+                    "max": 92.1
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "6 weeks after planting",
+              "method": "Apply in a ring or band a short distance from the plant and cover with soil; do not put it on the leaves.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 25,
+                "max": 25
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 25.0,
+                  "max": 25.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 61.8,
+                  "max": 61.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 16.1,
+                    "max": 16.1
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "Level 3 (profit-maximising) example for a high-yield field. The same paper gives much lower rates for lower yield goals and budgets (for example 11 kg DAP per acre).",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F4"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 52.1,
+              "max": 52.1
+            },
+            "P2O5": {
+              "min": 92.1,
+              "max": 92.1
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "maize-fuo-western-lower-medium",
+          "label": "IFDC FUO, Western lower (2023), medium budget",
+          "budget_level": "medium",
+          "applies_to": {
+            "scope": "region",
+            "region": "Western lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Place in the planting hole or furrow and mix with soil; keep it from touching the seed.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 44,
+                "max": 44
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 44.0,
+                  "max": 44.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 108.7,
+                  "max": 108.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 19.6,
+                    "max": 19.6
+                  },
+                  "P2O5": {
+                    "min": 50.0,
+                    "max": 50.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "6 weeks after planting",
+              "method": "Apply in a ring or band a short distance from the plant and cover with soil; do not put it on the leaves.",
+              "product_id": "urea",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 18,
+                "max": 18
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 18.0,
+                  "max": 18.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 44.5,
+                  "max": 44.5,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 20.5,
+                    "max": 20.5
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F8"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 40.1,
+              "max": 40.1
+            },
+            "P2O5": {
+              "min": 50.0,
+              "max": 50.0
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "maize-fuo-western-lower-high",
+          "label": "IFDC FUO, Western lower (2023), higher-rate example (budget level not stated in the retrieved text)",
+          "budget_level": "higher",
+          "applies_to": {
+            "scope": "region",
+            "region": "Western lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Place in the planting hole or furrow and mix with soil; keep it from touching the seed.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 72,
+                "max": 72
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 72.0,
+                  "max": 72.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 177.9,
+                  "max": 177.9,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 32.0,
+                    "max": 32.0
+                  },
+                  "P2O5": {
+                    "min": 81.8,
+                    "max": 81.8
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At planting",
+              "method": "Place in the planting hole or furrow and mix with soil; keep it from touching the seed.",
+              "product_id": "mop",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 11,
+                "max": 11
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 11.0,
+                  "max": 11.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 27.2,
+                  "max": 27.2,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 16.3,
+                    "max": 16.3
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": "Potassium is only included at the higher budget level."
+            },
+            {
+              "timing": "6 weeks after planting",
+              "method": "Apply in a ring or band a short distance from the plant and cover with soil; do not put it on the leaves.",
+              "product_id": "urea",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 24,
+                "max": 24
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 24.0,
+                  "max": 24.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 59.3,
+                  "max": 59.3,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 27.3,
+                    "max": 27.3
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F8"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 59.3,
+              "max": 59.3
+            },
+            "P2O5": {
+              "min": 81.8,
+              "max": 81.8
+            },
+            "K2O": {
+              "min": 16.3,
+              "max": 16.3
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "Where soil pH is below about 5.5, DAP adds to acidity: test the soil and consider lime, TSP or manure (see soil_guidance and lime).",
+        "KALRO-IPI trials found a clear maize response to potassium (40 kg K2O/ha) in Bungoma and Trans Nzoia, so potassium may be needed in some western soils (unpublished 2018 result reported in F3)."
+      ],
+      "regional_variation": "IFDC FUO papers (F4 to F8) give maize DAP at planting from about 11 to 81 kg per acre and top-dress CAN from about 12 to 54 kg per acre (or urea about 18 to 36 kg), depending on region, yield goal and budget."
+    },
+    {
+      "crop_id": "beans",
+      "status": "sourced",
+      "summary": "Beans need much less fertilizer than maize. IFDC's Eastern-lower example is banded DAP at planting, with a little CAN at higher budgets. Government guidance (50 kg/ha DAP) is described as low but beans are often intercropped.",
+      "lime_target_ph": {
+        "min": 6.0,
+        "max": 6.5,
+        "source_ids": [
+          "F2"
+        ]
+      },
+      "programs": [
+        {
+          "program_id": "beans-fuo-eastern-lower-low",
+          "label": "IFDC FUO, Eastern lower, low budget",
+          "budget_level": "low",
+          "applies_to": {
+            "scope": "region",
+            "region": "Eastern lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 11,
+                "max": 11
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 11.0,
+                  "max": 11.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 27.2,
+                  "max": 27.2,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 4.9,
+                    "max": 4.9
+                  },
+                  "P2O5": {
+                    "min": 12.5,
+                    "max": 12.5
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F5"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 4.9,
+              "max": 4.9
+            },
+            "P2O5": {
+              "min": 12.5,
+              "max": 12.5
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "beans-fuo-eastern-lower-medium",
+          "label": "IFDC FUO, Eastern lower, medium budget",
+          "budget_level": "medium",
+          "applies_to": {
+            "scope": "region",
+            "region": "Eastern lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 24,
+                "max": 24
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 24.0,
+                  "max": 24.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 59.3,
+                  "max": 59.3,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 10.7,
+                    "max": 10.7
+                  },
+                  "P2O5": {
+                    "min": 27.3,
+                    "max": 27.3
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 12,
+                "max": 12
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 12.0,
+                  "max": 12.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 29.7,
+                  "max": 29.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 7.7,
+                    "max": 7.7
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F5"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 18.4,
+              "max": 18.4
+            },
+            "P2O5": {
+              "min": 27.3,
+              "max": 27.3
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "beans-fuo-eastern-lower-high",
+          "label": "IFDC FUO, Eastern lower, highest budget",
+          "budget_level": "high",
+          "applies_to": {
+            "scope": "region",
+            "region": "Eastern lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 32,
+                "max": 32
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 32.0,
+                  "max": 32.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 79.1,
+                  "max": 79.1,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 14.2,
+                    "max": 14.2
+                  },
+                  "P2O5": {
+                    "min": 36.4,
+                    "max": 36.4
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 18,
+                "max": 18
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 18.0,
+                  "max": 18.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 44.5,
+                  "max": 44.5,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 11.6,
+                    "max": 11.6
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F5"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 25.8,
+              "max": 25.8
+            },
+            "P2O5": {
+              "min": 36.4,
+              "max": 36.4
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "beans-government-basal",
+          "label": "Government basal recommendation: 50 kg/ha DAP",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "national_general",
+            "region": null
+          },
+          "status": "general_default",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "ha",
+                "unit": "kg",
+                "min": 50,
+                "max": 50
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 20.2,
+                  "max": 20.2,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 50.0,
+                  "max": 50.0,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 9.0,
+                    "max": 9.0
+                  },
+                  "P2O5": {
+                    "min": 23.0,
+                    "max": 23.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "Reported in the AGRA/IFDC assessment as the government rate; it considers this low, but notes beans are often intercropped with a fertilized cereal.",
+          "evidence": {
+            "level": "research_institution",
+            "source_ids": [
+              "F1"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 9.0,
+              "max": 9.0
+            },
+            "P2O5": {
+              "min": 23.0,
+              "max": 23.0
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "Beans respond to zinc and boron where these are deficient, and need sulphur; basic DAP does not supply them (F1).",
+        "Highly acid soils reduce nitrogen fixation: check pH before relying on nodulation."
+      ],
+      "regional_variation": "Rates in IFDC papers range from about 10 to 32 kg DAP per acre depending on region and budget."
+    },
+    {
+      "crop_id": "potatoes",
+      "status": "sourced",
+      "summary": "Potatoes take up a lot of potassium. The old government rate (four 50 kg bags of DAP per acre) is criticised as costly and potassium-free. Regional examples use less DAP plus split CAN; check potassium with a soil test.",
+      "lime_target_ph": {
+        "min": 5.8,
+        "max": 6.5,
+        "source_ids": [
+          "F2"
+        ]
+      },
+      "programs": [
+        {
+          "program_id": "potatoes-fuo-eastern-lower-medium",
+          "label": "IFDC FUO, Eastern lower, medium budget",
+          "budget_level": "medium",
+          "applies_to": {
+            "scope": "region",
+            "region": "Eastern lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 27,
+                "max": 27
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 27.0,
+                  "max": 27.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 66.7,
+                  "max": 66.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 12.0,
+                    "max": 12.0
+                  },
+                  "P2O5": {
+                    "min": 30.7,
+                    "max": 30.7
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "4 weeks after emergence",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 40,
+                "max": 40
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 40.0,
+                  "max": 40.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 98.8,
+                  "max": 98.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 25.7,
+                    "max": 25.7
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "6 weeks after emergence",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 41,
+                "max": 41
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 41.0,
+                  "max": 41.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 101.3,
+                  "max": 101.3,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 26.3,
+                    "max": 26.3
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F5"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 64.0,
+              "max": 64.0
+            },
+            "P2O5": {
+              "min": 30.7,
+              "max": 30.7
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "potatoes-fuo-eastern-lower-high",
+          "label": "IFDC FUO, Eastern lower, highest budget",
+          "budget_level": "high",
+          "applies_to": {
+            "scope": "region",
+            "region": "Eastern lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 61,
+                "max": 61
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 61.0,
+                  "max": 61.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 150.7,
+                  "max": 150.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 27.1,
+                    "max": 27.1
+                  },
+                  "P2O5": {
+                    "min": 69.3,
+                    "max": 69.3
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "4 weeks after emergence",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 40,
+                "max": 40
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 40.0,
+                  "max": 40.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 98.8,
+                  "max": 98.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 25.7,
+                    "max": 25.7
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "6 weeks after emergence",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 41,
+                "max": 41
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 41.0,
+                  "max": 41.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 101.3,
+                  "max": 101.3,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 26.3,
+                    "max": 26.3
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F5"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 79.1,
+              "max": 79.1
+            },
+            "P2O5": {
+              "min": 69.3,
+              "max": 69.3
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "potatoes-fuo-rift-lower-low",
+          "label": "IFDC FUO, Rift Valley lower, lowest budget",
+          "budget_level": "low",
+          "applies_to": {
+            "scope": "region",
+            "region": "Rift Valley lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 66,
+                "max": 66
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 66.0,
+                  "max": 66.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 163.1,
+                  "max": 163.1,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 29.4,
+                    "max": 29.4
+                  },
+                  "P2O5": {
+                    "min": 75.0,
+                    "max": 75.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At flowering",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "urea",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 28,
+                "max": 28
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 28.0,
+                  "max": 28.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 69.2,
+                  "max": 69.2,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 31.8,
+                    "max": 31.8
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [
+                {
+                  "product_id": "can",
+                  "reported": {
+                    "basis": "product_rate",
+                    "per": "acre",
+                    "unit": "kg",
+                    "min": 41,
+                    "max": 41
+                  },
+                  "derived": {
+                    "rate_per_acre": {
+                      "min": 41.0,
+                      "max": 41.0,
+                      "unit": "kg"
+                    },
+                    "rate_per_ha": {
+                      "min": 101.3,
+                      "max": 101.3,
+                      "unit": "kg"
+                    },
+                    "rate_per_tree": null,
+                    "nutrients_kg_per_ha": {
+                      "N": {
+                        "min": 26.3,
+                        "max": 26.3
+                      },
+                      "P2O5": {
+                        "min": 0.0,
+                        "max": 0.0
+                      },
+                      "K2O": {
+                        "min": 0.0,
+                        "max": 0.0
+                      }
+                    }
+                  }
+                }
+              ],
+              "notes": "Source gives urea 28 kg or CAN 41 kg per acre as equivalent options."
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F6"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 61.2,
+              "max": 61.2
+            },
+            "P2O5": {
+              "min": 75.0,
+              "max": 75.0
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "potatoes-government-legacy",
+          "label": "Legacy government rate: 494 kg/ha DAP (about 4 bags per acre)",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "national_general",
+            "region": null
+          },
+          "status": "legacy_not_advised",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "ha",
+                "unit": "kg",
+                "min": 494,
+                "max": 494
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 199.9,
+                  "max": 199.9,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 494.0,
+                  "max": 494.0,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 88.9,
+                    "max": 88.9
+                  },
+                  "P2O5": {
+                    "min": 227.2,
+                    "max": 227.2
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "Listed only so the app can recognise what many farmers do. The AGRA/IFDC assessment calls it very poor for potatoes: it over-supplies phosphorus and gives no potassium, and yields were far lower than with multi-nutrient programmes in company demonstrations.",
+          "evidence": {
+            "level": "research_institution",
+            "source_ids": [
+              "F1"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 88.9,
+              "max": 88.9
+            },
+            "P2O5": {
+              "min": 227.2,
+              "max": 227.2
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "Potatoes remove large amounts of potassium (about 284 kg K2O/ha in the AGRA/IFDC nutrient-removal table). The regional programmes above supply little or none, so ask for a soil test or a K-containing compound.",
+        "Potato pH target 5.8 to 6.5 (KALRO); very high pH can encourage scab (general knowledge)."
+      ],
+      "regional_variation": "DAP at planting ranges from about 27 to 66 kg per acre in IFDC examples, plus 28 to 81 kg of top-dress nitrogen fertilizer."
+    },
+    {
+      "crop_id": "tomatoes",
+      "status": "sourced",
+      "summary": "Ministry of Agriculture guidance: manure and phosphorus at transplanting, then CAN in two splits. Rates are general; use a soil test.",
+      "lime_target_ph": {
+        "min": 5.5,
+        "max": 7.0,
+        "source_ids": [
+          "F2"
+        ]
+      },
+      "programs": [
+        {
+          "program_id": "tomatoes-ministry-shep",
+          "label": "Ministry (SHEP PLUS) general recommendation",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "national_general",
+            "region": null
+          },
+          "status": "general_default",
+          "steps": [
+            {
+              "timing": "At transplanting",
+              "method": "Put 2 to 3 handfuls in each planting hole and mix with soil.",
+              "product_id": "farmyard_manure",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "t",
+                "min": 8,
+                "max": 8
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 8.0,
+                  "max": 8.0,
+                  "unit": "t"
+                },
+                "rate_per_ha": {
+                  "min": 19.8,
+                  "max": 19.8,
+                  "unit": "t"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": null
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At transplanting",
+              "method": "About 2 bottle tops (10 g) per planting hole; mix well with soil.",
+              "product_id": "tsp",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 80,
+                "max": 80
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 80.0,
+                  "max": 80.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 197.7,
+                  "max": 197.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "P2O5": {
+                    "min": 90.9,
+                    "max": 90.9
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "4 weeks after transplanting",
+              "method": "Circular band around the stem.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 40,
+                "max": 40
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 40.0,
+                  "max": 40.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 98.8,
+                  "max": 98.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 25.7,
+                    "max": 25.7
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "8 weeks after transplanting",
+              "method": "Circular band around the stem.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 80,
+                "max": 80
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 80.0,
+                  "max": 80.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 197.7,
+                  "max": 197.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 51.4,
+                    "max": 51.4
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "Source also advises muriate of potash to improve potassium availability (no rate given) and stresses that soil analysis gives farm-specific amounts. Inadequate top-dressing can cause hollow fruit (potassium) and blossom-end rot (nitrogen, calcium and moisture imbalance).",
+          "evidence": {
+            "level": "ministry_extension",
+            "source_ids": [
+              "F9"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 77.1,
+              "max": 77.1
+            },
+            "P2O5": {
+              "min": 90.9,
+              "max": 90.9
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "The source's ecological pH range for tomatoes is 6.0 to 7.5, while KALRO's liming table gives 5.5 to 7.0: aim for the soil test recommendation.",
+        "Acid soils (pH 5.0 to 5.6) with excess nitrogen can worsen Fusarium wilt; the Ministry advises raising pH with lime or manure and avoiding excess nitrogen."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "wheat",
+      "status": "sourced",
+      "summary": "IFDC regional examples: banded DAP at planting and CAN or urea at the stage the source calls panicle initiation; potassium only at the highest budget in Central.",
+      "lime_target_ph": {
+        "min": 6.3,
+        "max": 6.5,
+        "source_ids": [
+          "F2"
+        ]
+      },
+      "programs": [
+        {
+          "program_id": "wheat-fuo-central-lower-yield",
+          "label": "IFDC FUO, Central, lower yield goal (under 3 t/ha), medium budget",
+          "budget_level": "medium",
+          "applies_to": {
+            "scope": "region",
+            "region": "Central"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 25,
+                "max": 25
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 25.0,
+                  "max": 25.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 61.8,
+                  "max": 61.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 11.1,
+                    "max": 11.1
+                  },
+                  "P2O5": {
+                    "min": 28.4,
+                    "max": 28.4
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At panicle initiation (stage name as used in the source)",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 22,
+                "max": 22
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 22.0,
+                  "max": 22.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 54.4,
+                  "max": 54.4,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 14.1,
+                    "max": 14.1
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F4"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 25.2,
+              "max": 25.2
+            },
+            "P2O5": {
+              "min": 28.4,
+              "max": 28.4
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "wheat-fuo-central-high-yield",
+          "label": "IFDC FUO, Central, higher yield goal (over 3 t/ha), highest budget",
+          "budget_level": "high",
+          "applies_to": {
+            "scope": "region",
+            "region": "Central"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 61,
+                "max": 61
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 61.0,
+                  "max": 61.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 150.7,
+                  "max": 150.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 27.1,
+                    "max": 27.1
+                  },
+                  "P2O5": {
+                    "min": 69.3,
+                    "max": 69.3
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "mop",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 16,
+                "max": 16
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 16.0,
+                  "max": 16.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 39.5,
+                  "max": 39.5,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 23.7,
+                    "max": 23.7
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At panicle initiation (stage name as used in the source)",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 36,
+                "max": 36
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 36.0,
+                  "max": 36.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 89.0,
+                  "max": 89.0,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 23.1,
+                    "max": 23.1
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F4"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 50.2,
+              "max": 50.2
+            },
+            "P2O5": {
+              "min": 69.3,
+              "max": 69.3
+            },
+            "K2O": {
+              "min": 23.7,
+              "max": 23.7
+            }
+          }
+        },
+        {
+          "program_id": "wheat-fuo-rift-lower-low",
+          "label": "IFDC FUO, Rift Valley lower, lowest budget",
+          "budget_level": "low",
+          "applies_to": {
+            "scope": "region",
+            "region": "Rift Valley lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 14,
+                "max": 14
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 14.0,
+                  "max": 14.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 34.6,
+                  "max": 34.6,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 6.2,
+                    "max": 6.2
+                  },
+                  "P2O5": {
+                    "min": 15.9,
+                    "max": 15.9
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At panicle initiation (stage name as used in the source)",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "urea",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 13,
+                "max": 13
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 13.0,
+                  "max": 13.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 32.1,
+                  "max": 32.1,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 14.8,
+                    "max": 14.8
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [
+                {
+                  "product_id": "can",
+                  "reported": {
+                    "basis": "product_rate",
+                    "per": "acre",
+                    "unit": "kg",
+                    "min": 10,
+                    "max": 10
+                  },
+                  "derived": {
+                    "rate_per_acre": {
+                      "min": 10.0,
+                      "max": 10.0,
+                      "unit": "kg"
+                    },
+                    "rate_per_ha": {
+                      "min": 24.7,
+                      "max": 24.7,
+                      "unit": "kg"
+                    },
+                    "rate_per_tree": null,
+                    "nutrients_kg_per_ha": {
+                      "N": {
+                        "min": 6.4,
+                        "max": 6.4
+                      },
+                      "P2O5": {
+                        "min": 0.0,
+                        "max": 0.0
+                      },
+                      "K2O": {
+                        "min": 0.0,
+                        "max": 0.0
+                      }
+                    }
+                  }
+                }
+              ],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F6"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 21.0,
+              "max": 21.0
+            },
+            "P2O5": {
+              "min": 15.9,
+              "max": 15.9
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "wheat-fuo-rift-lower-higher",
+          "label": "IFDC FUO, Rift Valley lower, higher budget (Level 2 or 3 per the source)",
+          "budget_level": "higher",
+          "applies_to": {
+            "scope": "region",
+            "region": "Rift Valley lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 27,
+                "max": 27
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 27.0,
+                  "max": 27.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 66.7,
+                  "max": 66.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 12.0,
+                    "max": 12.0
+                  },
+                  "P2O5": {
+                    "min": 30.7,
+                    "max": 30.7
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At panicle initiation (stage name as used in the source)",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "urea",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 27,
+                "max": 27
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 27.0,
+                  "max": 27.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 66.7,
+                  "max": 66.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 30.7,
+                    "max": 30.7
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [
+                {
+                  "product_id": "can",
+                  "reported": {
+                    "basis": "product_rate",
+                    "per": "acre",
+                    "unit": "kg",
+                    "min": 36,
+                    "max": 36
+                  },
+                  "derived": {
+                    "rate_per_acre": {
+                      "min": 36.0,
+                      "max": 36.0,
+                      "unit": "kg"
+                    },
+                    "rate_per_ha": {
+                      "min": 89.0,
+                      "max": 89.0,
+                      "unit": "kg"
+                    },
+                    "rate_per_tree": null,
+                    "nutrients_kg_per_ha": {
+                      "N": {
+                        "min": 23.1,
+                        "max": 23.1
+                      },
+                      "P2O5": {
+                        "min": 0.0,
+                        "max": 0.0
+                      },
+                      "K2O": {
+                        "min": 0.0,
+                        "max": 0.0
+                      }
+                    }
+                  }
+                }
+              ],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F6"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 42.7,
+              "max": 42.7
+            },
+            "P2O5": {
+              "min": 30.7,
+              "max": 30.7
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "Copper deficiency has been reported in parts of Nakuru and Narok (see crops.json notes): ask about a soil test."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "rice",
+      "status": "sourced",
+      "summary": "One complete IFDC example for lowland rice (Central region): phosphorus and potassium broadcast at transplanting, CAN at panicle initiation. KALRO-IPI trials found rice responds to potassium at Mwea.",
+      "lime_target_ph": null,
+      "programs": [
+        {
+          "program_id": "rice-fuo-central-low",
+          "label": "IFDC FUO, Central, lowland rice, lowest budget level",
+          "budget_level": "low",
+          "applies_to": {
+            "scope": "region",
+            "region": "Central"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At transplanting",
+              "method": "Broadcast in a band (about 2 m wide) and incorporate.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 25,
+                "max": 25
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 25.0,
+                  "max": 25.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 61.8,
+                  "max": 61.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 11.1,
+                    "max": 11.1
+                  },
+                  "P2O5": {
+                    "min": 28.4,
+                    "max": 28.4
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At transplanting",
+              "method": "Broadcast in a band (about 2 m wide) and incorporate.",
+              "product_id": "mop",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 16,
+                "max": 16
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 16.0,
+                  "max": 16.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 39.5,
+                  "max": 39.5,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 23.7,
+                    "max": 23.7
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At panicle initiation",
+              "method": "Broadcast as a side dress.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 48,
+                "max": 48
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 48.0,
+                  "max": 48.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 118.6,
+                  "max": 118.6,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 30.8,
+                    "max": 30.8
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "The paper's higher level uses more DAP and MOP; its top-dress detail was not complete in the retrieved text.",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F4"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 41.9,
+              "max": 41.9
+            },
+            "P2O5": {
+              "min": 28.4,
+              "max": 28.4
+            },
+            "K2O": {
+              "min": 23.7,
+              "max": 23.7
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "KALRO-IPI trials (unpublished, 2018, reported in F3) found a clear rice response to 80 kg K2O/ha at Mwea, which is more potassium than this example supplies.",
+        "The Western lower paper (F8) gives 42 kg DAP and 19 kg KCl per acre at transplanting for rice; its top-dress detail was not complete in the retrieved text."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "sorghum",
+      "status": "sourced",
+      "summary": "Low rates in IFDC examples: banded DAP at planting and a small urea top-dress at panicle initiation.",
+      "lime_target_ph": {
+        "min": 6.5,
+        "max": 7.5,
+        "source_ids": [
+          "F2"
+        ]
+      },
+      "programs": [
+        {
+          "program_id": "sorghum-fuo-western-lower",
+          "label": "IFDC FUO, Western lower (2018 and 2023)",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "region",
+            "region": "Western lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 23,
+                "max": 26
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 23.0,
+                  "max": 26.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 56.8,
+                  "max": 64.2,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 10.2,
+                    "max": 11.6
+                  },
+                  "P2O5": {
+                    "min": 26.1,
+                    "max": 29.6
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At panicle initiation (45 to 50 days after emergence)",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "urea",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 12,
+                "max": 13
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 12.0,
+                  "max": 13.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 29.7,
+                  "max": 32.1,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 13.6,
+                    "max": 14.8
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F7",
+              "F8"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 23.8,
+              "max": 26.4
+            },
+            "P2O5": {
+              "min": 26.1,
+              "max": 29.6
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        },
+        {
+          "program_id": "sorghum-fuo-eastern-lower-high",
+          "label": "IFDC FUO, Eastern lower, highest budget",
+          "budget_level": "high",
+          "applies_to": {
+            "scope": "region",
+            "region": "Eastern lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At planting",
+              "method": "Band along the row and mix lightly with soil.",
+              "product_id": "dap",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 10,
+                "max": 10
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 10.0,
+                  "max": 10.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 24.7,
+                  "max": 24.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 4.4,
+                    "max": 4.4
+                  },
+                  "P2O5": {
+                    "min": 11.4,
+                    "max": 11.4
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F5"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 4.4,
+              "max": 4.4
+            },
+            "P2O5": {
+              "min": 11.4,
+              "max": 11.4
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "Government sorghum guidance in F1 is similar in scale (about 124 kg/ha DAP plus a CAN top-dress)."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "finger_millet",
+      "status": "not_yet_sourced",
+      "summary": "No Kenyan fertilizer recommendation was retrieved for this crop. Use a soil test and local extension advice.",
+      "lime_target_ph": null,
+      "programs": [],
+      "nutrient_limits": [],
+      "cautions": [
+        "Finger millet is a low-input crop; manure is the usual first option (general knowledge)."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "cassava",
+      "status": "not_yet_sourced",
+      "summary": "No Kenyan fertilizer recommendation was retrieved for this crop. Use a soil test and local extension advice.",
+      "lime_target_ph": null,
+      "programs": [],
+      "nutrient_limits": [],
+      "cautions": [
+        "Cassava has modest nutrient demand; potassium is often limiting on poor soils (general knowledge)."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "sweet_potatoes",
+      "status": "not_yet_sourced",
+      "summary": "No Kenyan fertilizer recommendation was retrieved for this crop. Use a soil test and local extension advice.",
+      "lime_target_ph": null,
+      "programs": [],
+      "nutrient_limits": [],
+      "cautions": [
+        "Sweet potatoes respond to potassium and to organic matter; avoid heavy nitrogen, which favours vines over roots (general knowledge)."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "cowpeas",
+      "status": "not_yet_sourced",
+      "summary": "No Kenyan fertilizer recommendation was retrieved for this crop. Use a soil test and local extension advice.",
+      "lime_target_ph": null,
+      "programs": [],
+      "nutrient_limits": [],
+      "cautions": [
+        "Cowpeas fix their own nitrogen; phosphorus is usually the limiting nutrient on poor soils (general knowledge)."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "kale",
+      "status": "sourced",
+      "summary": "Ministry of Agriculture guidance: manure and TSP at transplanting, then two CAN top-dressings.",
+      "lime_target_ph": null,
+      "programs": [
+        {
+          "program_id": "kale-ministry-shep",
+          "label": "Ministry (SHEP PLUS) general recommendation",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "national_general",
+            "region": null
+          },
+          "status": "general_default",
+          "steps": [
+            {
+              "timing": "1 to 2 weeks before transplanting",
+              "method": "Broadcast and work into the soil; or put 1 to 2 handfuls in each planting hole at transplanting.",
+              "product_id": "farmyard_manure",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "t",
+                "min": 5,
+                "max": 8
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 5.0,
+                  "max": 8.0,
+                  "unit": "t"
+                },
+                "rate_per_ha": {
+                  "min": 12.4,
+                  "max": 19.8,
+                  "unit": "t"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": null
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At transplanting",
+              "method": "Place in the planting holes and mix with soil.",
+              "product_id": "tsp",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 80,
+                "max": 80
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 80.0,
+                  "max": 80.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 197.7,
+                  "max": 197.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "P2O5": {
+                    "min": 90.9,
+                    "max": 90.9
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "When plants are about 20 cm tall",
+              "method": "Placement method (next to the plants) is more effective and economical than broadcasting.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 40,
+                "max": 40
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 40.0,
+                  "max": 40.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 98.8,
+                  "max": 98.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 25.7,
+                    "max": 25.7
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "About 3 weeks after the first top-dressing",
+              "method": "Placement method.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 80,
+                "max": 80
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 80.0,
+                  "max": 80.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 197.7,
+                  "max": 197.7,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 51.4,
+                    "max": 51.4
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "Only thoroughly composted manure should be used. The source stresses soil testing to decide the type and amount of fertilizer.",
+          "evidence": {
+            "level": "ministry_extension",
+            "source_ids": [
+              "F10"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 77.1,
+              "max": 77.1
+            },
+            "P2O5": {
+              "min": 90.9,
+              "max": 90.9
+            },
+            "K2O": {
+              "min": 0.0,
+              "max": 0.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "Kale is picked over many weeks; repeat top-dressing only on advice, since the source gives two top-dressings."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "bananas",
+      "status": "partial",
+      "summary": "One regional source (IFDC, Western lower): about 81 to 88 kg of NPK 17:17:17 per acre per year at the start of the rains, assuming 3 m x 3 m spacing, with urea added at a higher budget.",
+      "lime_target_ph": {
+        "min": 5.0,
+        "max": 6.5,
+        "source_ids": [
+          "F2"
+        ]
+      },
+      "programs": [
+        {
+          "program_id": "bananas-fuo-western-lower",
+          "label": "IFDC FUO, Western lower (2018 and 2023)",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "region",
+            "region": "Western lower"
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "At the start of the rainy season, every year",
+              "method": "Spread around each plant; the paper assumes 3 m x 3 m spacing (about 450 plants per acre).",
+              "product_id": "npk_17_17_17",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 81,
+                "max": 88
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 81.0,
+                  "max": 88.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 200.2,
+                  "max": 217.5,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 34.0,
+                    "max": 37.0
+                  },
+                  "P2O5": {
+                    "min": 34.0,
+                    "max": 37.0
+                  },
+                  "K2O": {
+                    "min": 34.0,
+                    "max": 37.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            },
+            {
+              "timing": "At the start of the rainy season (higher budget only; exact level not stated in the retrieved text)",
+              "method": "Spread around each plant.",
+              "product_id": "urea",
+              "reported": {
+                "basis": "product_rate",
+                "per": "acre",
+                "unit": "kg",
+                "min": 23,
+                "max": 23
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 23.0,
+                  "max": 23.0,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 56.8,
+                  "max": 56.8,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 26.1,
+                    "max": 26.1
+                  },
+                  "P2O5": {
+                    "min": 0.0,
+                    "max": 0.0
+                  },
+                  "K2O": {
+                    "min": 0.0,
+                    "max": 0.0
+                  }
+                }
+              },
+              "alternatives": [],
+              "notes": ""
+            }
+          ],
+          "notes": "",
+          "evidence": {
+            "level": "regional_research_programme",
+            "source_ids": [
+              "F7",
+              "F8"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 60.1,
+              "max": 63.1
+            },
+            "P2O5": {
+              "min": 34.0,
+              "max": 37.0
+            },
+            "K2O": {
+              "min": 34.0,
+              "max": 37.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [],
+      "cautions": [
+        "Only one regional source was found; manure and mulch are widely advised for bananas but no Kenyan rate was retrieved."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "coffee",
+      "status": "partial",
+      "summary": "The Coffee Research Foundation's firm limit is not to exceed 200 kg N/ha/year whatever the tree density, with rates expressed per tree and based on leaf and soil analysis. The per-tree examples below are reported grower practice, not an official prescription.",
+      "lime_target_ph": null,
+      "programs": [
+        {
+          "program_id": "coffee-reported-practice",
+          "label": "Reported grower practice for bearing trees (per tree, per year)",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "national_general",
+            "region": null
+          },
+          "status": "example",
+          "steps": [
+            {
+              "timing": "Split into 2 to 3 applications; one about 6 months before flowering",
+              "method": "Apply around the tree in the rooting zone, not against the stem.",
+              "product_id": "npk_17_17_17",
+              "reported": {
+                "basis": "product_rate",
+                "per": "tree",
+                "unit": "g",
+                "min": 250,
+                "max": 250
+              },
+              "derived": {
+                "rate_per_acre": null,
+                "rate_per_ha": null,
+                "rate_per_tree": {
+                  "min": 250.0,
+                  "max": 250.0,
+                  "unit": "g"
+                },
+                "nutrients_kg_per_ha": null
+              },
+              "alternatives": [],
+              "notes": "Reported as grower practice in a KALRO Coffee Research Institute trial (250 g per tree) and in an extension blog (250 g per tree per year split into 3)."
+            },
+            {
+              "timing": "In 2 splits during berry expansion",
+              "method": "Apply around the tree in the rooting zone.",
+              "product_id": "can",
+              "reported": {
+                "basis": "product_rate",
+                "per": "tree",
+                "unit": "g",
+                "min": 300,
+                "max": 300
+              },
+              "derived": {
+                "rate_per_acre": null,
+                "rate_per_ha": null,
+                "rate_per_tree": {
+                  "min": 300.0,
+                  "max": 300.0,
+                  "unit": "g"
+                },
+                "nutrients_kg_per_ha": null
+              },
+              "alternatives": [],
+              "notes": "Grower practice in the same trial: 300 g CAN per tree, 150 g in each of two splits."
+            }
+          ],
+          "notes": "At the traditional 2.75 m x 2.75 m spacing (about 1,322 trees/ha) these two steps together supply about 159 kg N/ha, below the 200 kg N/ha ceiling. At closer spacing, reduce the per-tree rate so the ceiling is not exceeded.",
+          "evidence": {
+            "level": "extension_practice",
+            "source_ids": [
+              "F18",
+              "F24"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": null
+        }
+      ],
+      "nutrient_limits": [
+        {
+          "nutrient": "N",
+          "max_kg_per_ha_per_year": 200,
+          "source_ids": [
+            "F17"
+          ],
+          "note": "Coffee Research Foundation ceiling per hectare per year."
+        }
+      ],
+      "cautions": [
+        "The ceiling of 200 kg N/ha/year applies whatever the tree density (Coffee Research Foundation Technical Circular No. 59).",
+        "Base rates on soil and leaf analysis; coffee soils are often acid, so avoid heavy DAP use there.",
+        "These per-tree figures come from a company trial sheet and an extension blog, so confidence is lower than for tea."
+      ],
+      "regional_variation": null
+    },
+    {
+      "crop_id": "tea",
+      "status": "sourced",
+      "summary": "KALRO Tea Research Institute recommends 100 to 250 kg N/ha/year, with 200 to 250 considered optimal. Use NPKS 25:5:5:5 or NPK 20:10:10. Going beyond about 300 kg N/ha gives no extra yield.",
+      "lime_target_ph": null,
+      "programs": [
+        {
+          "program_id": "tea-kalro-nitrogen",
+          "label": "KALRO Tea Research Institute annual nitrogen programme",
+          "budget_level": null,
+          "applies_to": {
+            "scope": "national_general",
+            "region": null
+          },
+          "status": "general_default",
+          "steps": [
+            {
+              "timing": "Once or twice a year (older report: April-May and September-October); splitting into 2 or 3 applications gave no yield difference",
+              "method": "Spread evenly under the plucking table or as advised by the Tea Research Institute.",
+              "product_id": "npks_25_5_5_5",
+              "reported": {
+                "basis": "nutrient_target",
+                "per": "ha",
+                "unit": "kg",
+                "min": 100,
+                "max": 250,
+                "nutrient": "N",
+                "text": "100 to 250 kg N/ha/year; 200 to 250 considered optimal"
+              },
+              "derived": {
+                "rate_per_acre": {
+                  "min": 161.9,
+                  "max": 404.7,
+                  "unit": "kg"
+                },
+                "rate_per_ha": {
+                  "min": 400.0,
+                  "max": 1000.0,
+                  "unit": "kg"
+                },
+                "rate_per_tree": null,
+                "nutrients_kg_per_ha": {
+                  "N": {
+                    "min": 100.0,
+                    "max": 250.0
+                  },
+                  "P2O5": {
+                    "min": 20.0,
+                    "max": 50.0
+                  },
+                  "K2O": {
+                    "min": 20.0,
+                    "max": 50.0
+                  }
+                }
+              },
+              "alternatives": [
+                {
+                  "product_id": "npk_20_10_10",
+                  "reported": {
+                    "basis": "nutrient_target",
+                    "per": "ha",
+                    "unit": "kg",
+                    "min": 100,
+                    "max": 250,
+                    "nutrient": "N",
+                    "text": "same nitrogen rate"
+                  },
+                  "derived": {
+                    "rate_per_acre": {
+                      "min": 202.3,
+                      "max": 505.8,
+                      "unit": "kg"
+                    },
+                    "rate_per_ha": {
+                      "min": 500.0,
+                      "max": 1250.0,
+                      "unit": "kg"
+                    },
+                    "rate_per_tree": null,
+                    "nutrients_kg_per_ha": {
+                      "N": {
+                        "min": 100.0,
+                        "max": 250.0
+                      },
+                      "P2O5": {
+                        "min": 50.0,
+                        "max": 125.0
+                      },
+                      "K2O": {
+                        "min": 50.0,
+                        "max": 125.0
+                      }
+                    }
+                  }
+                }
+              ],
+              "notes": "Product amounts are derived from the nitrogen rate. Use the lower end for young or low-yielding tea and the optimal range for mature, well-managed clones."
+            }
+          ],
+          "notes": "Quantities of 200 to 250 kg N/ha/year were optimal in a long-term study on a high-yielding clone, with peak yield near 300. NPKS 25:5:5:5 and NPK 20:10:10 gave the same yields; 25:5:5:5 acidified the soil more.",
+          "evidence": {
+            "level": "research_institution",
+            "source_ids": [
+              "F12",
+              "F13",
+              "F14",
+              "F16"
+            ]
+          },
+          "nutrients_supplied_kg_per_ha": {
+            "N": {
+              "min": 100.0,
+              "max": 250.0
+            },
+            "P2O5": {
+              "min": 20.0,
+              "max": 50.0
+            },
+            "K2O": {
+              "min": 20.0,
+              "max": 50.0
+            }
+          }
+        }
+      ],
+      "nutrient_limits": [
+        {
+          "nutrient": "N",
+          "max_kg_per_ha_per_year": 300,
+          "note": "Yield peaked near 300 kg N/ha; beyond that extra nitrogen was not used efficiently (F14)."
+        }
+      ],
+      "cautions": [
+        "Tea needs acid soil: do not lime tea soils.",
+        "Zinc has been supplied as a foliar spray or dust in tea (for example 3 kg zinc sulphate/ha, older report F16); follow Tea Research Institute advice.",
+        "Rates are for the whole year and for mature tea; ask the buying factory or KALRO TRI for rates for young tea."
+      ],
+      "regional_variation": null
+    }
+  ],
+  "soil_guidance": [
+    {
+      "soil_id": "nitisols",
+      "flags": {
+        "liming_relevance": "likely",
+        "phosphorus_fixation": true,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil is typically acid. Test pH before fertilizing; lime is likely to be needed for most crops (not tea).",
+        "Phosphorus is easily fixed by this soil: place phosphorus fertilizer close to the roots (planting hole or band) rather than broadcasting."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "andosols",
+      "flags": {
+        "liming_relevance": "likely",
+        "phosphorus_fixation": true,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil is typically acid. Test pH before fertilizing; lime is likely to be needed for most crops (not tea).",
+        "Phosphorus is easily fixed by this soil: place phosphorus fertilizer close to the roots (planting hole or band) rather than broadcasting."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "ferralsols",
+      "flags": {
+        "liming_relevance": "likely",
+        "phosphorus_fixation": true,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil is typically acid. Test pH before fertilizing; lime is likely to be needed for most crops (not tea).",
+        "Phosphorus is easily fixed by this soil: place phosphorus fertilizer close to the roots (planting hole or band) rather than broadcasting."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "acrisols",
+      "flags": {
+        "liming_relevance": "likely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil is typically acid. Test pH before fertilizing; lime is likely to be needed for most crops (not tea)."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "lixisols",
+      "flags": {
+        "liming_relevance": "unlikely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil pH is usually adequate. Lime is unlikely to be needed unless a test shows otherwise."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "luvisols",
+      "flags": {
+        "liming_relevance": "unlikely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil pH is usually adequate. Lime is unlikely to be needed unless a test shows otherwise."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "cambisols",
+      "flags": {
+        "liming_relevance": "unlikely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil pH is usually adequate. Lime is unlikely to be needed unless a test shows otherwise."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "vertisols",
+      "flags": {
+        "liming_relevance": "avoid_lime",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "high",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil is neutral to alkaline. Do not lime; high pH can lock up phosphorus and micronutrients.",
+        "The soil can be waterlogged: apply nitrogen when the soil is not saturated and improve drainage."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "planosols",
+      "flags": {
+        "liming_relevance": "possible",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "high",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil can be acid in places. Test pH; lime only if it is below the crop's target.",
+        "The soil can be waterlogged: apply nitrogen when the soil is not saturated and improve drainage."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "phaeozems",
+      "flags": {
+        "liming_relevance": "unlikely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil pH is usually adequate. Lime is unlikely to be needed unless a test shows otherwise."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "fluvisols",
+      "flags": {
+        "liming_relevance": "unlikely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "high",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil pH is usually adequate. Lime is unlikely to be needed unless a test shows otherwise.",
+        "The soil can be waterlogged: apply nitrogen when the soil is not saturated and improve drainage."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "arenosols",
+      "flags": {
+        "liming_relevance": "possible",
+        "phosphorus_fixation": false,
+        "leaching_risk": "high",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil can be acid in places. Test pH; lime only if it is below the crop's target.",
+        "Water drains very fast and nutrients leach: use smaller, more frequent applications and build organic matter."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "regosols",
+      "flags": {
+        "liming_relevance": "unlikely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "high",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil pH is usually adequate. Lime is unlikely to be needed unless a test shows otherwise.",
+        "Water drains very fast and nutrients leach: use smaller, more frequent applications and build organic matter."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "leptosols",
+      "flags": {
+        "liming_relevance": "unlikely",
+        "phosphorus_fixation": false,
+        "leaching_risk": "high",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil pH is usually adequate. Lime is unlikely to be needed unless a test shows otherwise.",
+        "Water drains very fast and nutrients leach: use smaller, more frequent applications and build organic matter."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "calcisols",
+      "flags": {
+        "liming_relevance": "avoid_lime",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil is neutral to alkaline. Do not lime; high pH can lock up phosphorus and micronutrients."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "solonetz",
+      "flags": {
+        "liming_relevance": "avoid_lime",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "high",
+        "salinity_sodicity_risk": "high"
+      },
+      "guidance": [
+        "Soil is neutral to alkaline. Do not lime; high pH can lock up phosphorus and micronutrients.",
+        "The soil can be waterlogged: apply nitrogen when the soil is not saturated and improve drainage.",
+        "Salinity or sodicity is a concern: fertilizer will not fix it; address drainage and water quality first."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "solonchaks",
+      "flags": {
+        "liming_relevance": "avoid_lime",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "high",
+        "salinity_sodicity_risk": "high"
+      },
+      "guidance": [
+        "Soil is neutral to alkaline. Do not lime; high pH can lock up phosphorus and micronutrients.",
+        "The soil can be waterlogged: apply nitrogen when the soil is not saturated and improve drainage.",
+        "Salinity or sodicity is a concern: fertilizer will not fix it; address drainage and water quality first."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "gypsisols",
+      "flags": {
+        "liming_relevance": "avoid_lime",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "normal",
+        "salinity_sodicity_risk": "moderate"
+      },
+      "guidance": [
+        "Soil is neutral to alkaline. Do not lime; high pH can lock up phosphorus and micronutrients.",
+        "Salinity or sodicity is a concern: fertilizer will not fix it; address drainage and water quality first."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    },
+    {
+      "soil_id": "gleysols",
+      "flags": {
+        "liming_relevance": "possible",
+        "phosphorus_fixation": false,
+        "leaching_risk": "normal",
+        "waterlogging_risk": "high",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "guidance": [
+        "Soil can be acid in places. Test pH; lime only if it is below the crop's target.",
+        "The soil can be waterlogged: apply nitrogen when the soil is not saturated and improve drainage."
+      ],
+      "basis": "Derived by fixed rules from soil.json (typical pH, drainage, texture, limiting factors); general agronomic reasoning, not a Kenyan trial result.",
+      "evidence_source_ids": [
+        "F25"
+      ]
+    }
+  ]
+}

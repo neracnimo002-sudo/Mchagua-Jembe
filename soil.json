@@ -1,0 +1,4262 @@
+{
+  "database_name": "FarmFriend Kenya Soil Database",
+  "version": "1.1.0",
+  "last_updated": "2026-11-04",
+  "links_to": {
+    "file": "location.json",
+    "key": "counties[].county_code"
+  },
+  "scope": [
+    "Kenya soil classification (FAO/WRB reference groups with legacy FAO-1974 names and USDA equivalents)",
+    "Soil characteristics",
+    "Soil distribution by geographic area (county level)",
+    "Drainage, fertility and pH characteristics"
+  ],
+  "data_quality": {
+    "summary": "Indicative, desk-based synthesis. Not field measurements and not a substitute for a soil test.",
+    "notes": [
+      "The authoritative national reference is the Kenya Soil Survey Exploratory Soil Map (Sombroek, Braun and van der Pouw, 1982, 1:1,000,000). It is regional-scale and does not resolve individual farms.",
+      "Soil classes, texture, drainage, fertility and pH ranges are typical values compiled from the cited sources and general soil-science knowledge. pH ranges are expected ranges, not measurements.",
+      "County-to-soil links tagged 'supported' are tied to a retrieved source. Links tagged 'general_knowledge' follow the broad pattern of the exploratory map but were not individually confirmed; all counties carry verification_status needs_verification_against_kss_map.",
+      "Soils vary strongly with altitude and landform inside a county. Counties list the dominant and secondary groups only.",
+      "national_coverage_pct is only given for the ten most extensive groups, as read from a KARI slide deck (S4); verify before publishing."
+    ],
+    "follow_up_data_leads": [
+      "KENSOTER / SOTER Kenya database (ISRIC) for polygon-level soil attributes",
+      "iSDAsoil and ISRIC SoilGrids for point-level pH, texture and organic carbon from latitude/longitude",
+      "KALRO county soil fertility surveys (the S4 deck reports sampling in Baringo, Bungoma, Busia and Bomet)",
+      "KALRO / Kenya Soil Survey detailed and reconnaissance reports (e.g. Mashuru, Kajiado)"
+    ]
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "citation": "Sombroek, W.G., Braun, H.M.H. and van der Pouw, B.J.A. (1982). Exploratory Soil Map and Agro-Climatic Zone Map of Kenya, 1980. Kenya Soil Survey, Nairobi. Scale 1:1,000,000.",
+      "url": null,
+      "used_for": "National soil groups and their general geography."
+    },
+    {
+      "id": "S2",
+      "citation": "Gachene, C.K.K. and Kimaru, G. (2003). Soil Fertility and Land Productivity. RELMA. Presented by Infonet-Biovision, 'Kenyan Soils' / 'Major Soil Types in Kenya'.",
+      "url": "https://rachel.core2learn.org/modules/en-infonet/export/print$ct$266$soilManagement.html",
+      "used_for": "Soil descriptions, drainage, fertility, typical uses, Kenyan reference sites (mirror of Infonet-Biovision)."
+    },
+    {
+      "id": "S3",
+      "citation": "Kenya Soil Survey. The Distribution, Characteristics and Some Management Aspects of Acid Soils in Kenya (Wokabi). KALRO repository.",
+      "url": "https://kalroerepository.kalro.org/handle/0/8091",
+      "used_for": "Soil groups classed as acid (pH below 5.5 in the B horizon): Andosols, Ferralsols, Nitisols, Acrisols, Cambisols."
+    },
+    {
+      "id": "S4",
+      "citation": "Macharia, P. (KARI). The status of soil resources, needs and priorities towards sustainable soil management in Kenya. FAO Global Soil Partnership workshop, 25-27 March 2013.",
+      "url": "https://fao.org/fileadmin/user_upload/GSP/docs/South_east_partnership/Kenya.pdf",
+      "used_for": "Share of national area for the ten most extensive soil groups; county soil fertility sampling leads."
+    },
+    {
+      "id": "S5",
+      "citation": "Nyuma, H.T. and Churu, H. (2022). A Review on Challenges and Opportunities in Management of Soils of Arid and Semi-Arid Regions of Kenya. East African Journal of Environment and Natural Resources 5(1): 303-317.",
+      "url": "https://doi.org/10.37284/eajenr.5.1.840",
+      "used_for": "Dominant soil groups of the ASAL counties and their constraints."
+    },
+    {
+      "id": "S6",
+      "citation": "ISRIC World Soil Information, reference soil KE044 (Nitisols), Kenya.",
+      "url": "https://isis.isric.org/node/2582",
+      "used_for": "Reference Nitisol profile: very deep, well drained, clay, volcanic parent material."
+    },
+    {
+      "id": "S7",
+      "citation": "Kamoni, P.T. (1988). Nature and importance of soil-related constraints to bean production in Kenya. Kenya Soil Survey.",
+      "url": "https://agris.fao.org/search/en/records/6477543b5eb437ddff7536ec",
+      "used_for": "Soil groups of the main bean-growing areas."
+    },
+    {
+      "id": "S8",
+      "citation": "FAO. Kenya soil units legend (soil resources inventory of Kenya).",
+      "url": "https://www.fao.org/4/t0741e/T0741E08.htm",
+      "used_for": "Legacy FAO-UNESCO soil unit names (Nitosols, Xerosols/Yermosols, Lithosols, etc.)."
+    },
+    {
+      "id": "S9",
+      "citation": "PMC7839597, Table 1: dominant soils by district based on the harmonized soil atlas of Africa (WRB); lists Makueni as Ferralsols; includes USDA equivalents.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7839597/table/t0001",
+      "used_for": "Makueni Ferralsols; WRB-to-USDA equivalents."
+    }
+  ],
+  "reference_scales": {
+    "ph": [
+      {
+        "id": "very_acid",
+        "range": "below 5.0"
+      },
+      {
+        "id": "acid",
+        "range": "5.0 to 5.5",
+        "note": "KSS treats soils below pH 5.5 as acid."
+      },
+      {
+        "id": "slightly_acid",
+        "range": "5.6 to 6.5"
+      },
+      {
+        "id": "neutral",
+        "range": "6.6 to 7.3"
+      },
+      {
+        "id": "alkaline",
+        "range": "7.4 to 8.4"
+      },
+      {
+        "id": "strongly_alkaline",
+        "range": "above 8.4"
+      }
+    ],
+    "drainage": [
+      {
+        "id": "excessively_drained",
+        "meaning": "Water leaves very quickly (sandy or very shallow soils)."
+      },
+      {
+        "id": "well_drained",
+        "meaning": "Water leaves readily but not too fast."
+      },
+      {
+        "id": "moderately_well_drained",
+        "meaning": "Wet for short periods in the rains."
+      },
+      {
+        "id": "imperfectly_drained",
+        "meaning": "Wet for significant periods; mottling common."
+      },
+      {
+        "id": "poorly_drained",
+        "meaning": "Wet for long periods; waterlogging is common."
+      },
+      {
+        "id": "very_poorly_drained",
+        "meaning": "Saturated at or near the surface most of the year."
+      }
+    ],
+    "fertility": [
+      {
+        "id": "very_low"
+      },
+      {
+        "id": "low"
+      },
+      {
+        "id": "low_to_moderate"
+      },
+      {
+        "id": "moderate"
+      },
+      {
+        "id": "moderate_to_high"
+      },
+      {
+        "id": "high"
+      }
+    ],
+    "fertility_note": "Natural (inherent) fertility under typical conditions, not current nutrient status after years of cropping.",
+    "depth": [
+      "very_shallow",
+      "shallow",
+      "moderately_deep",
+      "deep",
+      "very_deep"
+    ],
+    "salinity_sodicity_risk": [
+      {
+        "id": "none_or_low",
+        "meaning": "Salts or sodium not normally a problem."
+      },
+      {
+        "id": "moderate",
+        "meaning": "Salt or gypsum build-up possible, especially under irrigation."
+      },
+      {
+        "id": "high",
+        "meaning": "Saline or sodic; most crops fail without reclamation."
+      }
+    ]
+  },
+  "farmer_texture_crosswalk": {
+    "note": "Maps the four soil-type options in the FarmFriend form (index.html) to soil groups that commonly match. Derived from each soil's app_texture_class. Texture varies within a group, so this is a guide. Leptosols, Solonetz, Solonchaks and Gypsisols have no direct equivalent.",
+    "loamy": [
+      "andosols",
+      "ferralsols",
+      "acrisols",
+      "lixisols",
+      "luvisols",
+      "cambisols",
+      "planosols",
+      "phaeozems",
+      "fluvisols",
+      "regosols",
+      "calcisols"
+    ],
+    "clay": [
+      "nitisols",
+      "ferralsols",
+      "acrisols",
+      "luvisols",
+      "vertisols",
+      "planosols",
+      "gleysols"
+    ],
+    "sandy": [
+      "arenosols",
+      "regosols"
+    ],
+    "silty": [
+      "andosols",
+      "fluvisols",
+      "gleysols"
+    ]
+  },
+  "soil_types": [
+    {
+      "soil_id": "nitisols",
+      "wrb_group": "Nitisols",
+      "legacy_fao_1974_names": [
+        "Nitosols"
+      ],
+      "usda_equivalent": "Alfisols / Ultisols (varies by base status)",
+      "common_names": [
+        "red volcanic soils",
+        "coffee and tea soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Basic volcanic rocks (basalt, volcanic breccia, tuffs) and some basic metamorphic rock",
+        "landscape": "Highlands and upper volcanic slopes, undulating to steep"
+      },
+      "characteristics": {
+        "texture": "Clay (commonly above 35%), clay loam topsoil",
+        "colour": "Dusky red to dark reddish brown",
+        "depth_class": "very_deep",
+        "structure_and_physical": "Strong blocky ('nutty') structure; friable and porous despite high clay; sub-soil clay increases with depth",
+        "organic_matter": "Moderate to high in topsoil under forest or good management",
+        "cation_exchange_capacity": "Low to moderate",
+        "water_holding_capacity": "Moderate to high",
+        "erosion_risk": "Moderate to high on slopes",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained"
+        ],
+        "notes": "Deep, permeable profiles; rarely waterlogged."
+      },
+      "fertility": {
+        "class": "moderate_to_high",
+        "main_limiting_factors": [
+          "Phosphorus fixation",
+          "Acidity and leaching of bases",
+          "Nitrogen depletion under continuous cropping"
+        ],
+        "notes": "Among the best agricultural soils of the region; responds well to manure and fertilizer."
+      },
+      "ph": {
+        "typical_min": 4.5,
+        "typical_max": 6.0,
+        "notes": "Most Nitisols are acidic (below pH 5.5) because soluble bases have leached.",
+        "classes": [
+          "very_acid",
+          "acid",
+          "slightly_acid"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Coffee",
+          "Tea",
+          "Bananas",
+          "Maize",
+          "Beans",
+          "Horticulture",
+          "Dairy fodder"
+        ],
+        "key_constraints": [
+          "Soil acidity",
+          "P fixation",
+          "Erosion on steep slopes"
+        ],
+        "management_pointers": [
+          "Use manure and inorganic fertilizer",
+          "Terrace and use cover to stop erosion",
+          "Test pH and lime where very acid"
+        ]
+      },
+      "app_texture_class": [
+        "clay"
+      ],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S6"
+      ]
+    },
+    {
+      "soil_id": "andosols",
+      "wrb_group": "Andosols",
+      "legacy_fao_1974_names": [
+        "Andosols (humic, mollic, vitric)"
+      ],
+      "usda_equivalent": "Andisols",
+      "common_names": [
+        "young volcanic soils",
+        "volcanic ash soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Recent volcanic ash and other volcanic deposits",
+        "landscape": "Volcanic highlands (Mt Kenya, Aberdares, Mt Elgon, Mau), often steep and high-rainfall"
+      },
+      "characteristics": {
+        "texture": "Friable silt loam to loam",
+        "colour": "Dark brown to black topsoil",
+        "depth_class": "deep",
+        "structure_and_physical": "Very porous, very low bulk density, high water storage, crumb structure",
+        "organic_matter": "High (dark, humus-rich topsoil)",
+        "cation_exchange_capacity": "Variable; high in organic horizons",
+        "water_holding_capacity": "High",
+        "erosion_risk": "High (steep slopes)",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained"
+        ],
+        "notes": "Free internal drainage because of high porosity."
+      },
+      "fertility": {
+        "class": "moderate_to_high",
+        "main_limiting_factors": [
+          "Strong phosphorus fixation",
+          "Aluminium-related acidity",
+          "Leaching where rainfall exceeds ~1000 mm"
+        ],
+        "notes": "Naturally fertile where organic matter is high, but P is tied up and acidity grows with leaching."
+      },
+      "ph": {
+        "typical_min": 4.8,
+        "typical_max": 6.2,
+        "notes": "Acidic from leaching of bases and aluminium; pH rises with ash freshness and in drier belts.",
+        "classes": [
+          "very_acid",
+          "acid",
+          "slightly_acid"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Tea",
+          "Pyrethrum",
+          "Potatoes",
+          "Temperate vegetables",
+          "Dairy farming",
+          "Wheat and barley at higher altitude"
+        ],
+        "key_constraints": [
+          "Erosion and landslide risk on slopes",
+          "P fixation",
+          "Acidity",
+          "Cool temperatures at high altitude"
+        ],
+        "management_pointers": [
+          "Keep soil covered and terraced",
+          "Place P fertilizer near the root zone",
+          "Liming and organic matter where acid"
+        ]
+      },
+      "app_texture_class": [
+        "loamy",
+        "silty"
+      ],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S3"
+      ]
+    },
+    {
+      "soil_id": "ferralsols",
+      "wrb_group": "Ferralsols",
+      "legacy_fao_1974_names": [
+        "Ferralsols (rhodic, orthic, xanthic)"
+      ],
+      "usda_equivalent": "Oxisols",
+      "common_names": [
+        "deep red tropical soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Strongly weathered old rocks and sediments",
+        "landscape": "Gently undulating to undulating plateaus and uplands"
+      },
+      "characteristics": {
+        "texture": "Clay to sandy clay",
+        "colour": "Red, reddish brown or yellowish red",
+        "depth_class": "very_deep",
+        "structure_and_physical": "Stable micro-aggregates; good physical condition and moisture-holding; rich in iron and aluminium oxides",
+        "organic_matter": "Low to moderate",
+        "cation_exchange_capacity": "Low",
+        "water_holding_capacity": "Moderate to high",
+        "erosion_risk": "Low to moderate when covered; surface crusting when bare",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained"
+        ],
+        "notes": "Deep and freely drained."
+      },
+      "fertility": {
+        "class": "low",
+        "main_limiting_factors": [
+          "Low nutrient reserves",
+          "Phosphorus fixation",
+          "Aluminium toxicity in very acid cases"
+        ],
+        "notes": "Physically excellent but chemically poor; needs regular nutrient replacement."
+      },
+      "ph": {
+        "typical_min": 4.5,
+        "typical_max": 5.5,
+        "notes": "Typically acid; classed among Kenya's acid soils.",
+        "classes": [
+          "very_acid",
+          "acid"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Coffee",
+          "Tree crops",
+          "Maize",
+          "Cassava",
+          "Beans",
+          "Cashew and mango at the coast"
+        ],
+        "key_constraints": [
+          "Low fertility",
+          "P fixation",
+          "Acidity"
+        ],
+        "management_pointers": [
+          "Apply organic matter and mulch",
+          "Liming where pH is below 5.5",
+          "Split fertilizer applications"
+        ]
+      },
+      "app_texture_class": [
+        "clay",
+        "loamy"
+      ],
+      "national_coverage_pct": 6.05,
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ]
+    },
+    {
+      "soil_id": "acrisols",
+      "wrb_group": "Acrisols",
+      "legacy_fao_1974_names": [
+        "Acrisols (humic, chromic)"
+      ],
+      "usda_equivalent": "Ultisols",
+      "common_names": [
+        "leached red-yellow soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Old weathered rocks and sediments under humid climates",
+        "landscape": "Undulating to rolling humid uplands"
+      },
+      "characteristics": {
+        "texture": "Sandy loam or clay loam topsoil over clay sub-soil",
+        "colour": "Yellowish to reddish brown",
+        "depth_class": "deep",
+        "structure_and_physical": "Clay moves into sub-soil; surface seals and crusts; sub-soil less porous, which limits root spread",
+        "organic_matter": "Low to moderate",
+        "cation_exchange_capacity": "Low",
+        "water_holding_capacity": "Low to moderate",
+        "erosion_risk": "High",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "notes": "Topsoil drains well; dense sub-soil can slow percolation."
+      },
+      "fertility": {
+        "class": "low",
+        "main_limiting_factors": [
+          "Low base saturation",
+          "Aluminium toxicity",
+          "Phosphorus and nitrogen shortage"
+        ],
+        "notes": "Strongly leached; productive only with liming and organic or mineral inputs."
+      },
+      "ph": {
+        "typical_min": 4.5,
+        "typical_max": 5.5,
+        "notes": "Acid; Acrisols are named among Kenya's acid soil groups.",
+        "classes": [
+          "very_acid",
+          "acid"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Maize",
+          "Beans",
+          "Tea",
+          "Cassava",
+          "Sweet potatoes",
+          "Bananas"
+        ],
+        "key_constraints": [
+          "Acidity",
+          "Erosion",
+          "Low nutrient status"
+        ],
+        "management_pointers": [
+          "Lime to reach pH 5.5 or above",
+          "Add manure or compost",
+          "Contour farming and mulch"
+        ]
+      },
+      "app_texture_class": [
+        "loamy",
+        "clay"
+      ],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ]
+    },
+    {
+      "soil_id": "lixisols",
+      "wrb_group": "Lixisols",
+      "legacy_fao_1974_names": [],
+      "usda_equivalent": "Alfisols",
+      "common_names": [
+        "moderately leached red soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Old weathered rocks and sediments in seasonally dry climates",
+        "landscape": "Gently sloping plains and pediments in semi-humid to semi-arid areas"
+      },
+      "characteristics": {
+        "texture": "Sandy loam to sandy clay loam over clay",
+        "colour": "Reddish brown to yellowish brown",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Clay accumulates in sub-soil; weak topsoil structure; prone to surface sealing and crusting",
+        "organic_matter": "Low",
+        "cation_exchange_capacity": "Low to moderate",
+        "water_holding_capacity": "Low to moderate",
+        "erosion_risk": "High (crusting and runoff)",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "notes": "Topsoil well drained; runoff is high when crusted."
+      },
+      "fertility": {
+        "class": "low_to_moderate",
+        "main_limiting_factors": [
+          "Low organic matter",
+          "Surface crusting",
+          "Moisture stress in dry spells"
+        ],
+        "notes": "Moderate nutrient reserves but fragile surface; benefits from organic matter and water harvesting."
+      },
+      "ph": {
+        "typical_min": 5.5,
+        "typical_max": 6.8,
+        "notes": "Slightly acid to near neutral.",
+        "classes": [
+          "acid",
+          "slightly_acid",
+          "neutral"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Maize",
+          "Sorghum",
+          "Cowpeas",
+          "Pigeon peas",
+          "Cotton",
+          "Cashew",
+          "Mango"
+        ],
+        "key_constraints": [
+          "Crusting",
+          "Erosion",
+          "Rainfall variability"
+        ],
+        "management_pointers": [
+          "Mulch and add compost",
+          "Tied ridges or water-harvesting",
+          "Drought-tolerant varieties"
+        ]
+      },
+      "app_texture_class": [
+        "loamy"
+      ],
+      "national_coverage_pct": 5.15,
+      "evidence_source_ids": [
+        "S1",
+        "S4"
+      ]
+    },
+    {
+      "soil_id": "luvisols",
+      "wrb_group": "Luvisols",
+      "legacy_fao_1974_names": [
+        "Luvisols (chromic, orthic, vertic, calcic)"
+      ],
+      "usda_equivalent": "Alfisols",
+      "common_names": [
+        "semi-arid red-brown soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Weathered rocks and alluvium in semi-arid zones",
+        "landscape": "Plains, plateaus and piedmont in semi-arid to sub-humid areas"
+      },
+      "characteristics": {
+        "texture": "Sandy loam to clay loam with clay-enriched sub-soil",
+        "colour": "Brown to reddish brown",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Clay-enriched B horizon; surface can seal; moderate structure",
+        "organic_matter": "Low to moderate",
+        "cation_exchange_capacity": "Moderate to high",
+        "water_holding_capacity": "Moderate",
+        "erosion_risk": "Moderate to high",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "notes": "Generally well drained; sub-soil slows deep percolation."
+      },
+      "fertility": {
+        "class": "moderate",
+        "main_limiting_factors": [
+          "Moisture deficit",
+          "Surface sealing",
+          "Low organic matter"
+        ],
+        "notes": "Reasonable nutrient base; rainfall is usually the main limitation."
+      },
+      "ph": {
+        "typical_min": 5.8,
+        "typical_max": 7.5,
+        "notes": "Slightly acid to mildly alkaline.",
+        "classes": [
+          "slightly_acid",
+          "neutral",
+          "alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Maize",
+          "Sorghum",
+          "Millet",
+          "Beans",
+          "Cotton",
+          "Rangeland"
+        ],
+        "key_constraints": [
+          "Low and erratic rainfall",
+          "Crusting",
+          "Erosion"
+        ],
+        "management_pointers": [
+          "Water harvesting",
+          "Early planting and mulching",
+          "Organic matter additions"
+        ]
+      },
+      "app_texture_class": [
+        "loamy",
+        "clay"
+      ],
+      "national_coverage_pct": 8.13,
+      "evidence_source_ids": [
+        "S1",
+        "S4",
+        "S7"
+      ]
+    },
+    {
+      "soil_id": "cambisols",
+      "wrb_group": "Cambisols",
+      "legacy_fao_1974_names": [
+        "Cambisols (humic, eutric, calcic)"
+      ],
+      "usda_equivalent": "Inceptisols",
+      "common_names": [
+        "young developing soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Varied: volcanic, metamorphic and sedimentary materials",
+        "landscape": "Wide range, from hills and escarpments to plains"
+      },
+      "characteristics": {
+        "texture": "Loam to clay loam",
+        "colour": "Brown to yellowish brown",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Weakly developed horizons; moderate structure; often stony in hilly areas",
+        "organic_matter": "Low to moderate",
+        "cation_exchange_capacity": "Moderate",
+        "water_holding_capacity": "Moderate",
+        "erosion_risk": "Moderate",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained"
+        ],
+        "notes": "Usually well drained; depth varies."
+      },
+      "fertility": {
+        "class": "moderate",
+        "main_limiting_factors": [
+          "Variable depth",
+          "Moisture shortage in drier zones",
+          "Erosion on slopes"
+        ],
+        "notes": "Fertility depends on parent rock and rainfall; often decent but variable."
+      },
+      "ph": {
+        "typical_min": 5.5,
+        "typical_max": 7.5,
+        "notes": "Wide range; humic Cambisols can be acid, eutric and calcic types are near neutral to alkaline.",
+        "classes": [
+          "acid",
+          "slightly_acid",
+          "neutral",
+          "alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Maize",
+          "Beans",
+          "Sorghum",
+          "Millet",
+          "Mixed farming",
+          "Grazing"
+        ],
+        "key_constraints": [
+          "Shallow phases",
+          "Erosion",
+          "Low rainfall in ASAL areas"
+        ],
+        "management_pointers": [
+          "Soil conservation on slopes",
+          "Organic matter and balanced fertilizer",
+          "Test soil for pH and nutrients"
+        ]
+      },
+      "app_texture_class": [
+        "loamy"
+      ],
+      "national_coverage_pct": 11.02,
+      "evidence_source_ids": [
+        "S1",
+        "S4",
+        "S5",
+        "S7"
+      ]
+    },
+    {
+      "soil_id": "vertisols",
+      "wrb_group": "Vertisols",
+      "legacy_fao_1974_names": [
+        "Vertisols (pellic, chromic)"
+      ],
+      "usda_equivalent": "Vertisols",
+      "common_names": [
+        "black cotton soils",
+        "cracking clays"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Basic volcanic rock, lake and river sediments rich in smectite clay",
+        "landscape": "Flat to very gently sloping plains, lake basins and valley floors"
+      },
+      "characteristics": {
+        "texture": "Heavy clay (often 40-60%)",
+        "colour": "Dark grey to black",
+        "depth_class": "deep",
+        "structure_and_physical": "Shrink-swell clays: wide deep cracks when dry; very sticky when wet and very hard when dry; narrow moisture window for tillage",
+        "organic_matter": "Moderate",
+        "cation_exchange_capacity": "High",
+        "water_holding_capacity": "High but much is held tightly by clay",
+        "erosion_risk": "Low to moderate (flooding and gullying in places)",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "notes": "Very slow permeability; seasonal waterlogging and flooding common."
+      },
+      "fertility": {
+        "class": "moderate_to_high",
+        "main_limiting_factors": [
+          "Nitrogen and phosphorus deficiency",
+          "Waterlogging",
+          "Hard to cultivate"
+        ],
+        "notes": "Chemically rich in bases but difficult physically; needs good timing and drainage."
+      },
+      "ph": {
+        "typical_min": 6.5,
+        "typical_max": 8.5,
+        "notes": "Neutral to alkaline; pellic types are often pH 7 or higher.",
+        "classes": [
+          "slightly_acid",
+          "neutral",
+          "alkaline",
+          "strongly_alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Rice (irrigated)",
+          "Cotton",
+          "Sorghum",
+          "Sugarcane",
+          "Maize with drainage",
+          "Rangeland"
+        ],
+        "key_constraints": [
+          "Waterlogging",
+          "Tillage window",
+          "Cracking damages roots"
+        ],
+        "management_pointers": [
+          "Ridge and furrow or raised beds",
+          "Tilling at the right moisture",
+          "N and P fertilizer; improve drainage"
+        ]
+      },
+      "app_texture_class": [
+        "clay"
+      ],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "planosols",
+      "wrb_group": "Planosols",
+      "legacy_fao_1974_names": [
+        "Planosols (eutric, dystric, solodic, humic)"
+      ],
+      "usda_equivalent": "Albaqualfs and related Alfisols",
+      "common_names": [
+        "hardpan soils",
+        "seasonally wet claypan soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Old sediments and weathered rock on flat landscapes",
+        "landscape": "Flat to very gently undulating plains and plateaus"
+      },
+      "characteristics": {
+        "texture": "Coarse (sandy loam to loam) topsoil abruptly over dense clay",
+        "colour": "Light grey to brown topsoil; mottled sub-soil",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Abrupt texture change creates a perched water table; sub-soil dense and slowly permeable",
+        "organic_matter": "Low",
+        "cation_exchange_capacity": "Low to moderate",
+        "water_holding_capacity": "Low to moderate",
+        "erosion_risk": "Moderate",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "notes": "Seasonal waterlogging above dense clay, then rapid drying."
+      },
+      "fertility": {
+        "class": "low_to_moderate",
+        "main_limiting_factors": [
+          "Seasonal waterlogging then drought",
+          "Low nutrient status",
+          "Hardpan limits roots"
+        ],
+        "notes": "Variable; works best with drainage, organic matter and careful crop choice."
+      },
+      "ph": {
+        "typical_min": 5.0,
+        "typical_max": 6.5,
+        "notes": "Acid to slightly acid in topsoil.",
+        "classes": [
+          "acid",
+          "slightly_acid"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Lowland rice",
+          "Pasture",
+          "Potatoes and maize with drainage"
+        ],
+        "key_constraints": [
+          "Waterlogging",
+          "Hardpan",
+          "Poor aeration"
+        ],
+        "management_pointers": [
+          "Drainage ditches or raised beds",
+          "Organic matter additions",
+          "Choose waterlogging-tolerant crops"
+        ]
+      },
+      "app_texture_class": [
+        "loamy",
+        "clay"
+      ],
+      "national_coverage_pct": 6.33,
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S4"
+      ]
+    },
+    {
+      "soil_id": "phaeozems",
+      "wrb_group": "Phaeozems",
+      "legacy_fao_1974_names": [
+        "Phaeozems (luvic, haplic)"
+      ],
+      "usda_equivalent": "Mollisols",
+      "common_names": [
+        "dark fertile grassland soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Volcanic and metamorphic rocks under grassland or savanna",
+        "landscape": "Highland plateaus and undulating plains"
+      },
+      "characteristics": {
+        "texture": "Loam to clay loam",
+        "colour": "Very dark brown to black topsoil",
+        "depth_class": "deep",
+        "structure_and_physical": "Thick humus-rich topsoil with good crumb structure",
+        "organic_matter": "High",
+        "cation_exchange_capacity": "Moderate to high",
+        "water_holding_capacity": "Moderate to high",
+        "erosion_risk": "Moderate",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "notes": "Good drainage with moderate water storage."
+      },
+      "fertility": {
+        "class": "high",
+        "main_limiting_factors": [
+          "Phosphorus shortage in places",
+          "Erosion on cultivated slopes"
+        ],
+        "notes": "Among Kenya's most productive grain soils when rainfall is reliable."
+      },
+      "ph": {
+        "typical_min": 5.5,
+        "typical_max": 7.0,
+        "notes": "Slightly acid to neutral.",
+        "classes": [
+          "acid",
+          "slightly_acid",
+          "neutral"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Maize",
+          "Wheat",
+          "Barley",
+          "Beans",
+          "Dairy fodder"
+        ],
+        "key_constraints": [
+          "Erosion",
+          "Declining organic matter under continuous cropping"
+        ],
+        "management_pointers": [
+          "Crop rotation and residue retention",
+          "Balanced N-P-K and soil testing",
+          "Contour farming"
+        ]
+      },
+      "app_texture_class": [
+        "loamy"
+      ],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S6",
+        "S7"
+      ]
+    },
+    {
+      "soil_id": "fluvisols",
+      "wrb_group": "Fluvisols",
+      "legacy_fao_1974_names": [
+        "Fluvisols (eutric, calcaric)"
+      ],
+      "usda_equivalent": "Fluvents (Entisols)",
+      "common_names": [
+        "alluvial soils",
+        "river floodplain soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Recent river, lake and delta sediments",
+        "landscape": "Floodplains, deltas, river terraces and lake margins"
+      },
+      "characteristics": {
+        "texture": "Stratified silt, loam or clay layers",
+        "colour": "Brown to grey-brown, often layered",
+        "depth_class": "deep",
+        "structure_and_physical": "Layered by flood events; weak structure; texture varies with depth",
+        "organic_matter": "Low to moderate (layered)",
+        "cation_exchange_capacity": "Moderate to high",
+        "water_holding_capacity": "Moderate to high",
+        "erosion_risk": "Low (flat) but riverbank erosion",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "moderately_well_drained",
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "notes": "Drainage varies by position; flooding is the main risk."
+      },
+      "fertility": {
+        "class": "moderate_to_high",
+        "main_limiting_factors": [
+          "Flood risk",
+          "Salinity in arid zones",
+          "Variable texture"
+        ],
+        "notes": "Often productive under irrigation; fertility renewed by silt deposits."
+      },
+      "ph": {
+        "typical_min": 6.0,
+        "typical_max": 8.0,
+        "notes": "Near neutral to alkaline; can be saline in dry areas.",
+        "classes": [
+          "slightly_acid",
+          "neutral",
+          "alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Irrigated horticulture",
+          "Rice",
+          "Maize",
+          "Bananas",
+          "Cotton",
+          "Sugarcane"
+        ],
+        "key_constraints": [
+          "Flooding",
+          "Salinity where irrigated badly",
+          "Water-table management"
+        ],
+        "management_pointers": [
+          "Flood protection and drainage",
+          "Monitor salinity under irrigation",
+          "Use organic matter to improve structure"
+        ]
+      },
+      "app_texture_class": [
+        "silty",
+        "loamy"
+      ],
+      "national_coverage_pct": 6.02,
+      "evidence_source_ids": [
+        "S1",
+        "S4",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "arenosols",
+      "wrb_group": "Arenosols",
+      "legacy_fao_1974_names": [
+        "Arenosols (cambic, ferralic, luvic, calcaro-cambic)"
+      ],
+      "usda_equivalent": "Psamments (Entisols)",
+      "common_names": [
+        "sandy soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Wind-blown or coastal sands and coarse-grained sandstones and granites",
+        "landscape": "Coastal plains, dune belts and arid sand plains"
+      },
+      "characteristics": {
+        "texture": "Sand to loamy sand",
+        "colour": "Pale brown to reddish yellow",
+        "depth_class": "very_deep",
+        "structure_and_physical": "Single-grain, loose; very high infiltration",
+        "organic_matter": "Very low",
+        "cation_exchange_capacity": "Very low",
+        "water_holding_capacity": "Very low",
+        "erosion_risk": "Moderate (wind erosion)",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "excessively_drained"
+        ],
+        "notes": "Water drains rapidly; leaching is high."
+      },
+      "fertility": {
+        "class": "very_low",
+        "main_limiting_factors": [
+          "Very low water-holding",
+          "Nutrient leaching",
+          "Low organic matter"
+        ],
+        "notes": "Needs frequent small applications of water and nutrients and strong organic matter inputs."
+      },
+      "ph": {
+        "typical_min": 5.0,
+        "typical_max": 7.5,
+        "notes": "Acid in humid coastal areas to alkaline where calcareous sand is present.",
+        "classes": [
+          "acid",
+          "slightly_acid",
+          "neutral",
+          "alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Cashew",
+          "Coconut",
+          "Cassava",
+          "Groundnuts",
+          "Cowpeas",
+          "Irrigated horticulture"
+        ],
+        "key_constraints": [
+          "Drought",
+          "Leaching",
+          "Wind erosion"
+        ],
+        "management_pointers": [
+          "Frequent small irrigation",
+          "Compost, mulch and legumes",
+          "Split fertilizer doses"
+        ]
+      },
+      "app_texture_class": [
+        "sandy"
+      ],
+      "national_coverage_pct": 5.49,
+      "evidence_source_ids": [
+        "S1",
+        "S4",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "regosols",
+      "wrb_group": "Regosols",
+      "legacy_fao_1974_names": [
+        "Regosols (calcaric, dystric, eutric)"
+      ],
+      "usda_equivalent": "Entisols (Orthents)",
+      "common_names": [
+        "weak young soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Unconsolidated materials, often recent ash or colluvium",
+        "landscape": "Eroded or young landscapes, mostly arid and semi-arid"
+      },
+      "characteristics": {
+        "texture": "Sandy loam to loam, often stony",
+        "colour": "Pale brown to light brown",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Very little profile development; low organic matter",
+        "organic_matter": "Very low to low",
+        "cation_exchange_capacity": "Low",
+        "water_holding_capacity": "Low",
+        "erosion_risk": "High",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained",
+          "excessively_drained"
+        ],
+        "notes": "Free draining."
+      },
+      "fertility": {
+        "class": "low",
+        "main_limiting_factors": [
+          "Very low organic matter",
+          "Moisture deficit",
+          "Erosion"
+        ],
+        "notes": "Weakly developed soils, largely rangeland; crop use is risky without water."
+      },
+      "ph": {
+        "typical_min": 5.5,
+        "typical_max": 8.0,
+        "notes": "Highly variable depending on parent material.",
+        "classes": [
+          "acid",
+          "slightly_acid",
+          "neutral",
+          "alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Extensive grazing",
+          "Sorghum and millet in better-watered pockets"
+        ],
+        "key_constraints": [
+          "Aridity",
+          "Erosion",
+          "Shallow phases"
+        ],
+        "management_pointers": [
+          "Manage grazing",
+          "Water harvesting",
+          "Cover crops"
+        ]
+      },
+      "app_texture_class": [
+        "sandy",
+        "loamy"
+      ],
+      "national_coverage_pct": 15.04,
+      "evidence_source_ids": [
+        "S1",
+        "S4",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "leptosols",
+      "wrb_group": "Leptosols",
+      "legacy_fao_1974_names": [
+        "Lithosols",
+        "Rendzinas",
+        "Rankers"
+      ],
+      "usda_equivalent": "Entisols (Lithic subgroups)",
+      "common_names": [
+        "shallow stony soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Hard rock at or close to the surface",
+        "landscape": "Hills, mountain slopes and escarpments"
+      },
+      "characteristics": {
+        "texture": "Gravelly or stony loam",
+        "colour": "Brown to grey-brown",
+        "depth_class": "very_shallow",
+        "structure_and_physical": "Depth under 25 cm; abundant stones; poor root room",
+        "organic_matter": "Low",
+        "cation_exchange_capacity": "Low to moderate",
+        "water_holding_capacity": "Very low",
+        "erosion_risk": "High",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained",
+          "excessively_drained"
+        ],
+        "notes": "Shallow, so water drains or runs off quickly."
+      },
+      "fertility": {
+        "class": "low",
+        "main_limiting_factors": [
+          "Shallow depth",
+          "Stoniness",
+          "Low water storage"
+        ],
+        "notes": "Not suited to regular cultivation; best for grazing, forestry and conservation."
+      },
+      "ph": {
+        "typical_min": 5.5,
+        "typical_max": 7.5,
+        "notes": "Wide range depending on rock type.",
+        "classes": [
+          "acid",
+          "slightly_acid",
+          "neutral",
+          "alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Grazing",
+          "Forestry",
+          "Conservation",
+          "Terraced pockets for crops"
+        ],
+        "key_constraints": [
+          "Shallow depth",
+          "Erosion",
+          "Steep slopes"
+        ],
+        "management_pointers": [
+          "Avoid cultivation on steep ground",
+          "Maintain tree and grass cover"
+        ]
+      },
+      "app_texture_class": [],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "calcisols",
+      "wrb_group": "Calcisols",
+      "legacy_fao_1974_names": [
+        "Xerosols and Yermosols (calcic)"
+      ],
+      "usda_equivalent": "Aridisols (Calcids)",
+      "common_names": [
+        "lime-rich dryland soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Calcareous parent material and carbonate-rich sediments in dry climates",
+        "landscape": "Arid and semi-arid plains"
+      },
+      "characteristics": {
+        "texture": "Loam to clay loam",
+        "colour": "Pale brown to yellowish brown",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Secondary carbonate accumulation (sometimes hardened); low organic matter",
+        "organic_matter": "Low",
+        "cation_exchange_capacity": "Moderate",
+        "water_holding_capacity": "Low to moderate",
+        "erosion_risk": "Moderate",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained"
+        ],
+        "notes": "Well drained, but low rainfall means little water for crops."
+      },
+      "fertility": {
+        "class": "low_to_moderate",
+        "main_limiting_factors": [
+          "Low rainfall",
+          "P, Zn and Fe less available at high pH",
+          "Low organic matter"
+        ],
+        "notes": "Reasonable bases; water and micronutrient availability limit yields."
+      },
+      "ph": {
+        "typical_min": 7.5,
+        "typical_max": 8.5,
+        "notes": "Alkaline from carbonate accumulation.",
+        "classes": [
+          "alkaline",
+          "strongly_alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Rangeland",
+          "Sorghum and millet",
+          "Irrigated vegetables with care"
+        ],
+        "key_constraints": [
+          "Aridity",
+          "Alkalinity",
+          "Carbonate hardpans"
+        ],
+        "management_pointers": [
+          "Irrigate with good-quality water",
+          "Organic matter and micronutrient management"
+        ]
+      },
+      "app_texture_class": [
+        "loamy"
+      ],
+      "national_coverage_pct": 5.46,
+      "evidence_source_ids": [
+        "S1",
+        "S4",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "solonetz",
+      "wrb_group": "Solonetz",
+      "legacy_fao_1974_names": [
+        "Solonetz (orthic, gleyic, mollic)"
+      ],
+      "usda_equivalent": "Natric great groups (Alfisols, Aridisols, Mollisols)",
+      "common_names": [
+        "sodic soils",
+        "alkali soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Sediments rich in sodium in dry climates",
+        "landscape": "Plains, lake margins and depressions in arid and semi-arid areas"
+      },
+      "characteristics": {
+        "texture": "Loam topsoil over dense sodic clay",
+        "colour": "Grey to dark brown",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Columnar or prismatic dense sub-soil; topsoil disperses and crusts; very low permeability",
+        "organic_matter": "Low",
+        "cation_exchange_capacity": "Moderate",
+        "water_holding_capacity": "Low",
+        "erosion_risk": "High (dispersion and gullying)",
+        "salinity_sodicity_risk": "high"
+      },
+      "drainage": {
+        "classes": [
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "notes": "Water ponds on the dense sodic layer."
+      },
+      "fertility": {
+        "class": "low",
+        "main_limiting_factors": [
+          "Excess sodium",
+          "Poor structure",
+          "Crusting and ponding"
+        ],
+        "notes": "Largely unsuitable for crops without costly reclamation."
+      },
+      "ph": {
+        "typical_min": 8.0,
+        "typical_max": 10.0,
+        "notes": "Strongly alkaline (sodic).",
+        "classes": [
+          "alkaline",
+          "strongly_alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Rangeland",
+          "Salt-tolerant forage"
+        ],
+        "key_constraints": [
+          "Sodicity",
+          "Poor infiltration",
+          "Erosion"
+        ],
+        "management_pointers": [
+          "Gypsum plus drainage where reclamation is justified",
+          "Maintain grass cover"
+        ]
+      },
+      "app_texture_class": [],
+      "national_coverage_pct": 6.36,
+      "evidence_source_ids": [
+        "S1",
+        "S4",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "solonchaks",
+      "wrb_group": "Solonchaks",
+      "legacy_fao_1974_names": [
+        "Solonchaks (orthic, gleyic)"
+      ],
+      "usda_equivalent": "Aridisols (Salids)",
+      "common_names": [
+        "saline soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Salt-rich sediments in dry climates and around alkaline lakes",
+        "landscape": "Lake shores, salt flats and depressions in arid areas"
+      },
+      "characteristics": {
+        "texture": "Variable",
+        "colour": "Light grey to pale brown with salt crusts",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "High salt concentration; weak structure",
+        "organic_matter": "Very low",
+        "cation_exchange_capacity": "Variable",
+        "water_holding_capacity": "Low",
+        "erosion_risk": "Moderate",
+        "salinity_sodicity_risk": "high"
+      },
+      "drainage": {
+        "classes": [
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "notes": "Poor drainage and shallow saline water tables are typical."
+      },
+      "fertility": {
+        "class": "very_low",
+        "main_limiting_factors": [
+          "High salinity",
+          "Poor water quality",
+          "Shallow water table"
+        ],
+        "notes": "Unsuitable for most crops; reclamation is difficult."
+      },
+      "ph": {
+        "typical_min": 7.5,
+        "typical_max": 9.0,
+        "notes": "Alkaline and highly saline (check electrical conductivity as well as pH).",
+        "classes": [
+          "alkaline",
+          "strongly_alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Salt-tolerant grasses",
+          "Wildlife and salt extraction"
+        ],
+        "key_constraints": [
+          "Salinity",
+          "Waterlogging"
+        ],
+        "management_pointers": [
+          "Avoid irrigation without drainage",
+          "Use salt-tolerant species"
+        ]
+      },
+      "app_texture_class": [],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "gypsisols",
+      "wrb_group": "Gypsisols",
+      "legacy_fao_1974_names": [
+        "Xerosols and Yermosols (gypsic)"
+      ],
+      "usda_equivalent": "Aridisols (Gypsids)",
+      "common_names": [
+        "gypsum-rich desert soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Gypsum-bearing sediments in very dry climates",
+        "landscape": "Arid plains in the north-east and north"
+      },
+      "characteristics": {
+        "texture": "Loam to sandy loam",
+        "colour": "Pale yellow to light brown",
+        "depth_class": "moderately_deep",
+        "structure_and_physical": "Gypsum accumulation can form crusts; weak structure",
+        "organic_matter": "Very low",
+        "cation_exchange_capacity": "Low",
+        "water_holding_capacity": "Low",
+        "erosion_risk": "Moderate",
+        "salinity_sodicity_risk": "moderate"
+      },
+      "drainage": {
+        "classes": [
+          "well_drained"
+        ],
+        "notes": "Well drained but very dry."
+      },
+      "fertility": {
+        "class": "low",
+        "main_limiting_factors": [
+          "Aridity",
+          "Gypsum crusts",
+          "Low organic matter"
+        ],
+        "notes": "Marginal for crops; irrigation can cause gypsum dissolution and subsidence."
+      },
+      "ph": {
+        "typical_min": 7.0,
+        "typical_max": 8.5,
+        "notes": "Neutral to alkaline.",
+        "classes": [
+          "neutral",
+          "alkaline",
+          "strongly_alkaline"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Rangeland",
+          "Irrigated pockets with care"
+        ],
+        "key_constraints": [
+          "Aridity",
+          "Subsidence under irrigation"
+        ],
+        "management_pointers": [
+          "Careful irrigation design",
+          "Maintain rangeland cover"
+        ]
+      },
+      "app_texture_class": [],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S5"
+      ]
+    },
+    {
+      "soil_id": "gleysols",
+      "wrb_group": "Gleysols",
+      "legacy_fao_1974_names": [
+        "Gleysols (eutric, humic)"
+      ],
+      "usda_equivalent": "Aquic suborders (Aquents, Aquepts)",
+      "common_names": [
+        "swamp and wetland soils"
+      ],
+      "classification": {
+        "system": "FAO/WRB reference soil group",
+        "note": "Sub-units (e.g. humic, rhodic, pellic, eutric) are not yet populated; add them as a later layer."
+      },
+      "formation": {
+        "parent_material": "Alluvium and lake deposits in permanently or seasonally wet places",
+        "landscape": "Valley bottoms, swamps, lake shores and river deltas"
+      },
+      "characteristics": {
+        "texture": "Clay to silty clay",
+        "colour": "Grey, blue-grey or olive with rust mottles",
+        "depth_class": "deep",
+        "structure_and_physical": "Saturated for long periods; reduced iron colours",
+        "organic_matter": "Moderate to high (accumulating in wet places)",
+        "cation_exchange_capacity": "Moderate to high",
+        "water_holding_capacity": "High",
+        "erosion_risk": "Low",
+        "salinity_sodicity_risk": "none_or_low"
+      },
+      "drainage": {
+        "classes": [
+          "poorly_drained",
+          "very_poorly_drained"
+        ],
+        "notes": "Water table at or near the surface for much of the year."
+      },
+      "fertility": {
+        "class": "low_to_moderate",
+        "main_limiting_factors": [
+          "Waterlogging",
+          "Low oxygen",
+          "Access and workability"
+        ],
+        "notes": "Potentially fertile but needs drainage; many wetlands should be protected."
+      },
+      "ph": {
+        "typical_min": 4.5,
+        "typical_max": 7.0,
+        "notes": "Acid to neutral depending on setting.",
+        "classes": [
+          "very_acid",
+          "acid",
+          "slightly_acid",
+          "neutral"
+        ]
+      },
+      "farming": {
+        "typical_use": [
+          "Rice",
+          "Vegetables with drainage",
+          "Papyrus and wetland ecosystems"
+        ],
+        "key_constraints": [
+          "Waterlogging",
+          "Environmental sensitivity"
+        ],
+        "management_pointers": [
+          "Check wetland-protection rules before draining",
+          "Use raised beds",
+          "Water-tolerant crops"
+        ]
+      },
+      "app_texture_class": [
+        "clay",
+        "silty"
+      ],
+      "national_coverage_pct": null,
+      "evidence_source_ids": [
+        "S1",
+        "S2"
+      ]
+    }
+  ],
+  "counties": [
+    {
+      "county_code": "001",
+      "county_name": "Mombasa",
+      "region": "Coast",
+      "soils": [
+        {
+          "soil_id": "arenosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained"
+        ],
+        "fertility_classes_dominant": [
+          "very_low"
+        ],
+        "ph_range_dominant": [
+          5.0,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy"
+        ]
+      },
+      "local_notes": "Coral-derived coastal sands; small area, high variability.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "002",
+      "county_name": "Kwale",
+      "region": "Coast",
+      "soils": [
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "arenosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          5.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "003",
+      "county_name": "Kilifi",
+      "region": "Coast",
+      "soils": [
+        {
+          "soil_id": "arenosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "lixisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "very_low",
+          "low"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy",
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "004",
+      "county_name": "Tana River",
+      "region": "Coast",
+      "soils": [
+        {
+          "soil_id": "fluvisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "calcisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonetz",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "arenosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "gypsisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained",
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low_to_moderate",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          6.0,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          5.0,
+          10.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "silty",
+          "loamy"
+        ]
+      },
+      "local_notes": "Soils follow the Tana River floodplain; dry interior is calcareous and sodic.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "005",
+      "county_name": "Lamu",
+      "region": "Coast",
+      "soils": [
+        {
+          "soil_id": "arenosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "gleysols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonchaks",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained"
+        ],
+        "fertility_classes_dominant": [
+          "very_low"
+        ],
+        "ph_range_dominant": [
+          5.0,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          9.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "006",
+      "county_name": "Taita/Taveta",
+      "region": "Coast",
+      "soils": [
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "supported",
+          "evidence_source_ids": [
+            "S2",
+            "S9"
+          ]
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "leptosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": "Hill ranges (Taita Hills) carry shallow, stony soils.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "007",
+      "county_name": "Garissa",
+      "region": "North Eastern",
+      "soils": [
+        {
+          "soil_id": "calcisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonetz",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "gypsisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "arenosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "low_to_moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          5.0,
+          10.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "sandy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "008",
+      "county_name": "Wajir",
+      "region": "North Eastern",
+      "soils": [
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "calcisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "arenosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonetz",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "gypsisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "low_to_moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          5.0,
+          10.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "009",
+      "county_name": "Mandera",
+      "region": "North Eastern",
+      "soils": [
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "calcisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "gypsisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonetz",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "arenosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "low_to_moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          5.0,
+          10.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "010",
+      "county_name": "Marsabit",
+      "region": "Northern",
+      "soils": [
+        {
+          "soil_id": "leptosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "arenosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonchaks",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.0
+        ],
+        "ph_range_including_secondary": [
+          4.8,
+          9.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy",
+          "loamy"
+        ]
+      },
+      "local_notes": "Mt Marsabit is volcanic; Chalbi desert is saline.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "011",
+      "county_name": "Isiolo",
+      "region": "Northern",
+      "soils": [
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "calcisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.0
+        ],
+        "ph_range_including_secondary": [
+          5.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "012",
+      "county_name": "Meru",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.2
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy",
+          "silty"
+        ]
+      },
+      "local_notes": "Upper slopes of Mt Kenya are volcanic; lower Meru is drier.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "013",
+      "county_name": "Tharaka-Nithi",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "lixisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "014",
+      "county_name": "Embu",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.2
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy",
+          "silty"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "015",
+      "county_name": "Kitui",
+      "region": "Lower Eastern",
+      "soils": [
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "lixisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "calcisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "016",
+      "county_name": "Machakos",
+      "region": "Lower Eastern",
+      "soils": [
+        {
+          "soil_id": "luvisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "017",
+      "county_name": "Makueni",
+      "region": "Lower Eastern",
+      "soils": [
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "supported",
+          "evidence_source_ids": [
+            "S9"
+          ]
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "lixisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "018",
+      "county_name": "Nyandarua",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "planosols",
+          "role": "dominant",
+          "basis": "supported",
+          "evidence_source_ids": [
+            "S2"
+          ]
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low_to_moderate",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.8,
+          6.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "silty",
+          "clay"
+        ]
+      },
+      "local_notes": "Kinangop plateau; planosols are wet in the rains.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "019",
+      "county_name": "Nyeri",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.2
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy",
+          "silty"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "020",
+      "county_name": "Kirinyaga",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.2
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy",
+          "silty"
+        ]
+      },
+      "local_notes": "Lower Mwea plains have black cotton soils used for irrigated rice.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "021",
+      "county_name": "Murang'a",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.2
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.2
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy",
+          "silty"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "022",
+      "county_name": "Kiambu",
+      "region": "Central Highlands",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "supported",
+          "evidence_source_ids": [
+            "S2"
+          ]
+        },
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "supported",
+          "evidence_source_ids": [
+            "S2"
+          ]
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "dominant",
+          "basis": "supported",
+          "evidence_source_ids": [
+            "S2"
+          ]
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.2
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.2
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy",
+          "silty"
+        ]
+      },
+      "local_notes": "Reference soil monoliths exist for Muguga, Kijabe and Thika.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "023",
+      "county_name": "Turkana",
+      "region": "Northern",
+      "soils": [
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "arenosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "leptosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonchaks",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "calcisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "very_low",
+          "low"
+        ],
+        "ph_range_dominant": [
+          5.0,
+          8.0
+        ],
+        "ph_range_including_secondary": [
+          5.0,
+          9.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "024",
+      "county_name": "West Pokot",
+      "region": "North Rift",
+      "soils": [
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "leptosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "regosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "025",
+      "county_name": "Samburu",
+      "region": "Northern",
+      "soils": [
+        {
+          "soil_id": "leptosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.0
+        ],
+        "ph_range_including_secondary": [
+          5.5,
+          8.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "sandy",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "026",
+      "county_name": "Trans Nzoia",
+      "region": "North Rift",
+      "soils": [
+        {
+          "soil_id": "phaeozems",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "planosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high",
+          "high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          7.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": "Mt Elgon slopes are volcanic.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "027",
+      "county_name": "Uasin Gishu",
+      "region": "North Rift",
+      "soils": [
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "phaeozems",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "planosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          7.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "028",
+      "county_name": "Elgeyo/Marakwet",
+      "region": "North Rift",
+      "soils": [
+        {
+          "soil_id": "leptosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "regosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          7.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy"
+        ]
+      },
+      "local_notes": "Escarpment is steep and shallow; plateau soils are deeper.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "029",
+      "county_name": "Nandi",
+      "region": "North Rift",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "030",
+      "county_name": "Baringo",
+      "region": "Central Rift",
+      "soils": [
+        {
+          "soil_id": "cambisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "regosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonetz",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "leptosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "excessively_drained",
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.0
+        ],
+        "ph_range_including_secondary": [
+          5.5,
+          10.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "sandy"
+        ]
+      },
+      "local_notes": "Sodic and saline patches occur near the Rift Valley lakes.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "031",
+      "county_name": "Laikipia",
+      "region": "Central Rift",
+      "soils": [
+        {
+          "soil_id": "planosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low_to_moderate",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          5.0,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          5.0,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "032",
+      "county_name": "Nakuru",
+      "region": "Central Rift",
+      "soils": [
+        {
+          "soil_id": "andosols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "phaeozems",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "regosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high",
+          "high"
+        ],
+        "ph_range_dominant": [
+          4.8,
+          7.0
+        ],
+        "ph_range_including_secondary": [
+          4.8,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "silty"
+        ]
+      },
+      "local_notes": "Highlands (Molo, Mau) volcanic; Rift floor has heavy clays and young ash soils.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "033",
+      "county_name": "Narok",
+      "region": "South Rift",
+      "soils": [
+        {
+          "soil_id": "phaeozems",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained",
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high",
+          "high"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          4.8,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "034",
+      "county_name": "Kajiado",
+      "region": "South Rift",
+      "soils": [
+        {
+          "soil_id": "luvisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "calcisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonetz",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "solonchaks",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low_to_moderate",
+          "moderate"
+        ],
+        "ph_range_dominant": [
+          5.8,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          5.5,
+          10.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": "Sodic and saline soils near Lake Magadi; black cotton soils on Athi-Kapiti plains.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "035",
+      "county_name": "Kericho",
+      "region": "South Rift",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "036",
+      "county_name": "Bomet",
+      "region": "South Rift",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "037",
+      "county_name": "Kakamega",
+      "region": "Western",
+      "soils": [
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "gleysols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          5.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          7.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "038",
+      "county_name": "Vihiga",
+      "region": "Western",
+      "soils": [
+        {
+          "soil_id": "acrisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "039",
+      "county_name": "Bungoma",
+      "region": "Western",
+      "soils": [
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "andosols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.2
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": "Mt Elgon slopes are volcanic.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "040",
+      "county_name": "Busia",
+      "region": "Western",
+      "soils": [
+        {
+          "soil_id": "acrisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          5.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "041",
+      "county_name": "Siaya",
+      "region": "Nyanza (Lake Basin)",
+      "soils": [
+        {
+          "soil_id": "acrisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "lixisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "low_to_moderate"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.8
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "loamy",
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "042",
+      "county_name": "Kisumu",
+      "region": "Nyanza (Lake Basin)",
+      "soils": [
+        {
+          "soil_id": "vertisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "moderately_well_drained",
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          6.0,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "silty",
+          "loamy"
+        ]
+      },
+      "local_notes": "Kano Plains are black cotton soils prone to flooding; uplands are better drained.",
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "043",
+      "county_name": "Homa Bay",
+      "region": "Nyanza (Lake Basin)",
+      "soils": [
+        {
+          "soil_id": "vertisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "lixisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "luvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "cambisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "fluvisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "moderately_well_drained",
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low_to_moderate",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          5.5,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          5.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "044",
+      "county_name": "Migori",
+      "region": "Nyanza (Lake Basin)",
+      "soils": [
+        {
+          "soil_id": "ferralsols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "lixisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "low",
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay",
+          "loamy"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "045",
+      "county_name": "Kisii",
+      "region": "Nyanza (Lake Basin)",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "046",
+      "county_name": "Nyamira",
+      "region": "Nyanza (Lake Basin)",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "ferralsols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "acrisols",
+          "role": "secondary",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          6.0
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          6.0
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay"
+        ]
+      },
+      "local_notes": null,
+      "verification_status": "needs_verification_against_kss_map"
+    },
+    {
+      "county_code": "047",
+      "county_name": "Nairobi City",
+      "region": "Nairobi",
+      "soils": [
+        {
+          "soil_id": "nitisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        },
+        {
+          "soil_id": "vertisols",
+          "role": "dominant",
+          "basis": "general_knowledge"
+        }
+      ],
+      "derived_summary": {
+        "note": "Computed from the soil catalogue; do not edit by hand.",
+        "drainage_classes_dominant": [
+          "well_drained",
+          "imperfectly_drained",
+          "poorly_drained"
+        ],
+        "fertility_classes_dominant": [
+          "moderate_to_high"
+        ],
+        "ph_range_dominant": [
+          4.5,
+          8.5
+        ],
+        "ph_range_including_secondary": [
+          4.5,
+          8.5
+        ],
+        "farmer_texture_classes_dominant": [
+          "clay"
+        ]
+      },
+      "local_notes": "Western parts have red volcanic soils; eastern plains have black cotton soils.",
+      "verification_status": "needs_verification_against_kss_map"
+    }
+  ]
+}
