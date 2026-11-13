@@ -62,7 +62,7 @@ async function loadFarmDatabase() {
         throw error;
     }
 }
-console.log("FarmGuide JavaScript is connected!");
+console.log("FarmFriend JavaScript is connected!");
 
 
 let displayedCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -112,6 +112,27 @@ function populateDatabaseSelects() {
         farmDatabase.crops.crops.map(crop =>
             `<option value="${escapeHistoryText(crop.crop_id)}">${escapeHistoryText(getCropTitle(crop))}</option>`
         ).join("");
+
+    const countySelect = document.getElementById("countySelect");
+    const locationSuggestions = document.getElementById("locationSuggestions");
+    const counties = farmDatabase.locations.counties || [];
+
+    if (countySelect) {
+        countySelect.innerHTML = `<option value="">Choose a county</option>` +
+            counties.map(county =>
+                `<option value="${escapeHistoryText(county.county_name)}">${escapeHistoryText(county.county_name)}</option>`
+            ).join("");
+    }
+
+    if (locationSuggestions) {
+        locationSuggestions.innerHTML = counties.map(county =>
+            `<option value="${escapeHistoryText(county.county_name)}"></option>`
+        ).join("");
+    }
+
+    renderCropGuide();
+    renderPopularCrops();
+    renderSoilGuide();
 }
 
 function normalizePlaceName(name) {
@@ -121,6 +142,110 @@ function normalizePlaceName(name) {
         .toLowerCase()
         .replace(/\s+county$/, "")
         .replace(/[^a-z0-9]/g, "");
+}
+
+function getCountySoilProfileByName(countyName) {
+    const normalizedName = normalizePlaceName(countyName);
+    if (!normalizedName) return null;
+
+    return farmDatabase.soils.counties.find(county =>
+        normalizePlaceName(county.county_name) === normalizedName
+    ) || null;
+}
+
+function renderCropGuide() {
+    const cropGuideList = document.getElementById("cropGuideList");
+    if (!cropGuideList) return;
+
+    cropGuideList.innerHTML = farmDatabase.crops.crops.map(crop => {
+        const harvestDays = crop.days_to_harvest;
+        const harvestText = harvestDays
+            ? `${harvestDays.min}–${harvestDays.max} days to harvest`
+            : "Growing information available";
+
+        return `
+            <article class="crop-guide-card">
+                <div class="crop-guide-card-top">
+                    <h3>${escapeHistoryText(getCropTitle(crop))}</h3>
+                    <span class="crop-category">${escapeHistoryText(crop.category || "crop")}</span>
+                </div>
+                <p>${escapeHistoryText(harvestText)}</p>
+                <button type="button" class="crop-guide-select" data-crop-id="${escapeHistoryText(crop.crop_id)}">
+                    Use this crop <span aria-hidden="true">→</span>
+                </button>
+            </article>
+        `;
+    }).join("");
+}
+
+function renderPopularCrops() {
+    const popularCrops = document.getElementById("popularCrops");
+    if (!popularCrops || !farmDatabase.crops.crops.length) return;
+
+    const counts = new Map();
+    getSearchHistory().forEach(item => {
+        if (typeof item.crop === "string") {
+            counts.set(item.crop, (counts.get(item.crop) || 0) + 1);
+        }
+    });
+
+    const mostSearched = [...counts.entries()]
+        .sort((first, second) => second[1] - first[1])
+        .map(([cropId]) => getCropById(cropId))
+        .filter(Boolean)
+        .slice(0, 4);
+
+    if (!mostSearched.length) {
+        popularCrops.innerHTML = `<p class="empty-note">Your search history will help surface the crops you explore most.</p>`;
+        return;
+    }
+
+    popularCrops.innerHTML = mostSearched.map(crop => `
+        <a class="popular-crop" href="#get-started" data-popular-crop="${escapeHistoryText(crop.crop_id)}">
+            <span aria-hidden="true">🌱</span>
+            ${escapeHistoryText(getCropTitle(crop))}
+            <small>${counts.get(crop.crop_id)} searches</small>
+        </a>
+    `).join("");
+}
+
+function renderSoilGuide() {
+    const soilGuideContent = document.getElementById("soilGuideContent");
+    const countySelect = document.getElementById("countySelect");
+    if (!soilGuideContent || !countySelect) return;
+
+    const profile = getCountySoilProfileByName(countySelect.value);
+    if (!profile) {
+        soilGuideContent.innerHTML = `
+            <div class="guide-placeholder">
+                <span class="tool-icon icon-earth" aria-hidden="true">◉</span>
+                <h3>Start with your location</h3>
+                <p>Choose a county in the recommendation search to see its soil profile here.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const soilRecords = (profile.soils || [])
+        .map(entry => farmDatabase.soils.soil_types.find(soil => soil.soil_id === entry.soil_id))
+        .filter(Boolean);
+    const textures = profile.derived_summary?.farmer_texture_classes_dominant || [];
+    const managementPointers = [...new Set(
+        soilRecords.flatMap(soil => soil.farming?.management_pointers || [])
+    )].slice(0, 3);
+
+    soilGuideContent.innerHTML = `
+        <span class="section-kicker">County profile</span>
+        <h3>${escapeHistoryText(profile.county_name)} soils</h3>
+        ${textures.length
+            ? `<div class="soil-tag-list">${textures.map(texture => `<span class="soil-tag">${escapeHistoryText(texture)} soil</span>`).join("")}</div>`
+            : `<p>Dominant soil texture information is not available in the database.</p>`}
+        ${profile.local_notes ? `<p>${escapeHistoryText(profile.local_notes)}</p>` : ""}
+        ${managementPointers.length
+            ? `<ul>${managementPointers.map(pointer => `<li>${escapeHistoryText(pointer)}</li>`).join("")}</ul>`
+            : `<p>No county-specific management pointers are available in the soil database.</p>`}
+        <p><strong>Remember:</strong> This is a county-level estimate. Soil varies between fields; confirm local conditions with a soil test or an agricultural extension officer.</p>
+    `;
 }
 
 function getCountySoilProfile(location) {
@@ -358,237 +483,269 @@ async function findLocation(locationName) {
     return data.results[0];
 }
 async function getCropInformation() {
-    
     const irrigation = document.getElementById("irrigation").value;
+    const countySelect = document.getElementById("countySelect");
+    const locationInput = document.getElementById("location").value.trim() ||
+        countySelect?.value ||
+        "";
+    const cropId = document.getElementById("crop").value;
+    const result = document.getElementById("result");
+    const submitButton = document.getElementById("getCropInformationButton");
+    const weatherPanel = document.getElementById("weatherPanel");
 
-    const locationInput =
-        document.getElementById("location").value.trim();
-
-    const crop =
-        document.getElementById("crop").value;
-
-    const result =
-        document.getElementById("result");
-
-
-    if (locationInput === "" || crop === "") {
-
-        result.innerHTML = `
-            <p>Please enter your location and select a crop.</p>
-        `;
-
+    if (locationInput === "" || cropId === "") {
+        result.innerHTML = `<p class="form-error">Please enter your location and select a crop.</p>`;
         return;
     }
 
-
+    if (submitButton) submitButton.disabled = true;
     result.innerHTML = `
-        <p>Finding your location...</p>
+        <p class="loading-state"><span class="loading-spinner" aria-hidden="true"></span> Finding your location and preparing recommendations…</p>
     `;
+    if (weatherPanel) {
+        weatherPanel.innerHTML = `
+            <div class="weather-empty"><span aria-hidden="true">☁</span><p>Loading the forecast for your location…</p></div>
+        `;
+    }
 
     try {
-        const selectedCrop = getCropById(crop);
+        const selectedCrop = getCropById(cropId);
         if (!selectedCrop) {
             throw new Error("Crop details are not available in crops.json.");
         }
 
-        // Find the location
         const location = await findLocation(locationInput);
-        const countySoilProfile = getCountySoilProfile(location);
+        const countySoilProfile = getCountySoilProfile(location) ||
+            getCountySoilProfileByName(countySelect?.value || locationInput);
+        const weather = await getWeather(location.latitude, location.longitude);
+        saveSearchHistory(location.name, cropId);
 
-
-        result.innerHTML = `
-            <p>Getting current weather...</p>
-        `;
-
-
-        // Get weather
-        const weather =
-            await getWeather(
-                location.latitude,
-                location.longitude
-            );   
-         saveSearchHistory(location.name, crop);
-
-        const scheduledActivities = getCropActivities(crop, getCalendarStartDate());
-
+        const scheduledActivities = getCropActivities(cropId, getCalendarStartDate());
+        const calendarActivities = selectedCrop.calendar?.activity_plan || [];
         const analysis = analyzeCrop(selectedCrop, weather);
         const temperatureRange = selectedCrop.climate.temperature_c;
         const rainfallRange = selectedCrop.climate.rainfall_mm_per_year;
         const cropTitle = getCropTitle(selectedCrop);
-
-        const currentTemperature =
-            weather.current.temperature_2m;
-
-
-        const currentRain =
-            weather.current.rain;
-
+        const altitudeRange = selectedCrop.climate.altitude_m;
+        const soilRequirements = selectedCrop.soil || {};
+        const cropWater = selectedCrop.water || {};
+        const farmerGuidance = selectedCrop.farmer_guidance || {};
+        const suitabilityData = farmDatabase.cropSuitability.crops
+            .find(item => item.crop_id === cropId);
+        const countySoilMatches = countySoilProfile
+            ? (countySoilProfile.soils || []).map(countySoil => {
+                const soil = farmDatabase.soils.soil_types
+                    .find(item => item.soil_id === countySoil.soil_id);
+                const suitability = suitabilityData?.soils
+                    ?.find(item => item.soil_id === countySoil.soil_id);
+                return { countySoil, soil, suitability };
+            }).filter(item => item.soil)
+            : [];
+        const soilRatingText = rating => String(rating || "Not rated")
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, character => character.toUpperCase());
+        const pestTips = (farmerGuidance.tips || [])
+            .filter(tip => /pest|disease|fung|insect|monitor/i.test(tip));
+        const harvestTips = (farmerGuidance.tips || [])
+            .filter(tip => /harvest|matur|dry enough|storage/i.test(tip));
+        const harvestActivities = calendarActivities
+            .filter(activity => /harvest/i.test(activity.stage || ""));
+        const forecastMarkup = weather.daily.time.map((date, index) => {
+            const displayDate = new Date(`${date}T00:00:00`).toLocaleDateString(undefined, {
+                weekday: "short",
+                month: "short",
+                day: "numeric"
+            });
+            return `
+                <div class="forecast-day">
+                    <strong>${escapeHistoryText(displayDate)}</strong>
+                    <p>High: ${escapeHistoryText(weather.daily.temperature_2m_max[index])}°C</p>
+                    <p>Low: ${escapeHistoryText(weather.daily.temperature_2m_min[index])}°C</p>
+                    <p>Rain: ${escapeHistoryText(weather.daily.rain_sum[index])} mm</p>
+                </div>
+            `;
+        }).join("");
+        const soilMatchesMarkup = countySoilMatches.length
+            ? `
+                <p>County-level soil types and their database suitability for ${escapeHistoryText(cropTitle)}:</p>
+                <div class="soil-match-list">
+                    ${countySoilMatches.map(({ countySoil, soil, suitability }) => `
+                        <article class="soil-match">
+                            <div class="soil-match-title">
+                                <span>${escapeHistoryText(soil.wrb_group || soil.soil_id)}${countySoil.role === "dominant" ? " · dominant" : ""}</span>
+                                <span>${escapeHistoryText(soilRatingText(suitability?.rating))}${typeof suitability?.score === "number" ? ` · ${suitability.score}/100` : ""}</span>
+                            </div>
+                            ${suitability?.limiting_factors?.length
+                                ? `<p>${suitability.limiting_factors.map(escapeHistoryText).join("; ")}</p>`
+                                : ""}
+                            ${suitability?.management?.length
+                                ? `<ul>${suitability.management.map(item => `<li>${escapeHistoryText(item)}</li>`).join("")}</ul>`
+                                : ""}
+                        </article>
+                    `).join("")}
+                </div>
+            `
+            : `<p>County-specific soil suitability is not available for this location in the soil database. Use the crop requirements below as a guide and confirm your field conditions locally.</p>`;
+        const plantingActivitiesMarkup = scheduledActivities.length
+            ? scheduledActivities.map(item => `
+                <div class="calendar-item">
+                    <time datetime="${formatLocalDateValue(item.date)}">${formatCalendarDate(item.date)}</time>
+                    <div><h4>${escapeHistoryText(item.stage)}</h4><p>${escapeHistoryText(item.activity)}</p></div>
+                </div>
+            `).join("")
+            : `<p>${escapeHistoryText(selectedCrop.calendar?.basis || "No activity plan is available for this crop.")}</p>`;
+        const climateSuitabilityMarkup = `
+            <div class="suitability">
+                <p><strong>Preliminary indicator score:</strong> ${analysis.score}/100</p>
+                <p><strong>Current temperature:</strong> ${escapeHistoryText(weather.current.temperature_2m)}°C — ${analysis.temperatureSuitable ? "within" : "outside"} the crop's optimal range</p>
+                <p><strong>Seven-day rainfall:</strong> ${analysis.forecastRain.toFixed(1)} mm — ${analysis.rainfallSuitable ? "within" : "outside"} the prototype's target range</p>
+                <p>${escapeHistoryText(analysis.recommendation)}</p>
+            </div>
+        `;
 
         result.innerHTML = `
-
-            <h2>${escapeHistoryText(cropTitle)} Information</h2>
-
-            <hr>
-
-            <h3>Location</h3>
-
-            <p>
-                <strong>Place:</strong>
-                ${location.name}
-            </p>
-
-            <p>
-                <strong>Country:</strong>
-                ${location.country}
-            </p>
-
-            <p>
-                <strong>Latitude:</strong>
-                ${location.latitude}
-            </p>
-
-            <p>
-                <strong>Longitude:</strong>
-                ${location.longitude}
-            </p>
-
-
-            <hr>
-            
-            <hr>
-            <h3>Soil and Water Advice</h3>
-
-            <p>
-                <strong>Water availability:</strong> ${irrigation || "Not specified"}</p>
-
-            <div class="suitability">
-                ${getSoilGuidanceHTML(countySoilProfile, selectedCrop)}
-             </div>
-
-             <h3>Current Weather</h3>
-
-            <p>
-                <strong>Temperature:</strong>
-                ${currentTemperature}°C
-            </p>
-
-            <p>
-                <strong>Current Rain:</strong>
-                ${currentRain} mm
-            </p>
-            
-            <hr>
-            <h3>Crop Activity Calendar</h3>
-            <p>Suggested activities are scheduled from ${formatCalendarDate(getCalendarStartDate(), {
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            })}.</p>
-            <div class="calendar-list">
-                ${scheduledActivities.length ? scheduledActivities.map(item => `
-                    <div class="calendar-item">
-                        <time datetime="${formatLocalDateValue(item.date)}">${formatCalendarDate(item.date)}</time>
-                        <div>
-                            <h4>${escapeHistoryText(item.stage)}</h4>
-                            <p>${escapeHistoryText(item.activity)}</p>
+            <div class="recommendation-results">
+                <div class="results-header">
+                    <div>
+                        <span class="section-kicker">Your farming guidance</span>
+                        <h2>${escapeHistoryText(cropTitle)} recommendations</h2>
+                        <p>${escapeHistoryText(location.name)}, ${escapeHistoryText(location.country)} · Planning from ${formatCalendarDate(getCalendarStartDate(), { year: "numeric", month: "long", day: "numeric" })}</p>
+                    </div>
+                    <span class="results-badge">Based on available data</span>
+                </div>
+                <div class="results-details">
+                    <details class="result-section" open>
+                        <summary>Crop overview</summary>
+                        <div class="result-section-content">
+                            <p><strong>Category:</strong> ${escapeHistoryText(selectedCrop.category || "Not specified")}</p>
+                            <p><strong>Life cycle:</strong> ${escapeHistoryText(selectedCrop.life_cycle || "Not specified")}</p>
+                            ${selectedCrop.names.swahili ? `<p><strong>Swahili name:</strong> ${escapeHistoryText(selectedCrop.names.swahili)}</p>` : ""}
+                            ${selectedCrop.names.scientific ? `<p><strong>Scientific name:</strong> <em>${escapeHistoryText(selectedCrop.names.scientific)}</em></p>` : ""}
+                            ${(selectedCrop.kenya_notes || []).length
+                                ? `<ul>${selectedCrop.kenya_notes.map(note => `<li>${escapeHistoryText(note)}</li>`).join("")}</ul>`
+                                : ""}
                         </div>
-                    </div>
-                `).join("") : `<p>${escapeHistoryText(selectedCrop.calendar?.basis || "No activity plan is available for this crop.")}</p>`}
+                    </details>
+                    <details class="result-section">
+                        <summary>Recommended growing conditions</summary>
+                        <div class="result-section-content">
+                            <p><strong>Soil guidance:</strong> ${escapeHistoryText(farmerGuidance.soil || "See the soil requirements below.")}</p>
+                            ${farmerGuidance.spacing ? `<p><strong>Spacing:</strong> ${escapeHistoryText(farmerGuidance.spacing)}</p>` : ""}
+                            ${farmerGuidance.tips?.length
+                                ? `<ul>${farmerGuidance.tips.map(tip => `<li>${escapeHistoryText(tip)}</li>`).join("")}</ul>`
+                                : ""}
+                        </div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Soil requirements and local recommendations</summary>
+                        <div class="result-section-content">
+                            <p><strong>Preferred pH:</strong> ${soilRequirements.ph?.optimal_min ?? "Not specified"}–${soilRequirements.ph?.optimal_max ?? "Not specified"}</p>
+                            <p><strong>Preferred textures:</strong> ${escapeHistoryText((soilRequirements.texture_preferred || []).join(", ") || "Not specified")}</p>
+                            <p><strong>Drainage:</strong> ${escapeHistoryText((soilRequirements.drainage_preferred || []).join(", ") || "Not specified")}</p>
+                            <p><strong>Soil depth:</strong> ${escapeHistoryText(soilRequirements.min_depth_class || "Not specified")} · <strong>Fertility demand:</strong> ${escapeHistoryText(soilRequirements.fertility_demand || "Not specified")}</p>
+                            ${countySoilProfile
+                                ? `<p><strong>Location profile:</strong> ${escapeHistoryText(countySoilProfile.county_name)} county</p>${countySoilProfile.local_notes ? `<p>${escapeHistoryText(countySoilProfile.local_notes)}</p>` : ""}`
+                                : ""}
+                            ${soilMatchesMarkup}
+                            <p class="guidance-disclaimer">County-level soil information is an estimate, not a measurement of your field.</p>
+                        </div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Climate requirements and suitability</summary>
+                        <div class="result-section-content">
+                            <p><strong>Optimal temperature:</strong> ${temperatureRange.optimal_min}–${temperatureRange.optimal_max}°C</p>
+                            <p><strong>Optimal annual rainfall:</strong> ${rainfallRange.optimal_min}–${rainfallRange.optimal_max} mm</p>
+                            ${altitudeRange ? `<p><strong>Suitable altitude:</strong> ${altitudeRange.optimal_min}–${altitudeRange.optimal_max} m</p>` : ""}
+                            ${climateSuitabilityMarkup}
+                        </div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Planting information</summary>
+                        <div class="result-section-content">
+                            ${farmerGuidance.spacing ? `<p><strong>Spacing:</strong> ${escapeHistoryText(farmerGuidance.spacing)}</p>` : ""}
+                            <p>Suggested activity plan from ${formatCalendarDate(getCalendarStartDate(), { year: "numeric", month: "long", day: "numeric" })}:</p>
+                            <div class="calendar-list">${plantingActivitiesMarkup}</div>
+                            <p><a href="#cropCalendarSection">Open the monthly crop calendar</a></p>
+                        </div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Fertilizer recommendations</summary>
+                        <div class="result-section-content">${getFertilizerGuidanceHTML(cropId)}</div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Water requirements</summary>
+                        <div class="result-section-content">
+                            <p><strong>Water requirement:</strong> ${escapeHistoryText(cropWater.need_class || "Not specified")}</p>
+                            <p><strong>Your water availability:</strong> ${escapeHistoryText(irrigation || "Not specified")}</p>
+                            ${cropWater.critical_stages?.length ? `<p><strong>Critical growth stages:</strong></p><ul>${cropWater.critical_stages.map(stage => `<li>${escapeHistoryText(stage)}</li>`).join("")}</ul>` : ""}
+                            ${cropWater.irrigation_note ? `<p>${escapeHistoryText(cropWater.irrigation_note)}</p>` : ""}
+                            ${farmerGuidance.water ? `<p><strong>Farmer guidance:</strong> ${escapeHistoryText(farmerGuidance.water)}</p>` : ""}
+                        </div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Pest and disease management</summary>
+                        <div class="result-section-content">
+                            ${pestTips.length
+                                ? `<ul>${pestTips.map(tip => `<li>${escapeHistoryText(tip)}</li>`).join("")}</ul>`
+                                : `<p>Specific pest and disease recommendations are not available in the crop database for this crop. Monitor crops regularly and consult a local agricultural extension officer if you notice a problem.</p>`}
+                        </div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Harvesting information</summary>
+                        <div class="result-section-content">
+                            ${selectedCrop.days_to_harvest ? `<p><strong>Typical harvest window:</strong> ${selectedCrop.days_to_harvest.min}–${selectedCrop.days_to_harvest.max} days${selectedCrop.days_to_harvest.note ? ` — ${escapeHistoryText(selectedCrop.days_to_harvest.note)}` : ""}</p>` : `<p>A typical harvest window is not available in the crop database.</p>`}
+                            ${harvestTips.length ? `<ul>${harvestTips.map(tip => `<li>${escapeHistoryText(tip)}</li>`).join("")}</ul>` : ""}
+                            ${harvestActivities.length ? `<ul>${harvestActivities.map(activity => `<li><strong>${escapeHistoryText(activity.stage)}:</strong> ${escapeHistoryText(activity.activity)}</li>`).join("")}</ul>` : ""}
+                        </div>
+                    </details>
+                    <details class="result-section">
+                        <summary>Current weather and 7-day forecast</summary>
+                        <div class="result-section-content">
+                            <p><strong>Current temperature:</strong> ${escapeHistoryText(weather.current.temperature_2m)}°C · <strong>Rain:</strong> ${escapeHistoryText(weather.current.rain)} mm · <strong>Humidity:</strong> ${escapeHistoryText(weather.current.relative_humidity_2m)}%</p>
+                            <div class="forecast">${forecastMarkup}</div>
+                        </div>
+                    </details>
+                </div>
             </div>
-            <p><a href="#cropCalendarSection">Open the monthly crop calendar</a></p>
-
-
-            <hr>
-
-
-            <h3>Crop Requirements</h3>
-
-            <p>
-                <strong>Temperature:</strong>
-                ${temperatureRange.optimal_min}°C -
-                ${temperatureRange.optimal_max}°C
-            </p>
-
-            <p>
-                <strong>Rainfall:</strong>
-                ${rainfallRange.optimal_min}–${rainfallRange.optimal_max} mm per year
-            </p>
-
-            <hr>
-            
-            <hr>
-
-            <h3>Crop Suitability Analysis</h3>
-
-            <div class="suitability">
-            <p>
-                <strong>Preliminary indicator score:</strong>
-            ${analysis.score}/100
-            </p>
-
-            <p>
-                <strong>Temperature:</strong>
-                ${analysis.temperatureSuitable ? "Within target range" : "Outside target range"}
-            </p>
-
-            <p>
-                <strong>Rain forecast (7 days):</strong>
-                ${analysis.forecastRain.toFixed(1)} mm
-            </p>
-
-            <p>
-                <strong>Rainfall indicator:</strong>
-                ${analysis.rainfallSuitable ? "Within prototype target range" : "Outside prototype target range"}
-            </p>
-
-             <p>${analysis.recommendation}</p>
-            </div>
-
-
-            <h3>7-Day Weather Forecast</h3>
-
-            <div class="forecast">
-
-                ${weather.daily.time.map((date, index) => `
-
-                    <div class="forecast-day">
-
-                        <strong>${date}</strong>
-
-                        <p>
-                            Max:
-                            ${weather.daily.temperature_2m_max[index]}°C
-                        </p>
-
-                        <p>
-                            Min:
-                            ${weather.daily.temperature_2m_min[index]}°C
-                        </p>
-
-                        <p>
-                            Rain:
-                            ${weather.daily.rain_sum[index]} mm
-                        </p>
-
-                    </div>
-
-                `).join("")}
-
-            </div>
-
         `;
+
+        if (weatherPanel) {
+            weatherPanel.innerHTML = `
+                <div class="weather-summary">
+                    <div>
+                        <h3>${escapeHistoryText(location.name)}, ${escapeHistoryText(location.country)}</h3>
+                        <p>Current local conditions</p>
+                    </div>
+                    <div class="weather-current">${escapeHistoryText(weather.current.temperature_2m)}°C <small>${escapeHistoryText(weather.current.relative_humidity_2m)}% humidity</small></div>
+                </div>
+                <div class="weather-forecast">
+                    ${weather.daily.time.map((date, index) => `
+                        <div class="weather-day">
+                            <strong>${escapeHistoryText(new Date(`${date}T00:00:00`).toLocaleDateString(undefined, { weekday: "short" }))}</strong>
+                            <span>${escapeHistoryText(weather.daily.temperature_2m_max[index])}° / ${escapeHistoryText(weather.daily.temperature_2m_min[index])}°</span>
+                            <small>${escapeHistoryText(weather.daily.rain_sum[index])} mm rain</small>
+                        </div>
+                    `).join("")}
+                </div>
+            `;
+        }
 
     } catch (error) {
-
+        console.error("Could not retrieve crop recommendations:", error);
         result.innerHTML = `
-            <p>
-                ${error.message}
-            </p>
-
-            <p>
-                Please check the location name and try again.
-            </p>
+            <div class="search-error" role="alert">
+                <strong>We couldn’t prepare recommendations.</strong>
+                <p>${escapeHistoryText(error.message)}</p>
+                <p>Please check your location and connection, then try again.</p>
+            </div>
         `;
+        if (weatherPanel) {
+            weatherPanel.innerHTML = `
+                <div class="weather-empty"><span aria-hidden="true">☁</span><p>Weather information is unavailable until a location search succeeds.</p></div>
+            `;
+        }
+    } finally {
+        if (submitButton) submitButton.disabled = false;
     }
 }
 
@@ -630,6 +787,7 @@ function displaySearchHistory() {
 
     if (history.length === 0) {
         historyList.innerHTML = "<p>No searches saved yet.</p>";
+        renderPopularCrops();
         return;
     }
 
@@ -644,6 +802,7 @@ function displaySearchHistory() {
             <p><strong>Date:</strong> ${escapeHistoryText(item.date)}</p>
         </div>
     `).join("");
+    renderPopularCrops();
 }
 
 function escapeHistoryText(value) {
@@ -693,6 +852,57 @@ document.addEventListener("DOMContentLoaded", async function () {
             renderFertilizerGuidance(cropSelect.value);
         });
         renderFertilizerGuidance(cropSelect.value);
+    }
+
+    const countySelect = document.getElementById("countySelect");
+    const locationInput = document.getElementById("location");
+    if (countySelect && locationInput) {
+        countySelect.addEventListener("change", function () {
+            if (countySelect.value) {
+                locationInput.value = countySelect.value;
+            }
+            renderSoilGuide();
+        });
+
+        locationInput.addEventListener("change", function () {
+            const matchingCounty = farmDatabase.locations.counties.find(county =>
+                normalizePlaceName(county.county_name) === normalizePlaceName(locationInput.value)
+            );
+            countySelect.value = matchingCounty?.county_name || "";
+            renderSoilGuide();
+        });
+    }
+
+    const cropGuideList = document.getElementById("cropGuideList");
+    if (cropGuideList) {
+        cropGuideList.addEventListener("click", function (event) {
+            const button = event.target.closest("[data-crop-id]");
+            if (!button || !cropSelect) return;
+
+            cropSelect.value = button.dataset.cropId;
+            cropSelect.dispatchEvent(new Event("change"));
+            document.getElementById("get-started").scrollIntoView({ behavior: "smooth" });
+        });
+    }
+
+    const popularCrops = document.getElementById("popularCrops");
+    if (popularCrops) {
+        popularCrops.addEventListener("click", function (event) {
+            const link = event.target.closest("[data-popular-crop]");
+            if (!link || !cropSelect) return;
+
+            cropSelect.value = link.dataset.popularCrop;
+            cropSelect.dispatchEvent(new Event("change"));
+        });
+    }
+
+    const mobileNav = document.querySelector(".mobile-nav");
+    if (mobileNav) {
+        mobileNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", function () {
+                mobileNav.open = false;
+            });
+        });
     }
 
     if (startDateInput) {

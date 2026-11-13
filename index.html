@@ -3,133 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mchagua Jembe</title>
-
+    <meta name="theme-color" content="#153f32">
+    <meta name="description" content="FarmFriend Kenya helps farmers explore crop, soil, fertilizer and weather guidance for their area.">
+    <title>FarmFriend Kenya | Grow smarter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body> 
-    <header class="dashboard-header">
-       <div class="header-content">
-        <h1>Mchagua Jembe</h1>
-        <p>Your smart companion for better farming.</p>
-       </div>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="#home" aria-label="FarmFriend Kenya home">
+                <span class="brand-mark" aria-hidden="true">F</span>
+                <span class="brand-copy">
+                    <strong>FarmFriend</strong>
+                    <small>KENYA</small>
+                </span>
+            </a>
+
+            <nav class="desktop-nav" aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#crop-guide">Crop Guide</a>
+                <a href="#soil-guide">Soil Guide</a>
+                <a href="#fertilizer-guide">Fertilizer Guide</a>
+                <a href="#weather">Weather</a>
+                <a href="#historySection">Search History</a>
+                <a href="#about">About</a>
+            </nav>
+
+            <details class="mobile-nav">
+                <summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary>
+                <nav aria-label="Mobile navigation">
+                    <a href="#home">Home</a>
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#crop-guide">Crop Guide</a>
+                    <a href="#soil-guide">Soil Guide</a>
+                    <a href="#fertilizer-guide">Fertilizer Guide</a>
+                    <a href="#weather">Weather</a>
+                    <a href="#historySection">Search History</a>
+                    <a href="#about">About</a>
+                </nav>
+            </details>
+        </div>
     </header>
 
-    <section class="welcome-banner">
-        <h2>Welcome to FarmFriend</h2>
-    <p>
-        Get crop-growing guidance, check local weather,
-        and explore farming recommendations for your area.
-    </p>
-    </section>
-        
-
-    <main>
-        <section class="hero">
-            <h2>Know What to Grow</h2>
-
-            <p>
-                Enter your location and the crop you want to grow.
-            </p>
-
-            <div class="form-container">
-        <section class="dashboard-shortcuts">
-            <div class="shortcut-card">
-            <h3>Weather</h3>
-            <p>Check current conditions and the forecast.</p>
-            <a href="#location">Check Weather</a>
+    <main id="main-content">
+        <section class="hero-section" id="home">
+            <div class="hero-inner page-width">
+                <div class="hero-copy">
+                    <span class="eyebrow"><span class="eyebrow-dot"></span> A farming companion for Kenya</span>
+                    <h1>Grow smarter with <span>FarmFriend.</span></h1>
+                    <p>Practical crop, soil, fertilizer and weather guidance to help you make confident decisions on your farm.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#get-started">Get started <span aria-hidden="true">→</span></a>
+                        <a class="text-link" href="#how-it-works">See how it works</a>
+                    </div>
+                    <div class="hero-note">
+                        <span class="hero-note-icon" aria-hidden="true">✦</span>
+                        <span>Clear information, rooted in local farming data.</span>
+                    </div>
+                </div>
+                <div class="hero-art" role="img" aria-label="Illustration of green Kenyan farmland beneath a bright sun">
+                    <div class="art-sun"></div>
+                    <div class="art-hill art-hill-back"></div>
+                    <div class="art-hill art-hill-front"></div>
+                    <div class="art-field-lines"></div>
+                    <div class="art-plant art-plant-one"><i></i><i></i><b></b></div>
+                    <div class="art-plant art-plant-two"><i></i><i></i><b></b></div>
+                    <div class="art-plant art-plant-three"><i></i><i></i><b></b></div>
+                    <div class="art-label"><span>🌱</span><span><strong>Better choices start here</strong><small>One step at a time</small></span></div>
+                </div>
             </div>
-
-            <div class="shortcut-card">
-            <h3>Crop Advice</h3>
-            <p>Explore growing requirements for your crop.</p>
-            <a href="#crop">Explore Crops</a>
-            </div>
-
-            <div class="shortcut-card">
-            <h3>Search History</h3>
-            <p>Review your previous crop searches.</p>
-            <a href="#historySection">View History</a>
+            <div class="hero-bottom page-width">
+                <span><strong>01</strong> Choose your location</span>
+                <span class="hero-bottom-line"></span>
+                <span><strong>02</strong> Select a crop</span>
+                <span class="hero-bottom-line"></span>
+                <span><strong>03</strong> Explore your guidance</span>
             </div>
         </section>
-            <h2>Get Crop Recommendations</h2>
-            <p>Enter your farming details to receive crop guidance for your area.</p>
-                <label for="location">Your Location</label>
-                <input
-                    type="text"
-                    id="location"
-                    placeholder="e.g. town or county, Kenya"
-                    autocomplete="address-level2"
-                >
 
-                <label for="crop">Select Crop</label>
-                <select id="crop">
-                    <option value="">-- Select a crop --</option>
-                </select>
-
-                <label for="calendarStartDate">Schedule Start Date</label>
-                <input type="date" id="calendarStartDate">
-
-                <label for="irrigation">Water Availability:</label>
-                <select id="irrigation">
-                    <option value="">Select water availability</option>
-                    <option value="rainfed">Rain-fed farming</option>
-                    <option value="irrigation">Irrigation available</option>
-                    <option value="limited">Limited water supply</option>
-                 </select>
-
-                <button id="getCropInformationButton" type="button" onclick="getCropInformation()" disabled>
-                    Get Crop Information
-                </button>
-
+        <section class="search-section page-width" id="get-started" aria-labelledby="search-heading">
+            <div class="search-card">
+                <div class="search-intro">
+                    <span class="section-kicker">Your farm, your next step</span>
+                    <h2 id="search-heading">What would you like to grow?</h2>
+                    <p>Tell us where your farm is and choose a crop. We’ll bring together the guidance available for your area.</p>
+                </div>
+                <div class="search-form">
+                    <div class="form-field">
+                        <label for="countySelect">County <span class="optional-label">optional</span></label>
+                        <select id="countySelect">
+                            <option value="">Choose a county</option>
+                        </select>
+                        <small>Choose a county or enter a nearby town below.</small>
+                    </div>
+                    <div class="form-field">
+                        <label for="location">Town or location</label>
+                        <input
+                            type="text"
+                            id="location"
+                            list="locationSuggestions"
+                            placeholder="e.g. Nakuru or Eldoret"
+                            autocomplete="address-level2"
+                            aria-describedby="locationHelp"
+                        >
+                        <datalist id="locationSuggestions"></datalist>
+                        <small id="locationHelp">Use a town, village or county name.</small>
+                    </div>
+                    <div class="form-field">
+                        <label for="crop">Crop you want to grow</label>
+                        <select id="crop">
+                            <option value="">Choose a crop</option>
+                        </select>
+                        <small>Recommendations are based on the crop guide.</small>
+                    </div>
+                    <div class="form-field">
+                        <label for="irrigation">Water availability <span class="optional-label">optional</span></label>
+                        <select id="irrigation">
+                            <option value="">Choose water availability</option>
+                            <option value="rainfed">Rain-fed farming</option>
+                            <option value="irrigation">Irrigation available</option>
+                            <option value="limited">Limited water supply</option>
+                        </select>
+                        <small>This helps you consider your water needs.</small>
+                    </div>
+                    <div class="form-field form-field-date">
+                        <label for="calendarStartDate">Planning start date</label>
+                        <input type="date" id="calendarStartDate">
+                    </div>
+                    <div class="search-submit">
+                        <button class="button button-primary button-search" id="getCropInformationButton" type="button" onclick="getCropInformation()" disabled>
+                            Get my recommendations <span aria-hidden="true">→</span>
+                        </button>
+                        <p>It only takes a moment.</p>
+                    </div>
+                </div>
+                <div class="form-message" id="result" aria-live="polite" aria-atomic="true"></div>
             </div>
+        </section>
 
-            <div id="fertilizerRecommendations" aria-live="polite"></div>
-            <div id="result"></div>
-            </section>
+        <section class="dashboard-section page-width section-space" id="dashboard">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">Your farm toolkit</span>
+                    <h2>Explore your farming tools</h2>
+                    <p>Start with what you need today. Each tool keeps the information focused and easy to explore.</p>
+                </div>
+                <a class="text-link" href="#get-started">Get recommendations <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="tool-grid">
+                <article class="tool-card">
+                    <span class="tool-icon icon-green" aria-hidden="true">🌱</span>
+                    <h3>Crop growing guide</h3>
+                    <p>Explore crop conditions, planting guidance and activity plans from the crop database.</p>
+                    <a href="#crop-guide">Explore crop guide <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="tool-card">
+                    <span class="tool-icon icon-earth" aria-hidden="true">◉</span>
+                    <h3>Soil information</h3>
+                    <p>See county-level soil profiles and practical soil management pointers.</p>
+                    <a href="#soil-guide">Explore soil guide <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="tool-card">
+                    <span class="tool-icon icon-gold" aria-hidden="true">✦</span>
+                    <h3>Fertilizer advice</h3>
+                    <p>Review crop-specific fertilizer programs, application guidance and cautions.</p>
+                    <a href="#fertilizer-guide">View fertilizer guide <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="tool-card">
+                    <span class="tool-icon icon-blue" aria-hidden="true">☁</span>
+                    <h3>Local weather</h3>
+                    <p>Check current conditions and the seven-day forecast for your searched location.</p>
+                    <a href="#weather">Check weather <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="tool-card">
+                    <span class="tool-icon icon-green" aria-hidden="true">⌖</span>
+                    <h3>Crop suitability</h3>
+                    <p>Compare crop needs with known local soils and short-term weather indicators.</p>
+                    <a href="#get-started">Check suitability <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="tool-card">
+                    <span class="tool-icon icon-earth" aria-hidden="true">◷</span>
+                    <h3>Search history</h3>
+                    <p>Return to previous crop searches saved on this device.</p>
+                    <a href="#historySection">View search history <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+        </section>
 
-            <section class="crop-calendar-section" id="cropCalendarSection">
-                <div class="calendar-heading">
-                    <div>
-                        <h2>Crop Activity Calendar</h2>
-                        <p id="calendarCropDescription">Select a crop to generate its activity calendar.</p>
-                    </div>
-                    <div class="calendar-navigation">
-                        <button type="button" id="previousCalendarMonth" aria-label="Previous month">‹</button>
-                        <h3 id="calendarMonthLabel" aria-live="polite"></h3>
-                        <button type="button" id="nextCalendarMonth" aria-label="Next month">›</button>
+        <section class="popular-section">
+            <div class="page-width popular-inner">
+                <div class="popular-copy">
+                    <span class="section-kicker">Explore the crop database</span>
+                    <h2>Popular crops</h2>
+                    <p>See which crops are being explored most in your search history, or browse all available crop guidance.</p>
+                    <a class="text-link" href="#crop-guide">Browse crop guide <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="popular-list" id="popularCrops" aria-live="polite">
+                    <p class="empty-note">Your search history will help surface the crops you explore most.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section page-width section-space" id="crop-guide">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">From the crop database</span>
+                    <h2>Crop growing guide</h2>
+                    <p>Browse crop requirements and choose a crop to begin a location-based recommendation.</p>
+                </div>
+                <a class="button button-outline" href="#get-started">Start a search</a>
+            </div>
+            <div class="crop-guide-grid" id="cropGuideList" aria-live="polite">
+                <p class="empty-note">Loading crop guidance…</p>
+            </div>
+        </section>
+
+        <section class="crop-calendar-section page-width" id="cropCalendarSection" aria-labelledby="calendar-title">
+            <div class="calendar-heading">
+                <div>
+                    <span class="section-kicker">Plan ahead</span>
+                    <h2 id="calendar-title">Crop activity calendar</h2>
+                    <p id="calendarCropDescription">Select a crop to generate its activity calendar.</p>
+                </div>
+                <div class="calendar-navigation">
+                    <button type="button" id="previousCalendarMonth" aria-label="Previous month">‹</button>
+                    <h3 id="calendarMonthLabel" aria-live="polite"></h3>
+                    <button type="button" id="nextCalendarMonth" aria-label="Next month">›</button>
+                </div>
+            </div>
+            <p class="calendar-note">Suggested dates are a general planning guide based on the schedule start date. Adjust activities for your variety, local season and agricultural advice.</p>
+            <div class="calendar-grid" id="cropCalendar" aria-label="Crop activity calendar"></div>
+            <div class="upcoming-activities">
+                <h3>Upcoming activities</h3>
+                <div id="upcomingActivities"></div>
+            </div>
+        </section>
+
+        <section class="guide-band section-space" id="soil-guide">
+            <div class="page-width guide-band-inner">
+                <div class="guide-band-copy">
+                    <span class="section-kicker">Know your ground</span>
+                    <h2>Soil information for your county</h2>
+                    <p>County profiles offer a broad picture of local soils. Conditions can vary from one field to another, so use this as a starting point and confirm with a soil test or local agricultural advice.</p>
+                    <a class="button button-light" href="#get-started">Choose your county <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="soil-guide-card" id="soilGuideContent" aria-live="polite">
+                    <div class="guide-placeholder">
+                        <span class="tool-icon icon-earth" aria-hidden="true">◉</span>
+                        <h3>Start with your location</h3>
+                        <p>Choose a county in the recommendation search to see its soil profile here.</p>
                     </div>
                 </div>
-                <p class="calendar-note">
-                    Suggested dates are a general planning guide based on the schedule start date.
-                    Adjust activities for your variety, local season, and agricultural advice.
-                </p>
-                <div class="calendar-grid" id="cropCalendar" aria-label="Crop activity calendar"></div>
-                <div class="upcoming-activities">
-                    <h3>Upcoming activities</h3>
-                    <div id="upcomingActivities"></div>
+            </div>
+        </section>
+
+        <section class="content-section page-width section-space" id="fertilizer-guide">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">Nourish your crop</span>
+                    <h2>Fertilizer recommendations</h2>
+                    <p>Select a crop in the search above to see guidance from the fertilizer database.</p>
                 </div>
-            </section>
-            
-<section id="historySection">
-    <h2>My Search History</h2>
-    <p>View your previous crop searches.</p>
+                <a class="text-link" href="#get-started">Choose a crop <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="fertilizer-panel" id="fertilizerRecommendations" aria-live="polite">
+                <p class="fertilizer-prompt">Select a crop to see its fertilizer recommendations.</p>
+            </div>
+        </section>
 
-    <button type="button" id="clearHistoryBtn">
-        Clear History
-    </button>
+        <section class="weather-section section-space" id="weather">
+            <div class="page-width weather-inner">
+                <div class="weather-copy">
+                    <span class="section-kicker">Plan with the forecast</span>
+                    <h2>Weather for your search location</h2>
+                    <p>Current conditions and a seven-day forecast appear after you request crop recommendations for a location.</p>
+                    <a class="text-link" href="#get-started">Check a location <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="weather-panel" id="weatherPanel" aria-live="polite">
+                    <div class="weather-empty"><span aria-hidden="true">☁</span><p>Your local forecast will appear here after a search.</p></div>
+                </div>
+            </div>
+        </section>
 
-    <div id="historyList"></div>
+        <section class="how-section page-width section-space" id="how-it-works">
+            <div class="section-heading centered-heading">
+                <div>
+                    <span class="section-kicker">Straightforward from the start</span>
+                    <h2>How FarmFriend works</h2>
+                    <p>Three simple steps to explore the information that matters to your farm.</p>
+                </div>
+            </div>
+            <div class="steps-grid">
+                <article class="step-card"><span>01</span><h3>Choose your location</h3><p>Select a county or enter the town closest to your farm.</p></article>
+                <article class="step-card"><span>02</span><h3>Select a crop</h3><p>Choose from crops included in the FarmFriend crop database.</p></article>
+                <article class="step-card"><span>03</span><h3>Review your guidance</h3><p>Explore crop, soil, fertilizer and weather information in clear sections.</p></article>
+            </div>
+            <p class="guidance-disclaimer">Recommendations are general guidance, not a substitute for field-specific soil testing or advice from a qualified local agricultural officer.</p>
+        </section>
 
+        <section class="history-section page-width section-space" id="historySection">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">Saved on this device</span>
+                    <h2>My search history</h2>
+                    <p>Pick up where you left off with your previous crop searches.</p>
+                </div>
+                <button class="button button-outline button-subtle" type="button" id="clearHistoryBtn">Clear history</button>
+            </div>
+            <div class="history-grid" id="historyList" aria-live="polite"></div>
         </section>
     </main>
 
-    <footer>
-        <p>© 2026 FarmGuide | Smart Agriculture</p>
+    <footer class="site-footer" id="about">
+        <div class="page-width footer-main">
+            <div class="footer-brand">
+                <a class="brand brand-footer" href="#home">
+                    <span class="brand-mark" aria-hidden="true">F</span>
+                    <span class="brand-copy"><strong>FarmFriend</strong><small>KENYA</small></span>
+                </a>
+                <p>A practical digital companion for exploring crop, soil, fertilizer and weather guidance in Kenya.</p>
+            </div>
+            <div class="footer-links">
+                <strong>Explore</strong>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#crop-guide">Crop guide</a>
+                <a href="#soil-guide">Soil guide</a>
+                <a href="#fertilizer-guide">Fertilizer guide</a>
+            </div>
+            <div class="footer-links">
+                <strong>Plan your farm</strong>
+                <a href="#weather">Weather</a>
+                <a href="#historySection">Search history</a>
+                <a href="#get-started">Get recommendations</a>
+            </div>
+        </div>
+        <div class="footer-bottom page-width">
+            <span>© 2026 FarmFriend Kenya</span>
+            <span>Growing better, together.</span>
+        </div>
     </footer>
 
     <script src="script.js"></script>
-
 </body>
 </html>
